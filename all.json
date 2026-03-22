@@ -1,0 +1,6143 @@
+{
+  "code": 1,
+  "message": "success",
+  "total": 5595,
+  "data": [
+    {
+      "name": "新恒泰",
+      "market": "a",
+      "exchange": "bj",
+      "areaCode": "cn",
+      "stockCode": "920028",
+      "fsTableType": "non_financial",
+      "listingStatus": "normally_listed",
+      "ipoDate": "2026-03-20T00:00:00+08:00",
+      "mutualMarketFlag": false
+    },
+    {
+      "name": "族兴新材",
+      "market": "a",
+      "exchange": "bj",
+      "areaCode": "cn",
+      "stockCode": "920078",
+      "fsTableType": "non_financial",
+      "listingStatus": "normally_listed",
+      "ipoDate": "2026-03-18T00:00:00+08:00",
+      "mutualMarketFlag": false
+    },
+    {
+      "name": "觅睿科技",
+      "market": "a",
+      "exchange": "bj",
+      "areaCode": "cn",
+      "stockCode": "920036",
+      "fsTableType": "non_financial",
+      "listingStatus": "normally_listed",
+      "ipoDate": "2026-03-09T00:00:00+08:00",
+      "mutualMarketFlag": false
+    },
+    {
+      "name": "固德电材",
+      "market": "a",
+      "exchange": "sz",
+      "areaCode": "cn",
+      "stockCode": "301680",
+      "fsTableType": "non_financial",
+      "listingStatus": "normally_listed",
+      "ipoDate": "2026-03-06T00:00:00+08:00",
+      "mutualMarketFlag": false
+    },
+    {
+      "name": "通领科技",
+      "market": "a",
+      "exchange": "bj",
+      "areaCode": "cn",
+      "stockCode": "920187",
+      "fsTableType": "non_financial",
+      "listingStatus": "normally_listed",
+      "ipoDate": "2026-03-05T00:00:00+08:00",
+      "mutualMarketFlag": false
+    },
+    {
+      "name": "海菲曼",
+      "market": "a",
+      "exchange": "bj",
+      "areaCode": "cn",
+      "stockCode": "920183",
+      "fsTableType": "non_financial",
+      "listingStatus": "normally_listed",
+      "ipoDate": "2026-03-04T00:00:00+08:00",
+      "mutualMarketFlag": false
+    },
+    {
+      "name": "通宝光电",
+      "market": "a",
+      "exchange": "bj",
+      "areaCode": "cn",
+      "stockCode": "920168",
+      "fsTableType": "non_financial",
+      "listingStatus": "normally_listed",
+      "ipoDate": "2026-02-26T00:00:00+08:00",
+      "mutualMarketFlag": false
+    },
+    {
+      "name": "海圣医疗",
+      "market": "a",
+      "exchange": "bj",
+      "areaCode": "cn",
+      "stockCode": "920166",
+      "fsTableType": "non_financial",
+      "listingStatus": "normally_listed",
+      "ipoDate": "2026-02-12T00:00:00+08:00",
+      "mutualMarketFlag": false
+    },
+    {
+      "name": "易思维",
+      "market": "a",
+      "exchange": "sh",
+      "areaCode": "cn",
+      "stockCode": "688816",
+      "fsTableType": "non_financial",
+      "listingStatus": "normally_listed",
+      "ipoDate": "2026-02-11T00:00:00+08:00",
+      "mutualMarketFlag": false
+    },
+    {
+      "name": "林平发展",
+      "market": "a",
+      "exchange": "sh",
+      "areaCode": "cn",
+      "stockCode": "603284",
+      "fsTableType": "non_financial",
+      "listingStatus": "normally_listed",
+      "ipoDate": "2026-02-10T00:00:00+08:00",
+      "mutualMarketFlag": false
+    },
+    {
+      "name": "爱得科技",
+      "market": "a",
+      "exchange": "bj",
+      "areaCode": "cn",
+      "stockCode": "920180",
+      "fsTableType": "non_financial",
+      "listingStatus": "normally_listed",
+      "ipoDate": "2026-02-10T00:00:00+08:00",
+      "mutualMarketFlag": false
+    },
+    {
+      "name": "电科蓝天",
+      "market": "a",
+      "exchange": "sh",
+      "areaCode": "cn",
+      "stockCode": "688818",
+      "fsTableType": "non_financial",
+      "listingStatus": "normally_listed",
+      "ipoDate": "2026-02-10T00:00:00+08:00",
+      "mutualMarketFlag": false
+    },
+    {
+      "name": "北芯生命",
+      "market": "a",
+      "exchange": "sh",
+      "areaCode": "cn",
+      "stockCode": "688712",
+      "fsTableType": "non_financial",
+      "listingStatus": "normally_listed",
+      "ipoDate": "2026-02-05T00:00:00+08:00",
+      "mutualMarketFlag": false
+    },
+    {
+      "name": "世盟股份",
+      "market": "a",
+      "exchange": "sz",
+      "areaCode": "cn",
+      "stockCode": "001220",
+      "fsTableType": "non_financial",
+      "listingStatus": "normally_listed",
+      "ipoDate": "2026-02-03T00:00:00+08:00",
+      "mutualMarketFlag": false
+    },
+    {
+      "name": "美德乐",
+      "market": "a",
+      "exchange": "bj",
+      "areaCode": "cn",
+      "stockCode": "920119",
+      "fsTableType": "non_financial",
+      "listingStatus": "normally_listed",
+      "ipoDate": "2026-01-30T00:00:00+08:00",
+      "mutualMarketFlag": false
+    },
+    {
+      "name": "振石股份",
+      "market": "a",
+      "exchange": "sh",
+      "areaCode": "cn",
+      "stockCode": "601112",
+      "fsTableType": "non_financial",
+      "listingStatus": "normally_listed",
+      "ipoDate": "2026-01-29T00:00:00+08:00",
+      "mutualMarketFlag": false
+    },
+    {
+      "name": "农大科技",
+      "market": "a",
+      "exchange": "bj",
+      "areaCode": "cn",
+      "stockCode": "920159",
+      "fsTableType": "non_financial",
+      "listingStatus": "normally_listed",
+      "ipoDate": "2026-01-28T00:00:00+08:00",
+      "mutualMarketFlag": false
+    },
+    {
+      "name": "恒运昌",
+      "market": "a",
+      "exchange": "sh",
+      "areaCode": "cn",
+      "stockCode": "688785",
+      "fsTableType": "non_financial",
+      "listingStatus": "normally_listed",
+      "ipoDate": "2026-01-28T00:00:00+08:00",
+      "mutualMarketFlag": false
+    },
+    {
+      "name": "国亮新材",
+      "market": "a",
+      "exchange": "bj",
+      "areaCode": "cn",
+      "stockCode": "920076",
+      "fsTableType": "non_financial",
+      "listingStatus": "normally_listed",
+      "ipoDate": "2026-01-22T00:00:00+08:00",
+      "mutualMarketFlag": false
+    },
+    {
+      "name": "爱舍伦",
+      "market": "a",
+      "exchange": "bj",
+      "areaCode": "cn",
+      "stockCode": "920050",
+      "fsTableType": "non_financial",
+      "listingStatus": "normally_listed",
+      "ipoDate": "2026-01-21T00:00:00+08:00",
+      "mutualMarketFlag": false
+    },
+    {
+      "name": "科马材料",
+      "market": "a",
+      "exchange": "bj",
+      "areaCode": "cn",
+      "stockCode": "920086",
+      "fsTableType": "non_financial",
+      "listingStatus": "normally_listed",
+      "ipoDate": "2026-01-16T00:00:00+08:00",
+      "mutualMarketFlag": false
+    },
+    {
+      "name": "至信股份",
+      "market": "a",
+      "exchange": "sh",
+      "areaCode": "cn",
+      "stockCode": "603352",
+      "fsTableType": "non_financial",
+      "listingStatus": "normally_listed",
+      "ipoDate": "2026-01-15T00:00:00+08:00",
+      "mutualMarketFlag": false
+    },
+    {
+      "name": "陕西旅游",
+      "market": "a",
+      "exchange": "sh",
+      "areaCode": "cn",
+      "stockCode": "603402",
+      "fsTableType": "non_financial",
+      "listingStatus": "normally_listed",
+      "ipoDate": "2026-01-06T00:00:00+08:00",
+      "mutualMarketFlag": false
+    },
+    {
+      "name": "蘅东光",
+      "market": "a",
+      "exchange": "bj",
+      "areaCode": "cn",
+      "stockCode": "920045",
+      "fsTableType": "non_financial",
+      "ipoDate": "2025-12-31T00:00:00+08:00",
+      "listingStatus": "normally_listed",
+      "mutualMarketFlag": false
+    },
+    {
+      "name": "新广益",
+      "market": "a",
+      "exchange": "sz",
+      "areaCode": "cn",
+      "stockCode": "301687",
+      "fsTableType": "non_financial",
+      "listingStatus": "normally_listed",
+      "ipoDate": "2025-12-31T00:00:00+08:00",
+      "mutualMarkets": [
+        "ha"
+      ],
+      "mutualMarketFlag": true
+    },
+    {
+      "name": "双欣材料",
+      "market": "a",
+      "exchange": "sz",
+      "areaCode": "cn",
+      "stockCode": "001369",
+      "fsTableType": "non_financial",
+      "listingStatus": "normally_listed",
+      "ipoDate": "2025-12-30T00:00:00+08:00",
+      "mutualMarkets": [
+        "ha"
+      ],
+      "mutualMarketFlag": true
+    },
+    {
+      "name": "誉帆科技",
+      "market": "a",
+      "exchange": "sz",
+      "areaCode": "cn",
+      "stockCode": "001396",
+      "fsTableType": "non_financial",
+      "listingStatus": "normally_listed",
+      "ipoDate": "2025-12-30T00:00:00+08:00",
+      "mutualMarketFlag": false
+    },
+    {
+      "name": "强一股份",
+      "market": "a",
+      "exchange": "sh",
+      "areaCode": "cn",
+      "stockCode": "688809",
+      "fsTableType": "non_financial",
+      "listingStatus": "normally_listed",
+      "ipoDate": "2025-12-30T00:00:00+08:00",
+      "mutualMarketFlag": false
+    },
+    {
+      "name": "江天科技",
+      "market": "a",
+      "exchange": "bj",
+      "areaCode": "cn",
+      "stockCode": "920121",
+      "fsTableType": "non_financial",
+      "ipoDate": "2025-12-25T00:00:00+08:00",
+      "listingStatus": "normally_listed",
+      "mutualMarketFlag": false
+    },
+    {
+      "name": "健信超导",
+      "market": "a",
+      "exchange": "sh",
+      "areaCode": "cn",
+      "stockCode": "688805",
+      "fsTableType": "non_financial",
+      "listingStatus": "normally_listed",
+      "ipoDate": "2025-12-24T00:00:00+08:00",
+      "mutualMarketFlag": false
+    },
+    {
+      "name": "天溯计量",
+      "market": "a",
+      "exchange": "sz",
+      "areaCode": "cn",
+      "stockCode": "301449",
+      "fsTableType": "non_financial",
+      "listingStatus": "normally_listed",
+      "ipoDate": "2025-12-23T00:00:00+08:00",
+      "mutualMarkets": [
+        "ha"
+      ],
+      "mutualMarketFlag": true
+    },
+    {
+      "name": "纳百川",
+      "market": "a",
+      "exchange": "sz",
+      "areaCode": "cn",
+      "stockCode": "301667",
+      "fsTableType": "non_financial",
+      "listingStatus": "normally_listed",
+      "ipoDate": "2025-12-23T00:00:00+08:00",
+      "mutualMarkets": [
+        "ha"
+      ],
+      "mutualMarketFlag": true
+    },
+    {
+      "name": "锡华科技",
+      "market": "a",
+      "exchange": "sh",
+      "areaCode": "cn",
+      "stockCode": "603248",
+      "fsTableType": "non_financial",
+      "listingStatus": "normally_listed",
+      "ipoDate": "2025-12-23T00:00:00+08:00",
+      "mutualMarketFlag": false
+    },
+    {
+      "name": "优迅股份",
+      "market": "a",
+      "exchange": "sh",
+      "areaCode": "cn",
+      "stockCode": "688807",
+      "fsTableType": "non_financial",
+      "listingStatus": "normally_listed",
+      "ipoDate": "2025-12-19T00:00:00+08:00",
+      "mutualMarketFlag": false
+    },
+    {
+      "name": "元创股份",
+      "market": "a",
+      "exchange": "sz",
+      "areaCode": "cn",
+      "stockCode": "001325",
+      "fsTableType": "non_financial",
+      "listingStatus": "normally_listed",
+      "ipoDate": "2025-12-18T00:00:00+08:00",
+      "mutualMarketFlag": false
+    },
+    {
+      "name": "沐曦股份",
+      "market": "a",
+      "exchange": "sh",
+      "areaCode": "cn",
+      "stockCode": "688802",
+      "fsTableType": "non_financial",
+      "listingStatus": "normally_listed",
+      "ipoDate": "2025-12-17T00:00:00+08:00",
+      "mutualMarketFlag": false
+    },
+    {
+      "name": "昂瑞微",
+      "market": "a",
+      "exchange": "sh",
+      "areaCode": "cn",
+      "stockCode": "688790",
+      "fsTableType": "non_financial",
+      "listingStatus": "normally_listed",
+      "ipoDate": "2025-12-16T00:00:00+08:00",
+      "mutualMarketFlag": false
+    },
+    {
+      "name": "百奥赛图",
+      "market": "a",
+      "exchange": "sh",
+      "areaCode": "cn",
+      "stockCode": "688796",
+      "fsTableType": "non_financial",
+      "listingStatus": "normally_listed",
+      "ipoDate": "2025-12-10T00:00:00+08:00",
+      "mutualMarkets": [
+        "ha"
+      ],
+      "mutualMarketFlag": true
+    },
+    {
+      "name": "摩尔线程",
+      "market": "a",
+      "exchange": "sh",
+      "areaCode": "cn",
+      "stockCode": "688795",
+      "fsTableType": "non_financial",
+      "listingStatus": "normally_listed",
+      "ipoDate": "2025-12-05T00:00:00+08:00",
+      "mutualMarketFlag": false
+    },
+    {
+      "name": "中国铀业",
+      "market": "a",
+      "exchange": "sz",
+      "areaCode": "cn",
+      "stockCode": "001280",
+      "fsTableType": "non_financial",
+      "listingStatus": "normally_listed",
+      "ipoDate": "2025-12-03T00:00:00+08:00",
+      "mutualMarkets": [
+        "ha"
+      ],
+      "mutualMarketFlag": true
+    },
+    {
+      "name": "精创电气",
+      "market": "a",
+      "exchange": "bj",
+      "areaCode": "cn",
+      "stockCode": "920035",
+      "fsTableType": "non_financial",
+      "ipoDate": "2025-12-02T00:00:00+08:00",
+      "listingStatus": "normally_listed",
+      "mutualMarketFlag": false
+    },
+    {
+      "name": "南特科技",
+      "market": "a",
+      "exchange": "bj",
+      "areaCode": "cn",
+      "stockCode": "920124",
+      "fsTableType": "non_financial",
+      "ipoDate": "2025-11-27T00:00:00+08:00",
+      "listingStatus": "normally_listed",
+      "mutualMarketFlag": false
+    },
+    {
+      "name": "海安集团",
+      "market": "a",
+      "exchange": "sz",
+      "areaCode": "cn",
+      "stockCode": "001233",
+      "fsTableType": "non_financial",
+      "listingStatus": "normally_listed",
+      "ipoDate": "2025-11-25T00:00:00+08:00",
+      "mutualMarkets": [
+        "ha"
+      ],
+      "mutualMarketFlag": true
+    },
+    {
+      "name": "大鹏工业",
+      "market": "a",
+      "exchange": "bj",
+      "areaCode": "cn",
+      "stockCode": "920091",
+      "fsTableType": "non_financial",
+      "ipoDate": "2025-11-21T00:00:00+08:00",
+      "listingStatus": "normally_listed",
+      "mutualMarketFlag": false
+    },
+    {
+      "name": "南网数字",
+      "market": "a",
+      "exchange": "sz",
+      "areaCode": "cn",
+      "stockCode": "301638",
+      "fsTableType": "non_financial",
+      "listingStatus": "normally_listed",
+      "ipoDate": "2025-11-18T00:00:00+08:00",
+      "mutualMarkets": [
+        "ha"
+      ],
+      "mutualMarketFlag": true
+    },
+    {
+      "name": "恒坤新材",
+      "market": "a",
+      "exchange": "sh",
+      "areaCode": "cn",
+      "stockCode": "688727",
+      "fsTableType": "non_financial",
+      "listingStatus": "normally_listed",
+      "ipoDate": "2025-11-18T00:00:00+08:00",
+      "mutualMarketFlag": false
+    },
+    {
+      "name": "北矿检测",
+      "market": "a",
+      "exchange": "bj",
+      "areaCode": "cn",
+      "stockCode": "920160",
+      "fsTableType": "non_financial",
+      "ipoDate": "2025-11-18T00:00:00+08:00",
+      "listingStatus": "normally_listed",
+      "mutualMarketFlag": false
+    },
+    {
+      "name": "德力佳",
+      "market": "a",
+      "exchange": "sh",
+      "areaCode": "cn",
+      "stockCode": "603092",
+      "fsTableType": "non_financial",
+      "listingStatus": "normally_listed",
+      "ipoDate": "2025-11-07T00:00:00+08:00",
+      "mutualMarketFlag": false
+    },
+    {
+      "name": "中诚咨询",
+      "market": "a",
+      "exchange": "bj",
+      "areaCode": "cn",
+      "stockCode": "920003",
+      "fsTableType": "non_financial",
+      "ipoDate": "2025-11-07T00:00:00+08:00",
+      "listingStatus": "normally_listed",
+      "mutualMarketFlag": false
+    },
+    {
+      "name": "大明电子",
+      "market": "a",
+      "exchange": "sh",
+      "areaCode": "cn",
+      "stockCode": "603376",
+      "fsTableType": "non_financial",
+      "listingStatus": "normally_listed",
+      "ipoDate": "2025-11-06T00:00:00+08:00",
+      "mutualMarketFlag": false
+    },
+    {
+      "name": "丰倍生物",
+      "market": "a",
+      "exchange": "sh",
+      "areaCode": "cn",
+      "stockCode": "603334",
+      "fsTableType": "non_financial",
+      "listingStatus": "normally_listed",
+      "ipoDate": "2025-11-05T00:00:00+08:00",
+      "mutualMarketFlag": false
+    },
+    {
+      "name": "丹娜生物",
+      "market": "a",
+      "exchange": "bj",
+      "areaCode": "cn",
+      "stockCode": "920009",
+      "fsTableType": "non_financial",
+      "ipoDate": "2025-11-03T00:00:00+08:00",
+      "listingStatus": "normally_listed",
+      "mutualMarketFlag": false
+    },
+    {
+      "name": "泰凯英",
+      "market": "a",
+      "exchange": "bj",
+      "areaCode": "cn",
+      "stockCode": "920020",
+      "fsTableType": "non_financial",
+      "ipoDate": "2025-10-28T00:00:00+08:00",
+      "listingStatus": "normally_listed",
+      "mutualMarketFlag": false
+    },
+    {
+      "name": "必贝特",
+      "market": "a",
+      "exchange": "sh",
+      "areaCode": "cn",
+      "stockCode": "688759",
+      "fsTableType": "non_financial",
+      "listingStatus": "normally_listed",
+      "ipoDate": "2025-10-28T00:00:00+08:00",
+      "mutualMarketFlag": false
+    },
+    {
+      "name": "禾元生物",
+      "market": "a",
+      "exchange": "sh",
+      "areaCode": "cn",
+      "stockCode": "688765",
+      "fsTableType": "non_financial",
+      "listingStatus": "normally_listed",
+      "ipoDate": "2025-10-28T00:00:00+08:00",
+      "mutualMarketFlag": false
+    },
+    {
+      "name": "西安奕材",
+      "market": "a",
+      "exchange": "sh",
+      "areaCode": "cn",
+      "stockCode": "688783",
+      "fsTableType": "non_financial",
+      "listingStatus": "normally_listed",
+      "ipoDate": "2025-10-28T00:00:00+08:00",
+      "mutualMarketFlag": false
+    },
+    {
+      "name": "超颖电子",
+      "market": "a",
+      "exchange": "sh",
+      "areaCode": "cn",
+      "stockCode": "603175",
+      "fsTableType": "non_financial",
+      "listingStatus": "normally_listed",
+      "ipoDate": "2025-10-24T00:00:00+08:00",
+      "mutualMarketFlag": false
+    },
+    {
+      "name": "马可波罗",
+      "market": "a",
+      "exchange": "sz",
+      "areaCode": "cn",
+      "stockCode": "001386",
+      "fsTableType": "non_financial",
+      "listingStatus": "normally_listed",
+      "ipoDate": "2025-10-22T00:00:00+08:00",
+      "mutualMarkets": [
+        "ha"
+      ],
+      "mutualMarketFlag": true
+    },
+    {
+      "name": "道生天合",
+      "market": "a",
+      "exchange": "sh",
+      "areaCode": "cn",
+      "stockCode": "601026",
+      "fsTableType": "non_financial",
+      "listingStatus": "normally_listed",
+      "ipoDate": "2025-10-17T00:00:00+08:00",
+      "mutualMarketFlag": false
+    },
+    {
+      "name": "长江能科",
+      "market": "a",
+      "exchange": "bj",
+      "areaCode": "cn",
+      "stockCode": "920158",
+      "fsTableType": "non_financial",
+      "ipoDate": "2025-10-16T00:00:00+08:00",
+      "listingStatus": "normally_listed",
+      "mutualMarketFlag": false
+    },
+    {
+      "name": "奥美森",
+      "market": "a",
+      "exchange": "bj",
+      "areaCode": "cn",
+      "stockCode": "920080",
+      "fsTableType": "non_financial",
+      "ipoDate": "2025-10-10T00:00:00+08:00",
+      "listingStatus": "normally_listed",
+      "mutualMarketFlag": false
+    },
+    {
+      "name": "云汉芯城",
+      "market": "a",
+      "exchange": "sz",
+      "areaCode": "cn",
+      "stockCode": "301563",
+      "fsTableType": "non_financial",
+      "listingStatus": "normally_listed",
+      "ipoDate": "2025-09-30T00:00:00+08:00",
+      "mutualMarkets": [
+        "ha"
+      ],
+      "mutualMarketFlag": true
+    },
+    {
+      "name": "瑞立科密",
+      "market": "a",
+      "exchange": "sz",
+      "areaCode": "cn",
+      "stockCode": "001285",
+      "fsTableType": "non_financial",
+      "listingStatus": "normally_listed",
+      "ipoDate": "2025-09-30T00:00:00+08:00",
+      "mutualMarkets": [
+        "ha"
+      ],
+      "mutualMarketFlag": true
+    },
+    {
+      "name": "昊创瑞通",
+      "market": "a",
+      "exchange": "sz",
+      "areaCode": "cn",
+      "stockCode": "301668",
+      "fsTableType": "non_financial",
+      "listingStatus": "normally_listed",
+      "ipoDate": "2025-09-26T00:00:00+08:00",
+      "mutualMarkets": [
+        "ha"
+      ],
+      "mutualMarketFlag": true
+    },
+    {
+      "name": "联合动力",
+      "market": "a",
+      "exchange": "sz",
+      "areaCode": "cn",
+      "stockCode": "301656",
+      "fsTableType": "non_financial",
+      "listingStatus": "normally_listed",
+      "ipoDate": "2025-09-25T00:00:00+08:00",
+      "mutualMarkets": [
+        "ha"
+      ],
+      "mutualMarketFlag": true
+    },
+    {
+      "name": "建发致新",
+      "market": "a",
+      "exchange": "sz",
+      "areaCode": "cn",
+      "stockCode": "301584",
+      "fsTableType": "non_financial",
+      "listingStatus": "normally_listed",
+      "ipoDate": "2025-09-25T00:00:00+08:00",
+      "mutualMarkets": [
+        "ha"
+      ],
+      "mutualMarketFlag": true
+    },
+    {
+      "name": "锦华新材",
+      "market": "a",
+      "exchange": "bj",
+      "areaCode": "cn",
+      "stockCode": "920015",
+      "fsTableType": "non_financial",
+      "ipoDate": "2025-09-25T00:00:00+08:00",
+      "listingStatus": "normally_listed",
+      "mutualMarketFlag": false
+    },
+    {
+      "name": "友升股份",
+      "market": "a",
+      "exchange": "sh",
+      "areaCode": "cn",
+      "stockCode": "603418",
+      "fsTableType": "non_financial",
+      "listingStatus": "normally_listed",
+      "ipoDate": "2025-09-23T00:00:00+08:00",
+      "mutualMarketFlag": false
+    },
+    {
+      "name": "世昌股份",
+      "market": "a",
+      "exchange": "bj",
+      "areaCode": "cn",
+      "stockCode": "920022",
+      "fsTableType": "non_financial",
+      "ipoDate": "2025-09-19T00:00:00+08:00",
+      "listingStatus": "normally_listed",
+      "mutualMarketFlag": false
+    },
+    {
+      "name": "艾芬达",
+      "market": "a",
+      "exchange": "sz",
+      "areaCode": "cn",
+      "stockCode": "301575",
+      "fsTableType": "non_financial",
+      "listingStatus": "normally_listed",
+      "ipoDate": "2025-09-10T00:00:00+08:00",
+      "mutualMarkets": [
+        "ha"
+      ],
+      "mutualMarketFlag": true
+    },
+    {
+      "name": "三协电机",
+      "market": "a",
+      "exchange": "bj",
+      "areaCode": "cn",
+      "stockCode": "920100",
+      "fsTableType": "non_financial",
+      "ipoDate": "2025-09-08T00:00:00+08:00",
+      "listingStatus": "normally_listed",
+      "mutualMarketFlag": false
+    },
+    {
+      "name": "华新精科",
+      "market": "a",
+      "exchange": "sh",
+      "areaCode": "cn",
+      "stockCode": "603370",
+      "fsTableType": "non_financial",
+      "listingStatus": "normally_listed",
+      "ipoDate": "2025-09-05T00:00:00+08:00",
+      "mutualMarketFlag": false
+    },
+    {
+      "name": "巴兰仕",
+      "market": "a",
+      "exchange": "bj",
+      "areaCode": "cn",
+      "stockCode": "920112",
+      "fsTableType": "non_financial",
+      "ipoDate": "2025-08-28T00:00:00+08:00",
+      "listingStatus": "normally_listed",
+      "mutualMarketFlag": false
+    },
+    {
+      "name": "能之光",
+      "market": "a",
+      "exchange": "bj",
+      "areaCode": "cn",
+      "stockCode": "920056",
+      "fsTableType": "non_financial",
+      "ipoDate": "2025-08-22T00:00:00+08:00",
+      "listingStatus": "normally_listed",
+      "mutualMarketFlag": false
+    },
+    {
+      "name": "宏远股份",
+      "market": "a",
+      "exchange": "bj",
+      "areaCode": "cn",
+      "stockCode": "920018",
+      "fsTableType": "non_financial",
+      "ipoDate": "2025-08-20T00:00:00+08:00",
+      "listingStatus": "normally_listed",
+      "mutualMarketFlag": false
+    },
+    {
+      "name": "志高机械",
+      "market": "a",
+      "exchange": "bj",
+      "areaCode": "cn",
+      "stockCode": "920101",
+      "fsTableType": "non_financial",
+      "ipoDate": "2025-08-14T00:00:00+08:00",
+      "listingStatus": "normally_listed",
+      "mutualMarketFlag": false
+    },
+    {
+      "name": "广东建科",
+      "market": "a",
+      "exchange": "sz",
+      "areaCode": "cn",
+      "stockCode": "301632",
+      "fsTableType": "non_financial",
+      "listingStatus": "normally_listed",
+      "ipoDate": "2025-08-12T00:00:00+08:00",
+      "mutualMarkets": [
+        "ha"
+      ],
+      "mutualMarketFlag": true
+    },
+    {
+      "name": "天富龙",
+      "market": "a",
+      "exchange": "sh",
+      "areaCode": "cn",
+      "stockCode": "603406",
+      "fsTableType": "non_financial",
+      "listingStatus": "normally_listed",
+      "ipoDate": "2025-08-08T00:00:00+08:00",
+      "mutualMarketFlag": false
+    },
+    {
+      "name": "酉立智能",
+      "market": "a",
+      "exchange": "bj",
+      "areaCode": "cn",
+      "stockCode": "920007",
+      "fsTableType": "non_financial",
+      "ipoDate": "2025-08-08T00:00:00+08:00",
+      "listingStatus": "normally_listed",
+      "mutualMarketFlag": false
+    },
+    {
+      "name": "汉桑科技",
+      "market": "a",
+      "exchange": "sz",
+      "areaCode": "cn",
+      "stockCode": "301491",
+      "fsTableType": "non_financial",
+      "listingStatus": "normally_listed",
+      "ipoDate": "2025-08-06T00:00:00+08:00",
+      "mutualMarkets": [
+        "ha"
+      ],
+      "mutualMarketFlag": true
+    },
+    {
+      "name": "鼎佳精密",
+      "market": "a",
+      "exchange": "bj",
+      "areaCode": "cn",
+      "stockCode": "920005",
+      "fsTableType": "non_financial",
+      "ipoDate": "2025-07-31T00:00:00+08:00",
+      "listingStatus": "normally_listed",
+      "mutualMarketFlag": false
+    },
+    {
+      "name": "悍高集团",
+      "market": "a",
+      "exchange": "sz",
+      "areaCode": "cn",
+      "stockCode": "001221",
+      "fsTableType": "non_financial",
+      "listingStatus": "normally_listed",
+      "ipoDate": "2025-07-30T00:00:00+08:00",
+      "mutualMarkets": [
+        "ha"
+      ],
+      "mutualMarketFlag": true
+    },
+    {
+      "name": "山大电力",
+      "market": "a",
+      "exchange": "sz",
+      "areaCode": "cn",
+      "stockCode": "301609",
+      "fsTableType": "non_financial",
+      "listingStatus": "normally_listed",
+      "ipoDate": "2025-07-23T00:00:00+08:00",
+      "mutualMarkets": [
+        "ha"
+      ],
+      "mutualMarketFlag": true
+    },
+    {
+      "name": "技源集团",
+      "market": "a",
+      "exchange": "sh",
+      "areaCode": "cn",
+      "stockCode": "603262",
+      "fsTableType": "non_financial",
+      "listingStatus": "normally_listed",
+      "ipoDate": "2025-07-23T00:00:00+08:00",
+      "mutualMarketFlag": false
+    },
+    {
+      "name": "华电新能",
+      "market": "a",
+      "exchange": "sh",
+      "areaCode": "cn",
+      "stockCode": "600930",
+      "fsTableType": "non_financial",
+      "listingStatus": "normally_listed",
+      "ipoDate": "2025-07-16T00:00:00+08:00",
+      "mutualMarketFlag": false
+    },
+    {
+      "name": "同宇新材",
+      "market": "a",
+      "exchange": "sz",
+      "areaCode": "cn",
+      "stockCode": "301630",
+      "fsTableType": "non_financial",
+      "listingStatus": "normally_listed",
+      "ipoDate": "2025-07-10T00:00:00+08:00",
+      "mutualMarkets": [
+        "ha"
+      ],
+      "mutualMarketFlag": true
+    },
+    {
+      "name": "屹唐股份",
+      "market": "a",
+      "exchange": "sh",
+      "areaCode": "cn",
+      "stockCode": "688729",
+      "fsTableType": "non_financial",
+      "listingStatus": "normally_listed",
+      "ipoDate": "2025-07-08T00:00:00+08:00",
+      "mutualMarketFlag": false
+    },
+    {
+      "name": "信通电子",
+      "market": "a",
+      "exchange": "sz",
+      "areaCode": "cn",
+      "stockCode": "001388",
+      "fsTableType": "non_financial",
+      "listingStatus": "normally_listed",
+      "ipoDate": "2025-07-01T00:00:00+08:00",
+      "mutualMarkets": [
+        "ha"
+      ],
+      "mutualMarketFlag": true
+    },
+    {
+      "name": "广信科技",
+      "market": "a",
+      "exchange": "bj",
+      "areaCode": "cn",
+      "stockCode": "920037",
+      "fsTableType": "non_financial",
+      "listingStatus": "normally_listed",
+      "ipoDate": "2025-06-26T00:00:00+08:00",
+      "mutualMarketFlag": false
+    },
+    {
+      "name": "新恒汇",
+      "market": "a",
+      "exchange": "sz",
+      "areaCode": "cn",
+      "stockCode": "301678",
+      "fsTableType": "non_financial",
+      "listingStatus": "normally_listed",
+      "ipoDate": "2025-06-20T00:00:00+08:00",
+      "mutualMarkets": [
+        "ha"
+      ],
+      "mutualMarketFlag": true
+    },
+    {
+      "name": "华之杰",
+      "market": "a",
+      "exchange": "sh",
+      "areaCode": "cn",
+      "stockCode": "603400",
+      "fsTableType": "non_financial",
+      "listingStatus": "normally_listed",
+      "ipoDate": "2025-06-20T00:00:00+08:00",
+      "mutualMarketFlag": false
+    },
+    {
+      "name": "海阳科技",
+      "market": "a",
+      "exchange": "sh",
+      "areaCode": "cn",
+      "stockCode": "603382",
+      "fsTableType": "non_financial",
+      "listingStatus": "normally_listed",
+      "ipoDate": "2025-06-12T00:00:00+08:00",
+      "mutualMarketFlag": false
+    },
+    {
+      "name": "影石创新",
+      "market": "a",
+      "exchange": "sh",
+      "areaCode": "cn",
+      "stockCode": "688775",
+      "fsTableType": "non_financial",
+      "listingStatus": "normally_listed",
+      "ipoDate": "2025-06-11T00:00:00+08:00",
+      "mutualMarketFlag": false
+    },
+    {
+      "name": "交大铁发",
+      "market": "a",
+      "exchange": "bj",
+      "areaCode": "cn",
+      "stockCode": "920027",
+      "fsTableType": "non_financial",
+      "ipoDate": "2025-06-10T00:00:00+08:00",
+      "listingStatus": "normally_listed",
+      "mutualMarketFlag": false
+    },
+    {
+      "name": "中策橡胶",
+      "market": "a",
+      "exchange": "sh",
+      "areaCode": "cn",
+      "stockCode": "603049",
+      "fsTableType": "non_financial",
+      "listingStatus": "normally_listed",
+      "ipoDate": "2025-06-05T00:00:00+08:00",
+      "mutualMarketFlag": false
+    },
+    {
+      "name": "优优绿能",
+      "market": "a",
+      "exchange": "sz",
+      "areaCode": "cn",
+      "stockCode": "301590",
+      "fsTableType": "non_financial",
+      "listingStatus": "normally_listed",
+      "ipoDate": "2025-06-05T00:00:00+08:00",
+      "mutualMarkets": [
+        "ha"
+      ],
+      "mutualMarketFlag": true
+    },
+    {
+      "name": "古麒绒材",
+      "market": "a",
+      "exchange": "sz",
+      "areaCode": "cn",
+      "stockCode": "001390",
+      "fsTableType": "non_financial",
+      "listingStatus": "normally_listed",
+      "ipoDate": "2025-05-29T00:00:00+08:00",
+      "mutualMarkets": [
+        "ha"
+      ],
+      "mutualMarketFlag": true
+    },
+    {
+      "name": "太力科技",
+      "market": "a",
+      "exchange": "sz",
+      "areaCode": "cn",
+      "stockCode": "301595",
+      "fsTableType": "non_financial",
+      "listingStatus": "normally_listed",
+      "ipoDate": "2025-05-19T00:00:00+08:00",
+      "mutualMarketFlag": false
+    },
+    {
+      "name": "威高血净",
+      "market": "a",
+      "exchange": "sh",
+      "areaCode": "cn",
+      "stockCode": "603014",
+      "fsTableType": "non_financial",
+      "listingStatus": "normally_listed",
+      "ipoDate": "2025-05-19T00:00:00+08:00",
+      "mutualMarketFlag": false
+    },
+    {
+      "name": "汉邦科技",
+      "market": "a",
+      "exchange": "sh",
+      "areaCode": "cn",
+      "stockCode": "688755",
+      "fsTableType": "non_financial",
+      "listingStatus": "normally_listed",
+      "ipoDate": "2025-05-16T00:00:00+08:00",
+      "mutualMarketFlag": false
+    },
+    {
+      "name": "泽润新能",
+      "market": "a",
+      "exchange": "sz",
+      "areaCode": "cn",
+      "stockCode": "301636",
+      "fsTableType": "non_financial",
+      "listingStatus": "normally_listed",
+      "ipoDate": "2025-05-16T00:00:00+08:00",
+      "mutualMarketFlag": false
+    },
+    {
+      "name": "天工股份",
+      "market": "a",
+      "exchange": "bj",
+      "areaCode": "cn",
+      "stockCode": "920068",
+      "fsTableType": "non_financial",
+      "listingStatus": "normally_listed",
+      "ipoDate": "2025-05-13T00:00:00+08:00",
+      "mutualMarketFlag": false
+    },
+    {
+      "name": "众捷汽车",
+      "market": "a",
+      "exchange": "sz",
+      "areaCode": "cn",
+      "stockCode": "301560",
+      "fsTableType": "non_financial",
+      "listingStatus": "normally_listed",
+      "ipoDate": "2025-04-25T00:00:00+08:00",
+      "mutualMarketFlag": false
+    },
+    {
+      "name": "天有为",
+      "market": "a",
+      "exchange": "sh",
+      "areaCode": "cn",
+      "stockCode": "603202",
+      "fsTableType": "non_financial",
+      "listingStatus": "normally_listed",
+      "ipoDate": "2025-04-24T00:00:00+08:00",
+      "mutualMarketFlag": false
+    },
+    {
+      "name": "江顺科技",
+      "market": "a",
+      "exchange": "sz",
+      "areaCode": "cn",
+      "stockCode": "001400",
+      "fsTableType": "non_financial",
+      "listingStatus": "normally_listed",
+      "ipoDate": "2025-04-24T00:00:00+08:00",
+      "mutualMarketFlag": false
+    },
+    {
+      "name": "宏工科技",
+      "market": "a",
+      "exchange": "sz",
+      "areaCode": "cn",
+      "stockCode": "301662",
+      "fsTableType": "non_financial",
+      "listingStatus": "normally_listed",
+      "ipoDate": "2025-04-17T00:00:00+08:00",
+      "mutualMarkets": [
+        "ha"
+      ],
+      "mutualMarketFlag": true
+    },
+    {
+      "name": "肯特催化",
+      "market": "a",
+      "exchange": "sh",
+      "areaCode": "cn",
+      "stockCode": "603120",
+      "fsTableType": "non_financial",
+      "listingStatus": "normally_listed",
+      "ipoDate": "2025-04-16T00:00:00+08:00",
+      "mutualMarketFlag": false
+    },
+    {
+      "name": "信凯科技",
+      "market": "a",
+      "exchange": "sz",
+      "areaCode": "cn",
+      "stockCode": "001335",
+      "fsTableType": "non_financial",
+      "listingStatus": "normally_listed",
+      "ipoDate": "2025-04-15T00:00:00+08:00",
+      "mutualMarketFlag": false
+    },
+    {
+      "name": "泰禾股份",
+      "market": "a",
+      "exchange": "sz",
+      "areaCode": "cn",
+      "stockCode": "301665",
+      "fsTableType": "non_financial",
+      "ipoDate": "2025-04-11T00:00:00+08:00",
+      "listingStatus": "normally_listed",
+      "mutualMarkets": [
+        "ha"
+      ],
+      "mutualMarketFlag": true
+    },
+    {
+      "name": "泰鸿万立",
+      "market": "a",
+      "exchange": "sh",
+      "areaCode": "cn",
+      "stockCode": "603210",
+      "fsTableType": "non_financial",
+      "ipoDate": "2025-04-09T00:00:00+08:00",
+      "listingStatus": "normally_listed",
+      "mutualMarketFlag": false
+    },
+    {
+      "name": "中国瑞林",
+      "market": "a",
+      "exchange": "sh",
+      "areaCode": "cn",
+      "stockCode": "603257",
+      "fsTableType": "non_financial",
+      "ipoDate": "2025-04-08T00:00:00+08:00",
+      "listingStatus": "normally_listed",
+      "mutualMarketFlag": false
+    },
+    {
+      "name": "首航新能",
+      "market": "a",
+      "exchange": "sz",
+      "areaCode": "cn",
+      "stockCode": "301658",
+      "fsTableType": "non_financial",
+      "ipoDate": "2025-04-02T00:00:00+08:00",
+      "listingStatus": "normally_listed",
+      "mutualMarkets": [
+        "ha"
+      ],
+      "mutualMarketFlag": true
+    },
+    {
+      "name": "开发科技",
+      "market": "a",
+      "exchange": "bj",
+      "areaCode": "cn",
+      "stockCode": "920029",
+      "fsTableType": "non_financial",
+      "ipoDate": "2025-03-28T00:00:00+08:00",
+      "listingStatus": "normally_listed",
+      "mutualMarketFlag": false
+    },
+    {
+      "name": "浙江华远",
+      "market": "a",
+      "exchange": "sz",
+      "areaCode": "cn",
+      "stockCode": "301535",
+      "fsTableType": "non_financial",
+      "ipoDate": "2025-03-27T00:00:00+08:00",
+      "listingStatus": "normally_listed",
+      "mutualMarkets": [
+        "ha"
+      ],
+      "mutualMarketFlag": true
+    },
+    {
+      "name": "浙江华业",
+      "market": "a",
+      "exchange": "sz",
+      "areaCode": "cn",
+      "stockCode": "301616",
+      "fsTableType": "non_financial",
+      "ipoDate": "2025-03-27T00:00:00+08:00",
+      "listingStatus": "normally_listed",
+      "mutualMarketFlag": false
+    },
+    {
+      "name": "胜科纳米",
+      "market": "a",
+      "exchange": "sh",
+      "areaCode": "cn",
+      "stockCode": "688757",
+      "fsTableType": "non_financial",
+      "ipoDate": "2025-03-25T00:00:00+08:00",
+      "listingStatus": "normally_listed",
+      "mutualMarketFlag": false
+    },
+    {
+      "name": "矽电股份",
+      "market": "a",
+      "exchange": "sz",
+      "areaCode": "cn",
+      "stockCode": "301629",
+      "fsTableType": "non_financial",
+      "ipoDate": "2025-03-24T00:00:00+08:00",
+      "listingStatus": "normally_listed",
+      "mutualMarkets": [
+        "ha"
+      ],
+      "mutualMarketFlag": true
+    },
+    {
+      "name": "新亚电缆",
+      "market": "a",
+      "exchange": "sz",
+      "areaCode": "cn",
+      "stockCode": "001382",
+      "fsTableType": "non_financial",
+      "ipoDate": "2025-03-21T00:00:00+08:00",
+      "listingStatus": "normally_listed",
+      "mutualMarkets": [
+        "ha"
+      ],
+      "mutualMarketFlag": true
+    },
+    {
+      "name": "江南新材",
+      "market": "a",
+      "exchange": "sh",
+      "areaCode": "cn",
+      "stockCode": "603124",
+      "fsTableType": "non_financial",
+      "ipoDate": "2025-03-20T00:00:00+08:00",
+      "listingStatus": "normally_listed",
+      "mutualMarketFlag": false
+    },
+    {
+      "name": "恒鑫生活",
+      "market": "a",
+      "exchange": "sz",
+      "areaCode": "cn",
+      "stockCode": "301501",
+      "fsTableType": "non_financial",
+      "ipoDate": "2025-03-19T00:00:00+08:00",
+      "listingStatus": "normally_listed",
+      "mutualMarkets": [
+        "ha"
+      ],
+      "mutualMarketFlag": true
+    },
+    {
+      "name": "弘景光电",
+      "market": "a",
+      "exchange": "sz",
+      "areaCode": "cn",
+      "stockCode": "301479",
+      "fsTableType": "non_financial",
+      "ipoDate": "2025-03-18T00:00:00+08:00",
+      "listingStatus": "normally_listed",
+      "mutualMarkets": [
+        "ha"
+      ],
+      "mutualMarketFlag": true
+    },
+    {
+      "name": "永杰新材",
+      "market": "a",
+      "exchange": "sh",
+      "areaCode": "cn",
+      "stockCode": "603271",
+      "fsTableType": "non_financial",
+      "ipoDate": "2025-03-11T00:00:00+08:00",
+      "listingStatus": "normally_listed",
+      "mutualMarketFlag": false
+    },
+    {
+      "name": "汉朔科技",
+      "market": "a",
+      "exchange": "sz",
+      "areaCode": "cn",
+      "stockCode": "301275",
+      "fsTableType": "non_financial",
+      "ipoDate": "2025-03-11T00:00:00+08:00",
+      "listingStatus": "normally_listed",
+      "mutualMarkets": [
+        "ha"
+      ],
+      "mutualMarketFlag": true
+    },
+    {
+      "name": "常友科技",
+      "market": "a",
+      "exchange": "sz",
+      "areaCode": "cn",
+      "stockCode": "301557",
+      "fsTableType": "non_financial",
+      "ipoDate": "2025-03-04T00:00:00+08:00",
+      "listingStatus": "normally_listed",
+      "mutualMarketFlag": false
+    },
+    {
+      "name": "汇通控股",
+      "market": "a",
+      "exchange": "sh",
+      "areaCode": "cn",
+      "stockCode": "603409",
+      "fsTableType": "non_financial",
+      "ipoDate": "2025-03-04T00:00:00+08:00",
+      "listingStatus": "normally_listed",
+      "mutualMarketFlag": false
+    },
+    {
+      "name": "毓恬冠佳",
+      "market": "a",
+      "exchange": "sz",
+      "areaCode": "cn",
+      "stockCode": "301173",
+      "fsTableType": "non_financial",
+      "ipoDate": "2025-03-03T00:00:00+08:00",
+      "listingStatus": "normally_listed",
+      "mutualMarkets": [
+        "ha"
+      ],
+      "mutualMarketFlag": true
+    },
+    {
+      "name": "宏海科技",
+      "market": "a",
+      "exchange": "bj",
+      "areaCode": "cn",
+      "stockCode": "920108",
+      "fsTableType": "non_financial",
+      "ipoDate": "2025-02-06T00:00:00+08:00",
+      "listingStatus": "normally_listed",
+      "mutualMarketFlag": false
+    },
+    {
+      "name": "亚联机械",
+      "market": "a",
+      "exchange": "sz",
+      "areaCode": "cn",
+      "stockCode": "001395",
+      "fsTableType": "non_financial",
+      "ipoDate": "2025-01-27T00:00:00+08:00",
+      "listingStatus": "normally_listed",
+      "mutualMarketFlag": false
+    },
+    {
+      "name": "海博思创",
+      "market": "a",
+      "exchange": "sh",
+      "areaCode": "cn",
+      "stockCode": "688411",
+      "fsTableType": "non_financial",
+      "ipoDate": "2025-01-27T00:00:00+08:00",
+      "listingStatus": "normally_listed",
+      "mutualMarkets": [
+        "ha"
+      ],
+      "mutualMarketFlag": true
+    },
+    {
+      "name": "富岭股份",
+      "market": "a",
+      "exchange": "sz",
+      "areaCode": "cn",
+      "stockCode": "001356",
+      "fsTableType": "non_financial",
+      "ipoDate": "2025-01-23T00:00:00+08:00",
+      "listingStatus": "normally_listed",
+      "mutualMarkets": [
+        "ha"
+      ],
+      "mutualMarketFlag": true
+    },
+    {
+      "name": "兴福电子",
+      "market": "a",
+      "exchange": "sh",
+      "areaCode": "cn",
+      "stockCode": "688545",
+      "fsTableType": "non_financial",
+      "ipoDate": "2025-01-22T00:00:00+08:00",
+      "listingStatus": "normally_listed",
+      "mutualMarkets": [
+        "ha"
+      ],
+      "mutualMarketFlag": true
+    },
+    {
+      "name": "超研股份",
+      "market": "a",
+      "exchange": "sz",
+      "areaCode": "cn",
+      "stockCode": "301602",
+      "fsTableType": "non_financial",
+      "ipoDate": "2025-01-22T00:00:00+08:00",
+      "listingStatus": "normally_listed",
+      "mutualMarkets": [
+        "ha"
+      ],
+      "mutualMarketFlag": true
+    },
+    {
+      "name": "惠通科技",
+      "market": "a",
+      "exchange": "sz",
+      "areaCode": "cn",
+      "stockCode": "301601",
+      "fsTableType": "non_financial",
+      "ipoDate": "2025-01-15T00:00:00+08:00",
+      "listingStatus": "normally_listed",
+      "mutualMarketFlag": false
+    },
+    {
+      "name": "思看科技",
+      "market": "a",
+      "exchange": "sh",
+      "areaCode": "cn",
+      "stockCode": "688583",
+      "fsTableType": "non_financial",
+      "ipoDate": "2025-01-15T00:00:00+08:00",
+      "listingStatus": "normally_listed",
+      "mutualMarkets": [
+        "ha"
+      ],
+      "mutualMarketFlag": true
+    },
+    {
+      "name": "赛分科技",
+      "market": "a",
+      "exchange": "sh",
+      "areaCode": "cn",
+      "stockCode": "688758",
+      "fsTableType": "non_financial",
+      "ipoDate": "2025-01-10T00:00:00+08:00",
+      "listingStatus": "normally_listed",
+      "mutualMarkets": [
+        "ha"
+      ],
+      "mutualMarketFlag": true
+    },
+    {
+      "name": "钧崴电子",
+      "market": "a",
+      "exchange": "sz",
+      "areaCode": "cn",
+      "stockCode": "301458",
+      "fsTableType": "non_financial",
+      "ipoDate": "2025-01-10T00:00:00+08:00",
+      "listingStatus": "normally_listed",
+      "mutualMarkets": [
+        "ha"
+      ],
+      "mutualMarketFlag": true
+    },
+    {
+      "name": "黄山谷捷",
+      "market": "a",
+      "exchange": "sz",
+      "areaCode": "cn",
+      "stockCode": "301581",
+      "fsTableType": "non_financial",
+      "ipoDate": "2025-01-03T00:00:00+08:00",
+      "listingStatus": "normally_listed",
+      "mutualMarketFlag": false
+    },
+    {
+      "name": "天和磁材",
+      "market": "a",
+      "exchange": "sh",
+      "areaCode": "cn",
+      "stockCode": "603072",
+      "fsTableType": "non_financial",
+      "ipoDate": "2025-01-03T00:00:00+08:00",
+      "listingStatus": "normally_listed",
+      "mutualMarkets": [
+        "ha"
+      ],
+      "mutualMarketFlag": true
+    },
+    {
+      "name": "星图测控",
+      "market": "a",
+      "exchange": "bj",
+      "areaCode": "cn",
+      "stockCode": "920116",
+      "fsTableType": "non_financial",
+      "ipoDate": "2025-01-02T00:00:00+08:00",
+      "listingStatus": "normally_listed",
+      "mutualMarketFlag": false
+    },
+    {
+      "name": "国货航",
+      "market": "a",
+      "exchange": "sz",
+      "areaCode": "cn",
+      "stockCode": "001391",
+      "fsTableType": "non_financial",
+      "ipoDate": "2024-12-30T00:00:00+08:00",
+      "listingStatus": "normally_listed",
+      "mutualMarkets": [
+        "ha"
+      ],
+      "mutualMarketFlag": true
+    },
+    {
+      "name": "方正阀门",
+      "market": "a",
+      "exchange": "bj",
+      "areaCode": "cn",
+      "stockCode": "920082",
+      "fsTableType": "non_financial",
+      "ipoDate": "2024-12-26T00:00:00+08:00",
+      "listingStatus": "normally_listed",
+      "mutualMarketFlag": false
+    },
+    {
+      "name": "中力股份",
+      "market": "a",
+      "exchange": "sh",
+      "areaCode": "cn",
+      "stockCode": "603194",
+      "fsTableType": "non_financial",
+      "ipoDate": "2024-12-24T00:00:00+08:00",
+      "listingStatus": "normally_listed",
+      "mutualMarkets": [
+        "ha"
+      ],
+      "mutualMarketFlag": true
+    },
+    {
+      "name": "蓝宇股份",
+      "market": "a",
+      "exchange": "sz",
+      "areaCode": "cn",
+      "stockCode": "301585",
+      "fsTableType": "non_financial",
+      "ipoDate": "2024-12-20T00:00:00+08:00",
+      "listingStatus": "normally_listed",
+      "mutualMarketFlag": false
+    },
+    {
+      "name": "博科测试",
+      "market": "a",
+      "exchange": "sz",
+      "areaCode": "cn",
+      "stockCode": "301598",
+      "fsTableType": "non_financial",
+      "ipoDate": "2024-12-20T00:00:00+08:00",
+      "listingStatus": "normally_listed",
+      "mutualMarketFlag": false
+    },
+    {
+      "name": "林泰新材",
+      "market": "a",
+      "exchange": "bj",
+      "areaCode": "cn",
+      "stockCode": "920106",
+      "fsTableType": "non_financial",
+      "ipoDate": "2024-12-18T00:00:00+08:00",
+      "listingStatus": "normally_listed",
+      "mutualMarketFlag": false
+    },
+    {
+      "name": "先锋精科",
+      "market": "a",
+      "exchange": "sh",
+      "areaCode": "cn",
+      "stockCode": "688605",
+      "fsTableType": "non_financial",
+      "ipoDate": "2024-12-12T00:00:00+08:00",
+      "listingStatus": "normally_listed",
+      "mutualMarkets": [
+        "ha"
+      ],
+      "mutualMarketFlag": true
+    },
+    {
+      "name": "博苑股份",
+      "market": "a",
+      "exchange": "sz",
+      "areaCode": "cn",
+      "stockCode": "301617",
+      "fsTableType": "non_financial",
+      "ipoDate": "2024-12-11T00:00:00+08:00",
+      "listingStatus": "normally_listed",
+      "mutualMarkets": [
+        "ha"
+      ],
+      "mutualMarketFlag": true
+    },
+    {
+      "name": "佳驰科技",
+      "market": "a",
+      "exchange": "sh",
+      "areaCode": "cn",
+      "stockCode": "688708",
+      "fsTableType": "non_financial",
+      "ipoDate": "2024-12-05T00:00:00+08:00",
+      "listingStatus": "normally_listed",
+      "mutualMarkets": [
+        "ha"
+      ],
+      "mutualMarketFlag": true
+    },
+    {
+      "name": "科隆新材",
+      "market": "a",
+      "exchange": "bj",
+      "areaCode": "cn",
+      "stockCode": "920098",
+      "fsTableType": "non_financial",
+      "ipoDate": "2024-12-05T00:00:00+08:00",
+      "listingStatus": "normally_listed",
+      "mutualMarketFlag": false
+    },
+    {
+      "name": "英思特",
+      "market": "a",
+      "exchange": "sz",
+      "areaCode": "cn",
+      "stockCode": "301622",
+      "fsTableType": "non_financial",
+      "ipoDate": "2024-12-04T00:00:00+08:00",
+      "listingStatus": "normally_listed",
+      "mutualMarkets": [
+        "ha"
+      ],
+      "mutualMarketFlag": true
+    },
+    {
+      "name": "胜业电气",
+      "market": "a",
+      "exchange": "bj",
+      "areaCode": "cn",
+      "stockCode": "920128",
+      "fsTableType": "non_financial",
+      "ipoDate": "2024-11-29T00:00:00+08:00",
+      "listingStatus": "normally_listed",
+      "mutualMarketFlag": false
+    },
+    {
+      "name": "联芸科技",
+      "market": "a",
+      "exchange": "sh",
+      "areaCode": "cn",
+      "stockCode": "688449",
+      "fsTableType": "non_financial",
+      "ipoDate": "2024-11-29T00:00:00+08:00",
+      "listingStatus": "normally_listed",
+      "mutualMarkets": [
+        "ha"
+      ],
+      "mutualMarketFlag": true
+    },
+    {
+      "name": "红四方",
+      "market": "a",
+      "exchange": "sh",
+      "areaCode": "cn",
+      "stockCode": "603395",
+      "fsTableType": "non_financial",
+      "ipoDate": "2024-11-26T00:00:00+08:00",
+      "listingStatus": "normally_listed",
+      "mutualMarkets": [
+        "ha"
+      ],
+      "mutualMarketFlag": true
+    },
+    {
+      "name": "壹连科技",
+      "market": "a",
+      "exchange": "sz",
+      "areaCode": "cn",
+      "stockCode": "301631",
+      "fsTableType": "non_financial",
+      "ipoDate": "2024-11-22T00:00:00+08:00",
+      "listingStatus": "normally_listed",
+      "mutualMarkets": [
+        "ha"
+      ],
+      "mutualMarketFlag": true
+    },
+    {
+      "name": "金天钛业",
+      "market": "a",
+      "exchange": "sh",
+      "areaCode": "cn",
+      "stockCode": "688750",
+      "fsTableType": "non_financial",
+      "ipoDate": "2024-11-20T00:00:00+08:00",
+      "listingStatus": "normally_listed",
+      "mutualMarkets": [
+        "ha"
+      ],
+      "mutualMarketFlag": true
+    },
+    {
+      "name": "万源通",
+      "market": "a",
+      "exchange": "bj",
+      "areaCode": "cn",
+      "stockCode": "920060",
+      "fsTableType": "non_financial",
+      "ipoDate": "2024-11-19T00:00:00+08:00",
+      "listingStatus": "normally_listed",
+      "mutualMarketFlag": false
+    },
+    {
+      "name": "聚星科技",
+      "market": "a",
+      "exchange": "bj",
+      "areaCode": "cn",
+      "stockCode": "920111",
+      "fsTableType": "non_financial",
+      "ipoDate": "2024-11-11T00:00:00+08:00",
+      "listingStatus": "normally_listed",
+      "mutualMarketFlag": false
+    },
+    {
+      "name": "港迪技术",
+      "market": "a",
+      "exchange": "sz",
+      "areaCode": "cn",
+      "stockCode": "301633",
+      "fsTableType": "non_financial",
+      "ipoDate": "2024-11-07T00:00:00+08:00",
+      "listingStatus": "normally_listed",
+      "mutualMarkets": [
+        "ha"
+      ],
+      "mutualMarketFlag": true
+    },
+    {
+      "name": "健尔康",
+      "market": "a",
+      "exchange": "sh",
+      "areaCode": "cn",
+      "stockCode": "603205",
+      "fsTableType": "non_financial",
+      "ipoDate": "2024-11-07T00:00:00+08:00",
+      "listingStatus": "normally_listed",
+      "mutualMarketFlag": false
+    },
+    {
+      "name": "科拜尔",
+      "market": "a",
+      "exchange": "bj",
+      "areaCode": "cn",
+      "stockCode": "920066",
+      "fsTableType": "non_financial",
+      "ipoDate": "2024-10-31T00:00:00+08:00",
+      "listingStatus": "normally_listed",
+      "mutualMarketFlag": false
+    },
+    {
+      "name": "强达电路",
+      "market": "a",
+      "exchange": "sz",
+      "areaCode": "cn",
+      "stockCode": "301628",
+      "fsTableType": "non_financial",
+      "ipoDate": "2024-10-31T00:00:00+08:00",
+      "listingStatus": "normally_listed",
+      "mutualMarkets": [
+        "ha"
+      ],
+      "mutualMarketFlag": true
+    },
+    {
+      "name": "科力股份",
+      "market": "a",
+      "exchange": "bj",
+      "areaCode": "cn",
+      "stockCode": "920088",
+      "fsTableType": "non_financial",
+      "ipoDate": "2024-10-29T00:00:00+08:00",
+      "listingStatus": "normally_listed",
+      "mutualMarketFlag": false
+    },
+    {
+      "name": "拉普拉斯",
+      "market": "a",
+      "exchange": "sh",
+      "areaCode": "cn",
+      "stockCode": "688726",
+      "fsTableType": "non_financial",
+      "ipoDate": "2024-10-29T00:00:00+08:00",
+      "listingStatus": "normally_listed",
+      "mutualMarkets": [
+        "ha"
+      ],
+      "mutualMarketFlag": true
+    },
+    {
+      "name": "新铝时代",
+      "market": "a",
+      "exchange": "sz",
+      "areaCode": "cn",
+      "stockCode": "301613",
+      "fsTableType": "non_financial",
+      "ipoDate": "2024-10-25T00:00:00+08:00",
+      "listingStatus": "normally_listed",
+      "mutualMarkets": [
+        "ha"
+      ],
+      "mutualMarketFlag": true
+    },
+    {
+      "name": "苏州天脉",
+      "market": "a",
+      "exchange": "sz",
+      "areaCode": "cn",
+      "stockCode": "301626",
+      "fsTableType": "non_financial",
+      "ipoDate": "2024-10-24T00:00:00+08:00",
+      "listingStatus": "normally_listed",
+      "mutualMarkets": [
+        "ha"
+      ],
+      "mutualMarketFlag": true
+    },
+    {
+      "name": "六九一二",
+      "market": "a",
+      "exchange": "sz",
+      "areaCode": "cn",
+      "stockCode": "301592",
+      "fsTableType": "non_financial",
+      "ipoDate": "2024-10-24T00:00:00+08:00",
+      "listingStatus": "normally_listed",
+      "mutualMarkets": [
+        "ha"
+      ],
+      "mutualMarketFlag": true
+    },
+    {
+      "name": "托普云农",
+      "market": "a",
+      "exchange": "sz",
+      "areaCode": "cn",
+      "stockCode": "301556",
+      "fsTableType": "non_financial",
+      "ipoDate": "2024-10-17T00:00:00+08:00",
+      "listingStatus": "normally_listed",
+      "mutualMarkets": [
+        "ha"
+      ],
+      "mutualMarketFlag": true
+    },
+    {
+      "name": "上大股份",
+      "market": "a",
+      "exchange": "sz",
+      "areaCode": "cn",
+      "stockCode": "301522",
+      "fsTableType": "non_financial",
+      "ipoDate": "2024-10-16T00:00:00+08:00",
+      "listingStatus": "normally_listed",
+      "mutualMarkets": [
+        "ha"
+      ],
+      "mutualMarketFlag": true
+    },
+    {
+      "name": "强邦新材",
+      "market": "a",
+      "exchange": "sz",
+      "areaCode": "cn",
+      "stockCode": "001279",
+      "fsTableType": "non_financial",
+      "ipoDate": "2024-10-11T00:00:00+08:00",
+      "listingStatus": "normally_listed",
+      "mutualMarkets": [
+        "ha"
+      ],
+      "mutualMarketFlag": true
+    },
+    {
+      "name": "铜冠矿建",
+      "market": "a",
+      "exchange": "bj",
+      "areaCode": "cn",
+      "stockCode": "920019",
+      "fsTableType": "non_financial",
+      "ipoDate": "2024-10-11T00:00:00+08:00",
+      "listingStatus": "normally_listed",
+      "mutualMarketFlag": false
+    },
+    {
+      "name": "长联科技",
+      "market": "a",
+      "exchange": "sz",
+      "areaCode": "cn",
+      "stockCode": "301618",
+      "fsTableType": "non_financial",
+      "ipoDate": "2024-09-30T00:00:00+08:00",
+      "listingStatus": "normally_listed",
+      "mutualMarkets": [
+        "ha"
+      ],
+      "mutualMarketFlag": true
+    },
+    {
+      "name": "无线传媒",
+      "market": "a",
+      "exchange": "sz",
+      "areaCode": "cn",
+      "stockCode": "301551",
+      "fsTableType": "non_financial",
+      "ipoDate": "2024-09-26T00:00:00+08:00",
+      "listingStatus": "normally_listed",
+      "mutualMarkets": [
+        "ha"
+      ],
+      "mutualMarketFlag": true
+    },
+    {
+      "name": "合合信息",
+      "market": "a",
+      "exchange": "sh",
+      "areaCode": "cn",
+      "stockCode": "688615",
+      "fsTableType": "non_financial",
+      "ipoDate": "2024-09-26T00:00:00+08:00",
+      "listingStatus": "normally_listed",
+      "mutualMarkets": [
+        "ha"
+      ],
+      "mutualMarketFlag": true
+    },
+    {
+      "name": "瑞华技术",
+      "market": "a",
+      "exchange": "bj",
+      "areaCode": "cn",
+      "stockCode": "920099",
+      "fsTableType": "non_financial",
+      "ipoDate": "2024-09-25T00:00:00+08:00",
+      "listingStatus": "normally_listed",
+      "mutualMarketFlag": false
+    },
+    {
+      "name": "众鑫股份",
+      "market": "a",
+      "exchange": "sh",
+      "areaCode": "cn",
+      "stockCode": "603091",
+      "fsTableType": "non_financial",
+      "ipoDate": "2024-09-20T00:00:00+08:00",
+      "listingStatus": "normally_listed",
+      "mutualMarkets": [
+        "ha"
+      ],
+      "mutualMarketFlag": true
+    },
+    {
+      "name": "中草香料",
+      "market": "a",
+      "exchange": "bj",
+      "areaCode": "cn",
+      "stockCode": "920016",
+      "fsTableType": "non_financial",
+      "ipoDate": "2024-09-13T00:00:00+08:00",
+      "listingStatus": "normally_listed",
+      "mutualMarketFlag": false
+    },
+    {
+      "name": "慧翰股份",
+      "market": "a",
+      "exchange": "sz",
+      "areaCode": "cn",
+      "stockCode": "301600",
+      "fsTableType": "non_financial",
+      "ipoDate": "2024-09-11T00:00:00+08:00",
+      "listingStatus": "normally_listed",
+      "mutualMarkets": [
+        "ha"
+      ],
+      "mutualMarketFlag": true
+    },
+    {
+      "name": "富特科技",
+      "market": "a",
+      "exchange": "sz",
+      "areaCode": "cn",
+      "stockCode": "301607",
+      "fsTableType": "non_financial",
+      "ipoDate": "2024-09-04T00:00:00+08:00",
+      "listingStatus": "normally_listed",
+      "mutualMarkets": [
+        "ha"
+      ],
+      "mutualMarketFlag": true
+    },
+    {
+      "name": "益诺思",
+      "market": "a",
+      "exchange": "sh",
+      "areaCode": "cn",
+      "stockCode": "688710",
+      "fsTableType": "non_financial",
+      "ipoDate": "2024-09-03T00:00:00+08:00",
+      "listingStatus": "normally_listed",
+      "mutualMarkets": [
+        "ha"
+      ],
+      "mutualMarketFlag": true
+    },
+    {
+      "name": "速达股份",
+      "market": "a",
+      "exchange": "sz",
+      "areaCode": "cn",
+      "stockCode": "001277",
+      "fsTableType": "non_financial",
+      "ipoDate": "2024-09-03T00:00:00+08:00",
+      "listingStatus": "normally_listed",
+      "mutualMarketFlag": false
+    },
+    {
+      "name": "成电光信",
+      "market": "a",
+      "exchange": "bj",
+      "areaCode": "cn",
+      "stockCode": "920008",
+      "fsTableType": "non_financial",
+      "ipoDate": "2024-08-29T00:00:00+08:00",
+      "listingStatus": "normally_listed",
+      "mutualMarketFlag": false
+    },
+    {
+      "name": "佳力奇",
+      "market": "a",
+      "exchange": "sz",
+      "areaCode": "cn",
+      "stockCode": "301586",
+      "fsTableType": "non_financial",
+      "ipoDate": "2024-08-28T00:00:00+08:00",
+      "listingStatus": "normally_listed",
+      "mutualMarketFlag": false
+    },
+    {
+      "name": "小方制药",
+      "market": "a",
+      "exchange": "sh",
+      "areaCode": "cn",
+      "stockCode": "603207",
+      "fsTableType": "non_financial",
+      "ipoDate": "2024-08-26T00:00:00+08:00",
+      "listingStatus": "normally_listed",
+      "mutualMarkets": [
+        "ha"
+      ],
+      "mutualMarketFlag": true
+    },
+    {
+      "name": "太湖远大",
+      "market": "a",
+      "exchange": "bj",
+      "areaCode": "cn",
+      "stockCode": "920118",
+      "fsTableType": "non_financial",
+      "ipoDate": "2024-08-22T00:00:00+08:00",
+      "listingStatus": "normally_listed",
+      "mutualMarketFlag": false
+    },
+    {
+      "name": "国科天成",
+      "market": "a",
+      "exchange": "sz",
+      "areaCode": "cn",
+      "stockCode": "301571",
+      "fsTableType": "non_financial",
+      "ipoDate": "2024-08-21T00:00:00+08:00",
+      "listingStatus": "normally_listed",
+      "mutualMarkets": [
+        "ha"
+      ],
+      "mutualMarketFlag": true
+    },
+    {
+      "name": "珂玛科技",
+      "market": "a",
+      "exchange": "sz",
+      "areaCode": "cn",
+      "stockCode": "301611",
+      "fsTableType": "non_financial",
+      "ipoDate": "2024-08-16T00:00:00+08:00",
+      "listingStatus": "normally_listed",
+      "mutualMarkets": [
+        "ha"
+      ],
+      "mutualMarketFlag": true
+    },
+    {
+      "name": "巍华新材",
+      "market": "a",
+      "exchange": "sh",
+      "areaCode": "cn",
+      "stockCode": "603310",
+      "fsTableType": "non_financial",
+      "ipoDate": "2024-08-14T00:00:00+08:00",
+      "listingStatus": "normally_listed",
+      "mutualMarkets": [
+        "ha"
+      ],
+      "mutualMarketFlag": true
+    },
+    {
+      "name": "龙图光罩",
+      "market": "a",
+      "exchange": "sh",
+      "areaCode": "cn",
+      "stockCode": "688721",
+      "fsTableType": "non_financial",
+      "ipoDate": "2024-08-06T00:00:00+08:00",
+      "listingStatus": "normally_listed",
+      "mutualMarkets": [
+        "ha"
+      ],
+      "mutualMarketFlag": true
+    },
+    {
+      "name": "博实结",
+      "market": "a",
+      "exchange": "sz",
+      "areaCode": "cn",
+      "stockCode": "301608",
+      "fsTableType": "non_financial",
+      "ipoDate": "2024-08-01T00:00:00+08:00",
+      "listingStatus": "normally_listed",
+      "mutualMarkets": [
+        "ha"
+      ],
+      "mutualMarketFlag": true
+    },
+    {
+      "name": "力聚热能",
+      "market": "a",
+      "exchange": "sh",
+      "areaCode": "cn",
+      "stockCode": "603391",
+      "fsTableType": "non_financial",
+      "ipoDate": "2024-07-31T00:00:00+08:00",
+      "listingStatus": "normally_listed",
+      "mutualMarketFlag": false
+    },
+    {
+      "name": "绿联科技",
+      "market": "a",
+      "exchange": "sz",
+      "areaCode": "cn",
+      "stockCode": "301606",
+      "fsTableType": "non_financial",
+      "ipoDate": "2024-07-26T00:00:00+08:00",
+      "listingStatus": "normally_listed",
+      "mutualMarkets": [
+        "ha"
+      ],
+      "mutualMarketFlag": true
+    },
+    {
+      "name": "科力装备",
+      "market": "a",
+      "exchange": "sz",
+      "areaCode": "cn",
+      "stockCode": "301552",
+      "fsTableType": "non_financial",
+      "ipoDate": "2024-07-22T00:00:00+08:00",
+      "listingStatus": "normally_listed",
+      "mutualMarketFlag": false
+    },
+    {
+      "name": "乔锋智能",
+      "market": "a",
+      "exchange": "sz",
+      "areaCode": "cn",
+      "stockCode": "301603",
+      "fsTableType": "non_financial",
+      "ipoDate": "2024-07-10T00:00:00+08:00",
+      "listingStatus": "normally_listed",
+      "mutualMarkets": [
+        "ha"
+      ],
+      "mutualMarketFlag": true
+    },
+    {
+      "name": "键邦股份",
+      "market": "a",
+      "exchange": "sh",
+      "areaCode": "cn",
+      "stockCode": "603285",
+      "fsTableType": "non_financial",
+      "ipoDate": "2024-07-05T00:00:00+08:00",
+      "listingStatus": "normally_listed",
+      "mutualMarketFlag": false
+    },
+    {
+      "name": "安乃达",
+      "market": "a",
+      "exchange": "sh",
+      "areaCode": "cn",
+      "stockCode": "603350",
+      "fsTableType": "non_financial",
+      "ipoDate": "2024-07-03T00:00:00+08:00",
+      "listingStatus": "normally_listed",
+      "mutualMarketFlag": false
+    },
+    {
+      "name": "永臻股份",
+      "market": "a",
+      "exchange": "sh",
+      "areaCode": "cn",
+      "stockCode": "603381",
+      "fsTableType": "non_financial",
+      "ipoDate": "2024-06-26T00:00:00+08:00",
+      "listingStatus": "normally_listed",
+      "mutualMarkets": [
+        "ha"
+      ],
+      "mutualMarketFlag": true
+    },
+    {
+      "name": "爱迪特",
+      "market": "a",
+      "exchange": "sz",
+      "areaCode": "cn",
+      "stockCode": "301580",
+      "fsTableType": "non_financial",
+      "ipoDate": "2024-06-26T00:00:00+08:00",
+      "listingStatus": "normally_listed",
+      "mutualMarkets": [
+        "ha"
+      ],
+      "mutualMarketFlag": true
+    },
+    {
+      "name": "中仑新材",
+      "market": "a",
+      "exchange": "sz",
+      "areaCode": "cn",
+      "stockCode": "301565",
+      "fsTableType": "non_financial",
+      "ipoDate": "2024-06-20T00:00:00+08:00",
+      "listingStatus": "normally_listed",
+      "mutualMarkets": [
+        "ha"
+      ],
+      "mutualMarketFlag": true
+    },
+    {
+      "name": "达梦数据",
+      "market": "a",
+      "exchange": "sh",
+      "areaCode": "cn",
+      "stockCode": "688692",
+      "fsTableType": "non_financial",
+      "ipoDate": "2024-06-12T00:00:00+08:00",
+      "listingStatus": "normally_listed",
+      "mutualMarkets": [
+        "ha"
+      ],
+      "mutualMarketFlag": true
+    },
+    {
+      "name": "利安科技",
+      "market": "a",
+      "exchange": "sz",
+      "areaCode": "cn",
+      "stockCode": "300784",
+      "fsTableType": "non_financial",
+      "ipoDate": "2024-06-07T00:00:00+08:00",
+      "listingStatus": "normally_listed",
+      "mutualMarketFlag": false
+    },
+    {
+      "name": "汇成真空",
+      "market": "a",
+      "exchange": "sz",
+      "areaCode": "cn",
+      "stockCode": "301392",
+      "fsTableType": "non_financial",
+      "ipoDate": "2024-06-05T00:00:00+08:00",
+      "listingStatus": "normally_listed",
+      "mutualMarkets": [
+        "ha"
+      ],
+      "mutualMarketFlag": true
+    },
+    {
+      "name": "万达轴承",
+      "market": "a",
+      "exchange": "bj",
+      "areaCode": "cn",
+      "stockCode": "920002",
+      "fsTableType": "non_financial",
+      "ipoDate": "2024-05-30T00:00:00+08:00",
+      "listingStatus": "normally_listed",
+      "mutualMarketFlag": false
+    },
+    {
+      "name": "瑞迪智驱",
+      "exchange": "sz",
+      "market": "a",
+      "areaCode": "cn",
+      "stockCode": "301596",
+      "fsTableType": "non_financial",
+      "ipoDate": "2024-05-13T00:00:00+08:00",
+      "listingStatus": "normally_listed",
+      "mutualMarkets": [
+        "ha"
+      ],
+      "mutualMarketFlag": true
+    },
+    {
+      "name": "欧莱新材",
+      "exchange": "sh",
+      "market": "a",
+      "areaCode": "cn",
+      "stockCode": "688530",
+      "fsTableType": "non_financial",
+      "ipoDate": "2024-05-09T00:00:00+08:00",
+      "listingStatus": "normally_listed",
+      "mutualMarketFlag": false
+    },
+    {
+      "name": "宏鑫科技",
+      "exchange": "sz",
+      "market": "a",
+      "areaCode": "cn",
+      "stockCode": "301539",
+      "fsTableType": "non_financial",
+      "ipoDate": "2024-04-15T00:00:00+08:00",
+      "listingStatus": "normally_listed",
+      "mutualMarketFlag": false
+    },
+    {
+      "name": "灿芯股份",
+      "exchange": "sh",
+      "market": "a",
+      "areaCode": "cn",
+      "stockCode": "688691",
+      "fsTableType": "non_financial",
+      "ipoDate": "2024-04-11T00:00:00+08:00",
+      "listingStatus": "normally_listed",
+      "mutualMarkets": [
+        "ha"
+      ],
+      "mutualMarketFlag": true
+    },
+    {
+      "name": "无锡鼎邦",
+      "market": "a",
+      "exchange": "bj",
+      "areaCode": "cn",
+      "stockCode": "920931",
+      "fsTableType": "non_financial",
+      "ipoDate": "2024-04-08T00:00:00+08:00",
+      "listingStatus": "normally_listed",
+      "mutualMarketFlag": false
+    },
+    {
+      "name": "中瑞股份",
+      "exchange": "sz",
+      "market": "a",
+      "areaCode": "cn",
+      "stockCode": "301587",
+      "fsTableType": "non_financial",
+      "ipoDate": "2024-04-08T00:00:00+08:00",
+      "listingStatus": "normally_listed",
+      "mutualMarketFlag": false
+    },
+    {
+      "name": "广合科技",
+      "exchange": "sz",
+      "market": "a",
+      "areaCode": "cn",
+      "stockCode": "001389",
+      "fsTableType": "non_financial",
+      "ipoDate": "2024-04-02T00:00:00+08:00",
+      "listingStatus": "normally_listed",
+      "mutualMarkets": [
+        "ha"
+      ],
+      "mutualMarketFlag": true
+    },
+    {
+      "name": "芭薇股份",
+      "market": "a",
+      "exchange": "bj",
+      "areaCode": "cn",
+      "stockCode": "920123",
+      "fsTableType": "non_financial",
+      "ipoDate": "2024-03-29T00:00:00+08:00",
+      "listingStatus": "normally_listed",
+      "mutualMarketFlag": false
+    },
+    {
+      "name": "平安电工",
+      "exchange": "sz",
+      "market": "a",
+      "areaCode": "cn",
+      "stockCode": "001359",
+      "fsTableType": "non_financial",
+      "ipoDate": "2024-03-28T00:00:00+08:00",
+      "listingStatus": "normally_listed",
+      "mutualMarkets": [
+        "ha"
+      ],
+      "mutualMarketFlag": true
+    },
+    {
+      "name": "星宸科技",
+      "exchange": "sz",
+      "market": "a",
+      "areaCode": "cn",
+      "stockCode": "301536",
+      "fsTableType": "non_financial",
+      "ipoDate": "2024-03-28T00:00:00+08:00",
+      "listingStatus": "normally_listed",
+      "mutualMarkets": [
+        "ha"
+      ],
+      "mutualMarketFlag": true
+    },
+    {
+      "name": "戈碧迦",
+      "market": "a",
+      "exchange": "bj",
+      "areaCode": "cn",
+      "stockCode": "920438",
+      "fsTableType": "non_financial",
+      "ipoDate": "2024-03-25T00:00:00+08:00",
+      "listingStatus": "normally_listed",
+      "mutualMarketFlag": false
+    },
+    {
+      "name": "星德胜",
+      "exchange": "sh",
+      "market": "a",
+      "areaCode": "cn",
+      "stockCode": "603344",
+      "fsTableType": "non_financial",
+      "ipoDate": "2024-03-20T00:00:00+08:00",
+      "listingStatus": "normally_listed",
+      "mutualMarkets": [
+        "ha"
+      ],
+      "mutualMarketFlag": true
+    },
+    {
+      "name": "骏鼎达",
+      "exchange": "sz",
+      "market": "a",
+      "areaCode": "cn",
+      "stockCode": "301538",
+      "fsTableType": "non_financial",
+      "ipoDate": "2024-03-20T00:00:00+08:00",
+      "listingStatus": "normally_listed",
+      "mutualMarkets": [
+        "ha"
+      ],
+      "mutualMarketFlag": true
+    },
+    {
+      "name": "美新科技",
+      "exchange": "sz",
+      "market": "a",
+      "areaCode": "cn",
+      "stockCode": "301588",
+      "fsTableType": "non_financial",
+      "ipoDate": "2024-03-13T00:00:00+08:00",
+      "listingStatus": "normally_listed",
+      "mutualMarketFlag": false
+    },
+    {
+      "name": "中创股份",
+      "exchange": "sh",
+      "market": "a",
+      "areaCode": "cn",
+      "stockCode": "688695",
+      "fsTableType": "non_financial",
+      "ipoDate": "2024-03-13T00:00:00+08:00",
+      "listingStatus": "normally_listed",
+      "mutualMarketFlag": false
+    },
+    {
+      "name": "铁拓机械",
+      "market": "a",
+      "exchange": "bj",
+      "areaCode": "cn",
+      "stockCode": "920706",
+      "fsTableType": "non_financial",
+      "ipoDate": "2024-03-08T00:00:00+08:00",
+      "listingStatus": "normally_listed",
+      "mutualMarketFlag": false
+    },
+    {
+      "name": "龙旗科技",
+      "exchange": "sh",
+      "market": "a",
+      "areaCode": "cn",
+      "stockCode": "603341",
+      "fsTableType": "non_financial",
+      "ipoDate": "2024-03-01T00:00:00+08:00",
+      "listingStatus": "normally_listed",
+      "mutualMarkets": [
+        "ha"
+      ],
+      "mutualMarketFlag": true
+    },
+    {
+      "name": "肯特股份",
+      "exchange": "sz",
+      "market": "a",
+      "areaCode": "cn",
+      "stockCode": "301591",
+      "fsTableType": "non_financial",
+      "ipoDate": "2024-02-28T00:00:00+08:00",
+      "listingStatus": "normally_listed",
+      "mutualMarketFlag": false
+    },
+    {
+      "name": "诺瓦星云",
+      "exchange": "sz",
+      "market": "a",
+      "areaCode": "cn",
+      "stockCode": "301589",
+      "fsTableType": "non_financial",
+      "ipoDate": "2024-02-08T00:00:00+08:00",
+      "listingStatus": "normally_listed",
+      "mutualMarkets": [
+        "ha"
+      ],
+      "mutualMarketFlag": true
+    },
+    {
+      "name": "上海合晶",
+      "exchange": "sh",
+      "market": "a",
+      "areaCode": "cn",
+      "stockCode": "688584",
+      "fsTableType": "non_financial",
+      "ipoDate": "2024-02-08T00:00:00+08:00",
+      "listingStatus": "normally_listed",
+      "mutualMarkets": [
+        "ha"
+      ],
+      "mutualMarketFlag": true
+    },
+    {
+      "name": "成都华微",
+      "exchange": "sh",
+      "market": "a",
+      "areaCode": "cn",
+      "stockCode": "688709",
+      "fsTableType": "non_financial",
+      "ipoDate": "2024-02-07T00:00:00+08:00",
+      "listingStatus": "normally_listed",
+      "mutualMarkets": [
+        "ha"
+      ],
+      "mutualMarketFlag": true
+    },
+    {
+      "name": "华阳智能",
+      "exchange": "sz",
+      "market": "a",
+      "areaCode": "cn",
+      "stockCode": "301502",
+      "fsTableType": "non_financial",
+      "ipoDate": "2024-02-02T00:00:00+08:00",
+      "listingStatus": "normally_listed",
+      "mutualMarketFlag": false
+    },
+    {
+      "name": "海昇药业",
+      "market": "a",
+      "exchange": "bj",
+      "areaCode": "cn",
+      "stockCode": "920656",
+      "fsTableType": "non_financial",
+      "ipoDate": "2024-02-02T00:00:00+08:00",
+      "listingStatus": "normally_listed",
+      "mutualMarketFlag": false
+    },
+    {
+      "name": "北自科技",
+      "exchange": "sh",
+      "market": "a",
+      "areaCode": "cn",
+      "stockCode": "603082",
+      "fsTableType": "non_financial",
+      "ipoDate": "2024-01-30T00:00:00+08:00",
+      "listingStatus": "normally_listed",
+      "mutualMarkets": [
+        "ha"
+      ],
+      "mutualMarketFlag": true
+    },
+    {
+      "name": "许昌智能",
+      "market": "a",
+      "exchange": "bj",
+      "areaCode": "cn",
+      "stockCode": "920496",
+      "fsTableType": "non_financial",
+      "ipoDate": "2024-01-26T00:00:00+08:00",
+      "listingStatus": "normally_listed",
+      "mutualMarketFlag": false
+    },
+    {
+      "name": "盛景微",
+      "exchange": "sh",
+      "market": "a",
+      "areaCode": "cn",
+      "stockCode": "603375",
+      "fsTableType": "non_financial",
+      "ipoDate": "2024-01-24T00:00:00+08:00",
+      "listingStatus": "normally_listed",
+      "mutualMarketFlag": false
+    },
+    {
+      "name": "美信科技",
+      "exchange": "sz",
+      "market": "a",
+      "areaCode": "cn",
+      "stockCode": "301577",
+      "fsTableType": "non_financial",
+      "ipoDate": "2024-01-24T00:00:00+08:00",
+      "listingStatus": "normally_listed",
+      "mutualMarketFlag": false
+    },
+    {
+      "name": "腾达科技",
+      "exchange": "sz",
+      "market": "a",
+      "areaCode": "cn",
+      "stockCode": "001379",
+      "fsTableType": "non_financial",
+      "ipoDate": "2024-01-19T00:00:00+08:00",
+      "listingStatus": "normally_listed",
+      "mutualMarketFlag": false
+    },
+    {
+      "name": "永兴股份",
+      "exchange": "sh",
+      "market": "a",
+      "areaCode": "cn",
+      "stockCode": "601033",
+      "fsTableType": "non_financial",
+      "ipoDate": "2024-01-18T00:00:00+08:00",
+      "listingStatus": "normally_listed",
+      "mutualMarkets": [
+        "ha"
+      ],
+      "mutualMarketFlag": true
+    },
+    {
+      "name": "康农种业",
+      "market": "a",
+      "exchange": "bj",
+      "areaCode": "cn",
+      "stockCode": "920403",
+      "fsTableType": "non_financial",
+      "ipoDate": "2024-01-18T00:00:00+08:00",
+      "listingStatus": "normally_listed",
+      "mutualMarketFlag": false
+    },
+    {
+      "name": "贝隆精密",
+      "exchange": "sz",
+      "market": "a",
+      "areaCode": "cn",
+      "stockCode": "301567",
+      "fsTableType": "non_financial",
+      "ipoDate": "2024-01-16T00:00:00+08:00",
+      "listingStatus": "normally_listed",
+      "mutualMarketFlag": false
+    },
+    {
+      "name": "云星宇",
+      "market": "a",
+      "exchange": "bj",
+      "areaCode": "cn",
+      "stockCode": "920806",
+      "fsTableType": "non_financial",
+      "ipoDate": "2024-01-11T00:00:00+08:00",
+      "listingStatus": "normally_listed",
+      "mutualMarketFlag": false
+    },
+    {
+      "name": "西典新能",
+      "exchange": "sh",
+      "market": "a",
+      "areaCode": "cn",
+      "stockCode": "603312",
+      "fsTableType": "non_financial",
+      "ipoDate": "2024-01-11T00:00:00+08:00",
+      "listingStatus": "normally_listed",
+      "mutualMarkets": [
+        "ha"
+      ],
+      "mutualMarketFlag": true
+    },
+    {
+      "name": "雪祺电气",
+      "exchange": "sz",
+      "market": "a",
+      "areaCode": "cn",
+      "stockCode": "001387",
+      "fsTableType": "non_financial",
+      "ipoDate": "2024-01-11T00:00:00+08:00",
+      "listingStatus": "normally_listed",
+      "mutualMarketFlag": false
+    },
+    {
+      "name": "博隆技术",
+      "exchange": "sh",
+      "market": "a",
+      "areaCode": "cn",
+      "stockCode": "603325",
+      "fsTableType": "non_financial",
+      "ipoDate": "2024-01-10T00:00:00+08:00",
+      "listingStatus": "normally_listed",
+      "mutualMarkets": [
+        "ha"
+      ],
+      "mutualMarketFlag": true
+    },
+    {
+      "name": "捷众科技",
+      "market": "a",
+      "exchange": "bj",
+      "areaCode": "cn",
+      "stockCode": "920690",
+      "fsTableType": "non_financial",
+      "ipoDate": "2024-01-05T00:00:00+08:00",
+      "listingStatus": "normally_listed",
+      "mutualMarketFlag": false
+    },
+    {
+      "name": "艾罗能源",
+      "exchange": "sh",
+      "market": "a",
+      "areaCode": "cn",
+      "stockCode": "688717",
+      "fsTableType": "non_financial",
+      "ipoDate": "2024-01-03T00:00:00+08:00",
+      "listingStatus": "normally_listed",
+      "mutualMarkets": [
+        "ha"
+      ],
+      "mutualMarketFlag": true
+    },
+    {
+      "name": "达利凯普",
+      "exchange": "sz",
+      "market": "a",
+      "areaCode": "cn",
+      "stockCode": "301566",
+      "fsTableType": "non_financial",
+      "ipoDate": "2023-12-29T00:00:00+08:00",
+      "listingStatus": "normally_listed",
+      "mutualMarkets": [
+        "ha"
+      ],
+      "mutualMarketFlag": true
+    },
+    {
+      "name": "辰奕智能",
+      "exchange": "sz",
+      "market": "a",
+      "areaCode": "cn",
+      "stockCode": "301578",
+      "fsTableType": "non_financial",
+      "ipoDate": "2023-12-28T00:00:00+08:00",
+      "listingStatus": "normally_listed",
+      "mutualMarketFlag": false
+    },
+    {
+      "name": "莱赛激光",
+      "market": "a",
+      "exchange": "bj",
+      "areaCode": "cn",
+      "stockCode": "920363",
+      "fsTableType": "non_financial",
+      "ipoDate": "2023-12-28T00:00:00+08:00",
+      "listingStatus": "normally_listed",
+      "mutualMarketFlag": false
+    },
+    {
+      "name": "鼎龙科技",
+      "exchange": "sh",
+      "market": "a",
+      "areaCode": "cn",
+      "stockCode": "603004",
+      "fsTableType": "non_financial",
+      "ipoDate": "2023-12-27T00:00:00+08:00",
+      "listingStatus": "normally_listed",
+      "mutualMarkets": [
+        "ha"
+      ],
+      "mutualMarketFlag": true
+    },
+    {
+      "name": "国际复材",
+      "exchange": "sz",
+      "market": "a",
+      "areaCode": "cn",
+      "stockCode": "301526",
+      "fsTableType": "non_financial",
+      "ipoDate": "2023-12-26T00:00:00+08:00",
+      "listingStatus": "normally_listed",
+      "mutualMarkets": [
+        "ha"
+      ],
+      "mutualMarketFlag": true
+    },
+    {
+      "name": "宏盛华源",
+      "exchange": "sh",
+      "market": "a",
+      "areaCode": "cn",
+      "stockCode": "601096",
+      "fsTableType": "non_financial",
+      "ipoDate": "2023-12-22T00:00:00+08:00",
+      "listingStatus": "normally_listed",
+      "mutualMarkets": [
+        "ha"
+      ],
+      "mutualMarketFlag": true
+    },
+    {
+      "name": "兴欣新材",
+      "exchange": "sz",
+      "market": "a",
+      "areaCode": "cn",
+      "stockCode": "001358",
+      "fsTableType": "non_financial",
+      "ipoDate": "2023-12-21T00:00:00+08:00",
+      "listingStatus": "normally_listed",
+      "mutualMarketFlag": false
+    },
+    {
+      "name": "西磁科技",
+      "market": "a",
+      "exchange": "bj",
+      "areaCode": "cn",
+      "stockCode": "920061",
+      "fsTableType": "non_financial",
+      "ipoDate": "2023-12-21T00:00:00+08:00",
+      "listingStatus": "normally_listed",
+      "mutualMarketFlag": false
+    },
+    {
+      "name": "安邦护卫",
+      "exchange": "sh",
+      "market": "a",
+      "areaCode": "cn",
+      "stockCode": "603373",
+      "fsTableType": "non_financial",
+      "ipoDate": "2023-12-20T00:00:00+08:00",
+      "listingStatus": "normally_listed",
+      "mutualMarkets": [
+        "ha"
+      ],
+      "mutualMarketFlag": true
+    },
+    {
+      "name": "灵鸽科技",
+      "market": "a",
+      "exchange": "bj",
+      "areaCode": "cn",
+      "stockCode": "920284",
+      "fsTableType": "non_financial",
+      "ipoDate": "2023-12-19T00:00:00+08:00",
+      "listingStatus": "normally_listed",
+      "mutualMarketFlag": false
+    },
+    {
+      "name": "安培龙",
+      "exchange": "sz",
+      "market": "a",
+      "areaCode": "cn",
+      "stockCode": "301413",
+      "fsTableType": "non_financial",
+      "ipoDate": "2023-12-18T00:00:00+08:00",
+      "listingStatus": "normally_listed",
+      "mutualMarkets": [
+        "ha"
+      ],
+      "mutualMarketFlag": true
+    },
+    {
+      "name": "索宝蛋白",
+      "exchange": "sh",
+      "market": "a",
+      "areaCode": "cn",
+      "stockCode": "603231",
+      "fsTableType": "non_financial",
+      "ipoDate": "2023-12-15T00:00:00+08:00",
+      "listingStatus": "normally_listed",
+      "mutualMarketFlag": false
+    },
+    {
+      "name": "派诺科技",
+      "market": "a",
+      "exchange": "bj",
+      "areaCode": "cn",
+      "stockCode": "920375",
+      "fsTableType": "non_financial",
+      "ipoDate": "2023-12-14T00:00:00+08:00",
+      "listingStatus": "normally_listed",
+      "mutualMarketFlag": false
+    },
+    {
+      "name": "丰茂股份",
+      "exchange": "sz",
+      "market": "a",
+      "areaCode": "cn",
+      "stockCode": "301459",
+      "fsTableType": "non_financial",
+      "ipoDate": "2023-12-13T00:00:00+08:00",
+      "listingStatus": "normally_listed",
+      "mutualMarketFlag": false
+    },
+    {
+      "name": "永达股份",
+      "exchange": "sz",
+      "market": "a",
+      "areaCode": "cn",
+      "stockCode": "001239",
+      "fsTableType": "non_financial",
+      "ipoDate": "2023-12-12T00:00:00+08:00",
+      "listingStatus": "normally_listed",
+      "mutualMarketFlag": false
+    },
+    {
+      "name": "无锡晶海",
+      "market": "a",
+      "exchange": "bj",
+      "areaCode": "cn",
+      "stockCode": "920547",
+      "fsTableType": "non_financial",
+      "ipoDate": "2023-12-12T00:00:00+08:00",
+      "listingStatus": "normally_listed",
+      "mutualMarketFlag": false
+    },
+    {
+      "name": "中远通",
+      "exchange": "sz",
+      "market": "a",
+      "areaCode": "cn",
+      "stockCode": "301516",
+      "fsTableType": "non_financial",
+      "ipoDate": "2023-12-08T00:00:00+08:00",
+      "listingStatus": "normally_listed",
+      "mutualMarkets": [
+        "ha"
+      ],
+      "mutualMarketFlag": true
+    },
+    {
+      "name": "艾森股份",
+      "exchange": "sh",
+      "market": "a",
+      "areaCode": "cn",
+      "stockCode": "688720",
+      "fsTableType": "non_financial",
+      "ipoDate": "2023-12-06T00:00:00+08:00",
+      "listingStatus": "normally_listed",
+      "mutualMarketFlag": false
+    },
+    {
+      "name": "广厦环能",
+      "market": "a",
+      "exchange": "bj",
+      "areaCode": "cn",
+      "stockCode": "920703",
+      "fsTableType": "non_financial",
+      "ipoDate": "2023-12-05T00:00:00+08:00",
+      "listingStatus": "normally_listed",
+      "mutualMarketFlag": false
+    },
+    {
+      "name": "锦江航运",
+      "exchange": "sh",
+      "market": "a",
+      "areaCode": "cn",
+      "stockCode": "601083",
+      "fsTableType": "non_financial",
+      "ipoDate": "2023-12-05T00:00:00+08:00",
+      "listingStatus": "normally_listed",
+      "mutualMarkets": [
+        "ha"
+      ],
+      "mutualMarketFlag": true
+    },
+    {
+      "name": "中机认检",
+      "exchange": "sz",
+      "market": "a",
+      "areaCode": "cn",
+      "stockCode": "301508",
+      "fsTableType": "non_financial",
+      "ipoDate": "2023-12-01T00:00:00+08:00",
+      "listingStatus": "normally_listed",
+      "mutualMarkets": [
+        "ha"
+      ],
+      "mutualMarketFlag": true
+    },
+    {
+      "name": "机科股份",
+      "market": "a",
+      "exchange": "bj",
+      "areaCode": "cn",
+      "stockCode": "920579",
+      "fsTableType": "non_financial",
+      "ipoDate": "2023-11-30T00:00:00+08:00",
+      "listingStatus": "normally_listed",
+      "mutualMarketFlag": false
+    },
+    {
+      "name": "京仪装备",
+      "exchange": "sh",
+      "market": "a",
+      "areaCode": "cn",
+      "stockCode": "688652",
+      "fsTableType": "non_financial",
+      "ipoDate": "2023-11-29T00:00:00+08:00",
+      "listingStatus": "normally_listed",
+      "mutualMarkets": [
+        "ha"
+      ],
+      "mutualMarketFlag": true
+    },
+    {
+      "name": "思泰克",
+      "exchange": "sz",
+      "market": "a",
+      "areaCode": "cn",
+      "stockCode": "301568",
+      "fsTableType": "non_financial",
+      "ipoDate": "2023-11-28T00:00:00+08:00",
+      "listingStatus": "normally_listed",
+      "mutualMarketFlag": false
+    },
+    {
+      "name": "坤博精工",
+      "market": "a",
+      "exchange": "bj",
+      "areaCode": "cn",
+      "stockCode": "920570",
+      "fsTableType": "non_financial",
+      "ipoDate": "2023-11-23T00:00:00+08:00",
+      "listingStatus": "normally_listed",
+      "mutualMarketFlag": false
+    },
+    {
+      "name": "康希通信",
+      "exchange": "sh",
+      "market": "a",
+      "areaCode": "cn",
+      "stockCode": "688653",
+      "fsTableType": "non_financial",
+      "ipoDate": "2023-11-17T00:00:00+08:00",
+      "listingStatus": "normally_listed",
+      "mutualMarkets": [
+        "ha"
+      ],
+      "mutualMarketFlag": true
+    },
+    {
+      "name": "纳科诺尔",
+      "market": "a",
+      "exchange": "bj",
+      "areaCode": "cn",
+      "stockCode": "920522",
+      "fsTableType": "non_financial",
+      "ipoDate": "2023-11-16T00:00:00+08:00",
+      "listingStatus": "normally_listed",
+      "mutualMarketFlag": false
+    },
+    {
+      "name": "泰鹏智能",
+      "market": "a",
+      "exchange": "bj",
+      "areaCode": "cn",
+      "stockCode": "920132",
+      "fsTableType": "non_financial",
+      "ipoDate": "2023-11-16T00:00:00+08:00",
+      "listingStatus": "normally_listed",
+      "mutualMarketFlag": false
+    },
+    {
+      "name": "夏厦精密",
+      "exchange": "sz",
+      "market": "a",
+      "areaCode": "cn",
+      "stockCode": "001306",
+      "fsTableType": "non_financial",
+      "ipoDate": "2023-11-16T00:00:00+08:00",
+      "listingStatus": "normally_listed",
+      "mutualMarkets": [
+        "ha"
+      ],
+      "mutualMarketFlag": true
+    },
+    {
+      "name": "中邮科技",
+      "exchange": "sh",
+      "market": "a",
+      "areaCode": "cn",
+      "stockCode": "688648",
+      "fsTableType": "non_financial",
+      "ipoDate": "2023-11-13T00:00:00+08:00",
+      "listingStatus": "normally_listed",
+      "mutualMarkets": [
+        "ha"
+      ],
+      "mutualMarketFlag": true
+    },
+    {
+      "name": "前进科技",
+      "market": "a",
+      "exchange": "bj",
+      "areaCode": "cn",
+      "stockCode": "920679",
+      "fsTableType": "non_financial",
+      "ipoDate": "2023-11-10T00:00:00+08:00",
+      "listingStatus": "normally_listed",
+      "mutualMarketFlag": false
+    },
+    {
+      "name": "联域股份",
+      "exchange": "sz",
+      "market": "a",
+      "areaCode": "cn",
+      "stockCode": "001326",
+      "fsTableType": "non_financial",
+      "ipoDate": "2023-11-09T00:00:00+08:00",
+      "listingStatus": "normally_listed",
+      "mutualMarketFlag": false
+    },
+    {
+      "name": "美心翼申",
+      "market": "a",
+      "exchange": "bj",
+      "areaCode": "cn",
+      "stockCode": "920833",
+      "fsTableType": "non_financial",
+      "ipoDate": "2023-11-08T00:00:00+08:00",
+      "listingStatus": "normally_listed",
+      "mutualMarketFlag": false
+    },
+    {
+      "name": "麦加芯彩",
+      "exchange": "sh",
+      "market": "a",
+      "areaCode": "cn",
+      "stockCode": "603062",
+      "fsTableType": "non_financial",
+      "ipoDate": "2023-11-07T00:00:00+08:00",
+      "listingStatus": "normally_listed",
+      "mutualMarkets": [
+        "ha"
+      ],
+      "mutualMarketFlag": true
+    },
+    {
+      "name": "百通能源",
+      "exchange": "sz",
+      "market": "a",
+      "areaCode": "cn",
+      "stockCode": "001376",
+      "fsTableType": "non_financial",
+      "ipoDate": "2023-11-03T00:00:00+08:00",
+      "listingStatus": "normally_listed",
+      "mutualMarkets": [
+        "ha"
+      ],
+      "mutualMarketFlag": true
+    },
+    {
+      "name": "立方控股",
+      "market": "a",
+      "exchange": "bj",
+      "areaCode": "cn",
+      "stockCode": "920130",
+      "fsTableType": "non_financial",
+      "ipoDate": "2023-11-02T00:00:00+08:00",
+      "listingStatus": "normally_listed",
+      "mutualMarketFlag": false
+    },
+    {
+      "name": "并行科技",
+      "market": "a",
+      "exchange": "bj",
+      "areaCode": "cn",
+      "stockCode": "920493",
+      "fsTableType": "non_financial",
+      "ipoDate": "2023-11-01T00:00:00+08:00",
+      "listingStatus": "normally_listed",
+      "mutualMarketFlag": false
+    },
+    {
+      "name": "上海汽配",
+      "exchange": "sh",
+      "market": "a",
+      "areaCode": "cn",
+      "stockCode": "603107",
+      "fsTableType": "non_financial",
+      "ipoDate": "2023-11-01T00:00:00+08:00",
+      "listingStatus": "normally_listed",
+      "mutualMarkets": [
+        "ha"
+      ],
+      "mutualMarketFlag": true
+    },
+    {
+      "name": "惠柏新材",
+      "exchange": "sz",
+      "market": "a",
+      "areaCode": "cn",
+      "stockCode": "301555",
+      "fsTableType": "non_financial",
+      "ipoDate": "2023-10-31T00:00:00+08:00",
+      "listingStatus": "normally_listed",
+      "mutualMarketFlag": false
+    },
+    {
+      "name": "德冠新材",
+      "exchange": "sz",
+      "market": "a",
+      "areaCode": "cn",
+      "stockCode": "001378",
+      "fsTableType": "non_financial",
+      "ipoDate": "2023-10-30T00:00:00+08:00",
+      "listingStatus": "normally_listed",
+      "mutualMarketFlag": false
+    },
+    {
+      "name": "阿为特",
+      "market": "a",
+      "exchange": "bj",
+      "areaCode": "cn",
+      "stockCode": "920693",
+      "fsTableType": "non_financial",
+      "ipoDate": "2023-10-27T00:00:00+08:00",
+      "listingStatus": "normally_listed",
+      "mutualMarketFlag": false
+    },
+    {
+      "name": "思泉新材",
+      "exchange": "sz",
+      "market": "a",
+      "areaCode": "cn",
+      "stockCode": "301489",
+      "fsTableType": "non_financial",
+      "ipoDate": "2023-10-24T00:00:00+08:00",
+      "listingStatus": "normally_listed",
+      "mutualMarkets": [
+        "ha"
+      ],
+      "mutualMarketFlag": true
+    },
+    {
+      "name": "天元智能",
+      "exchange": "sh",
+      "market": "a",
+      "areaCode": "cn",
+      "stockCode": "603273",
+      "fsTableType": "non_financial",
+      "ipoDate": "2023-10-23T00:00:00+08:00",
+      "listingStatus": "normally_listed",
+      "mutualMarketFlag": false
+    },
+    {
+      "name": "卓兆点胶",
+      "market": "a",
+      "exchange": "bj",
+      "areaCode": "cn",
+      "stockCode": "920026",
+      "fsTableType": "non_financial",
+      "ipoDate": "2023-10-19T00:00:00+08:00",
+      "listingStatus": "normally_listed",
+      "mutualMarketFlag": false
+    },
+    {
+      "name": "陕西华达",
+      "exchange": "sz",
+      "market": "a",
+      "areaCode": "cn",
+      "stockCode": "301517",
+      "fsTableType": "non_financial",
+      "ipoDate": "2023-10-17T00:00:00+08:00",
+      "listingStatus": "normally_listed",
+      "mutualMarkets": [
+        "ha"
+      ],
+      "mutualMarketFlag": true
+    },
+    {
+      "name": "润本股份",
+      "exchange": "sh",
+      "market": "a",
+      "areaCode": "cn",
+      "stockCode": "603193",
+      "fsTableType": "non_financial",
+      "ipoDate": "2023-10-17T00:00:00+08:00",
+      "listingStatus": "normally_listed",
+      "mutualMarkets": [
+        "ha"
+      ],
+      "mutualMarketFlag": true
+    },
+    {
+      "name": "骑士乳业",
+      "market": "a",
+      "exchange": "bj",
+      "areaCode": "cn",
+      "stockCode": "920786",
+      "fsTableType": "non_financial",
+      "ipoDate": "2023-10-13T00:00:00+08:00",
+      "listingStatus": "normally_listed",
+      "mutualMarketFlag": false
+    },
+    {
+      "name": "中集环科",
+      "exchange": "sz",
+      "market": "a",
+      "areaCode": "cn",
+      "stockCode": "301559",
+      "fsTableType": "non_financial",
+      "ipoDate": "2023-10-11T00:00:00+08:00",
+      "listingStatus": "normally_listed",
+      "mutualMarkets": [
+        "ha"
+      ],
+      "mutualMarketFlag": true
+    },
+    {
+      "name": "浩辰软件",
+      "exchange": "sh",
+      "market": "a",
+      "areaCode": "cn",
+      "stockCode": "688657",
+      "fsTableType": "non_financial",
+      "ipoDate": "2023-10-10T00:00:00+08:00",
+      "listingStatus": "normally_listed",
+      "mutualMarketFlag": false
+    },
+    {
+      "name": "三态股份",
+      "exchange": "sz",
+      "market": "a",
+      "areaCode": "cn",
+      "stockCode": "301558",
+      "fsTableType": "non_financial",
+      "ipoDate": "2023-09-28T00:00:00+08:00",
+      "listingStatus": "normally_listed",
+      "mutualMarkets": [
+        "ha"
+      ],
+      "mutualMarketFlag": true
+    },
+    {
+      "name": "爱科赛博",
+      "exchange": "sh",
+      "market": "a",
+      "areaCode": "cn",
+      "stockCode": "688719",
+      "fsTableType": "non_financial",
+      "ipoDate": "2023-09-28T00:00:00+08:00",
+      "listingStatus": "normally_listed",
+      "mutualMarketFlag": false
+    },
+    {
+      "name": "开特股份",
+      "market": "a",
+      "exchange": "bj",
+      "areaCode": "cn",
+      "stockCode": "920978",
+      "fsTableType": "non_financial",
+      "ipoDate": "2023-09-28T00:00:00+08:00",
+      "listingStatus": "normally_listed",
+      "mutualMarketFlag": false
+    },
+    {
+      "name": "科强股份",
+      "market": "a",
+      "exchange": "bj",
+      "areaCode": "cn",
+      "stockCode": "920665",
+      "fsTableType": "non_financial",
+      "ipoDate": "2023-09-26T00:00:00+08:00",
+      "listingStatus": "normally_listed",
+      "mutualMarketFlag": false
+    },
+    {
+      "name": "万邦医药",
+      "exchange": "sz",
+      "market": "a",
+      "areaCode": "cn",
+      "stockCode": "301520",
+      "fsTableType": "non_financial",
+      "ipoDate": "2023-09-25T00:00:00+08:00",
+      "listingStatus": "normally_listed",
+      "mutualMarketFlag": false
+    },
+    {
+      "name": "恒兴新材",
+      "exchange": "sh",
+      "market": "a",
+      "areaCode": "cn",
+      "stockCode": "603276",
+      "fsTableType": "non_financial",
+      "ipoDate": "2023-09-25T00:00:00+08:00",
+      "listingStatus": "normally_listed",
+      "mutualMarketFlag": false
+    },
+    {
+      "name": "飞南资源",
+      "exchange": "sz",
+      "market": "a",
+      "areaCode": "cn",
+      "stockCode": "301500",
+      "fsTableType": "non_financial",
+      "ipoDate": "2023-09-21T00:00:00+08:00",
+      "listingStatus": "normally_listed",
+      "mutualMarkets": [
+        "ha"
+      ],
+      "mutualMarketFlag": true
+    },
+    {
+      "name": "崇德科技",
+      "exchange": "sz",
+      "market": "a",
+      "areaCode": "cn",
+      "stockCode": "301548",
+      "fsTableType": "non_financial",
+      "ipoDate": "2023-09-20T00:00:00+08:00",
+      "listingStatus": "normally_listed",
+      "mutualMarketFlag": false
+    },
+    {
+      "name": "中研股份",
+      "exchange": "sh",
+      "market": "a",
+      "areaCode": "cn",
+      "stockCode": "688716",
+      "fsTableType": "non_financial",
+      "ipoDate": "2023-09-20T00:00:00+08:00",
+      "listingStatus": "normally_listed",
+      "mutualMarketFlag": false
+    },
+    {
+      "name": "富恒新材",
+      "market": "a",
+      "exchange": "bj",
+      "areaCode": "cn",
+      "stockCode": "920469",
+      "fsTableType": "non_financial",
+      "ipoDate": "2023-09-18T00:00:00+08:00",
+      "listingStatus": "normally_listed",
+      "mutualMarketFlag": false
+    },
+    {
+      "name": "斯菱智驱",
+      "exchange": "sz",
+      "market": "a",
+      "areaCode": "cn",
+      "stockCode": "301550",
+      "fsTableType": "non_financial",
+      "ipoDate": "2023-09-15T00:00:00+08:00",
+      "listingStatus": "normally_listed",
+      "mutualMarkets": [
+        "ha"
+      ],
+      "mutualMarketFlag": true
+    },
+    {
+      "name": "万德股份",
+      "market": "a",
+      "exchange": "bj",
+      "areaCode": "cn",
+      "stockCode": "920519",
+      "fsTableType": "non_financial",
+      "ipoDate": "2023-09-15T00:00:00+08:00",
+      "listingStatus": "normally_listed",
+      "mutualMarketFlag": false
+    },
+    {
+      "name": "盛科通信",
+      "exchange": "sh",
+      "market": "a",
+      "areaCode": "cn",
+      "stockCode": "688702",
+      "fsTableType": "non_financial",
+      "ipoDate": "2023-09-14T00:00:00+08:00",
+      "listingStatus": "normally_listed",
+      "mutualMarkets": [
+        "ha"
+      ],
+      "mutualMarketFlag": true
+    },
+    {
+      "name": "福赛科技",
+      "exchange": "sz",
+      "market": "a",
+      "areaCode": "cn",
+      "stockCode": "301529",
+      "fsTableType": "non_financial",
+      "ipoDate": "2023-09-11T00:00:00+08:00",
+      "listingStatus": "normally_listed",
+      "mutualMarkets": [
+        "ha"
+      ],
+      "mutualMarketFlag": true
+    },
+    {
+      "name": "热威股份",
+      "exchange": "sh",
+      "market": "a",
+      "areaCode": "cn",
+      "stockCode": "603075",
+      "fsTableType": "non_financial",
+      "ipoDate": "2023-09-11T00:00:00+08:00",
+      "listingStatus": "normally_listed",
+      "mutualMarkets": [
+        "ha"
+      ],
+      "mutualMarketFlag": true
+    },
+    {
+      "name": "中巨芯",
+      "exchange": "sh",
+      "market": "a",
+      "areaCode": "cn",
+      "stockCode": "688549",
+      "fsTableType": "non_financial",
+      "ipoDate": "2023-09-08T00:00:00+08:00",
+      "listingStatus": "normally_listed",
+      "mutualMarkets": [
+        "ha"
+      ],
+      "mutualMarketFlag": true
+    },
+    {
+      "name": "力王股份",
+      "market": "a",
+      "exchange": "bj",
+      "areaCode": "cn",
+      "stockCode": "920627",
+      "fsTableType": "non_financial",
+      "ipoDate": "2023-09-07T00:00:00+08:00",
+      "listingStatus": "normally_listed",
+      "mutualMarketFlag": false
+    },
+    {
+      "name": "威尔高",
+      "exchange": "sz",
+      "market": "a",
+      "areaCode": "cn",
+      "stockCode": "301251",
+      "fsTableType": "non_financial",
+      "ipoDate": "2023-09-06T00:00:00+08:00",
+      "listingStatus": "normally_listed",
+      "mutualMarkets": [
+        "ha"
+      ],
+      "mutualMarketFlag": true
+    },
+    {
+      "name": "民生健康",
+      "exchange": "sz",
+      "market": "a",
+      "areaCode": "cn",
+      "stockCode": "301507",
+      "fsTableType": "non_financial",
+      "ipoDate": "2023-09-05T00:00:00+08:00",
+      "listingStatus": "normally_listed",
+      "mutualMarkets": [
+        "ha"
+      ],
+      "mutualMarketFlag": true
+    },
+    {
+      "name": "视声智能",
+      "market": "a",
+      "exchange": "bj",
+      "areaCode": "cn",
+      "stockCode": "920976",
+      "fsTableType": "non_financial",
+      "ipoDate": "2023-09-01T00:00:00+08:00",
+      "listingStatus": "normally_listed",
+      "mutualMarketFlag": false
+    },
+    {
+      "name": "金帝股份",
+      "exchange": "sh",
+      "market": "a",
+      "areaCode": "cn",
+      "stockCode": "603270",
+      "fsTableType": "non_financial",
+      "ipoDate": "2023-09-01T00:00:00+08:00",
+      "listingStatus": "normally_listed",
+      "mutualMarkets": [
+        "ha"
+      ],
+      "mutualMarketFlag": true
+    },
+    {
+      "name": "儒竞科技",
+      "exchange": "sz",
+      "market": "a",
+      "areaCode": "cn",
+      "stockCode": "301525",
+      "fsTableType": "non_financial",
+      "ipoDate": "2023-08-30T00:00:00+08:00",
+      "listingStatus": "normally_listed",
+      "mutualMarkets": [
+        "ha"
+      ],
+      "mutualMarketFlag": true
+    },
+    {
+      "name": "多浦乐",
+      "exchange": "sz",
+      "market": "a",
+      "areaCode": "cn",
+      "stockCode": "301528",
+      "fsTableType": "non_financial",
+      "ipoDate": "2023-08-28T00:00:00+08:00",
+      "listingStatus": "normally_listed",
+      "mutualMarketFlag": false
+    },
+    {
+      "name": "泰凌微",
+      "exchange": "sh",
+      "market": "a",
+      "areaCode": "cn",
+      "stockCode": "688591",
+      "fsTableType": "non_financial",
+      "ipoDate": "2023-08-25T00:00:00+08:00",
+      "listingStatus": "normally_listed",
+      "mutualMarkets": [
+        "ha"
+      ],
+      "mutualMarketFlag": true
+    },
+    {
+      "name": "波长光电",
+      "exchange": "sz",
+      "market": "a",
+      "areaCode": "cn",
+      "stockCode": "301421",
+      "fsTableType": "non_financial",
+      "ipoDate": "2023-08-23T00:00:00+08:00",
+      "listingStatus": "normally_listed",
+      "mutualMarkets": [
+        "ha"
+      ],
+      "mutualMarketFlag": true
+    },
+    {
+      "name": "众辰科技",
+      "exchange": "sh",
+      "market": "a",
+      "areaCode": "cn",
+      "stockCode": "603275",
+      "fsTableType": "non_financial",
+      "ipoDate": "2023-08-23T00:00:00+08:00",
+      "listingStatus": "normally_listed",
+      "mutualMarkets": [
+        "ha"
+      ],
+      "mutualMarketFlag": true
+    },
+    {
+      "name": "国子软件",
+      "market": "a",
+      "exchange": "bj",
+      "areaCode": "cn",
+      "stockCode": "920953",
+      "fsTableType": "non_financial",
+      "ipoDate": "2023-08-23T00:00:00+08:00",
+      "listingStatus": "normally_listed",
+      "mutualMarketFlag": false
+    },
+    {
+      "name": "恒达新材",
+      "exchange": "sz",
+      "market": "a",
+      "areaCode": "cn",
+      "stockCode": "301469",
+      "fsTableType": "non_financial",
+      "ipoDate": "2023-08-22T00:00:00+08:00",
+      "listingStatus": "normally_listed",
+      "mutualMarketFlag": false
+    },
+    {
+      "name": "协昌科技",
+      "exchange": "sz",
+      "market": "a",
+      "areaCode": "cn",
+      "stockCode": "301418",
+      "fsTableType": "non_financial",
+      "ipoDate": "2023-08-21T00:00:00+08:00",
+      "listingStatus": "normally_listed",
+      "mutualMarketFlag": false
+    },
+    {
+      "name": "锴威特",
+      "exchange": "sh",
+      "market": "a",
+      "areaCode": "cn",
+      "stockCode": "688693",
+      "fsTableType": "non_financial",
+      "ipoDate": "2023-08-18T00:00:00+08:00",
+      "listingStatus": "normally_listed",
+      "mutualMarketFlag": false
+    },
+    {
+      "name": "宏裕包材",
+      "market": "a",
+      "exchange": "bj",
+      "areaCode": "cn",
+      "stockCode": "920274",
+      "fsTableType": "non_financial",
+      "ipoDate": "2023-08-18T00:00:00+08:00",
+      "listingStatus": "normally_listed",
+      "mutualMarketFlag": false
+    },
+    {
+      "name": "威马农机",
+      "exchange": "sz",
+      "market": "a",
+      "areaCode": "cn",
+      "stockCode": "301533",
+      "fsTableType": "non_financial",
+      "ipoDate": "2023-08-18T00:00:00+08:00",
+      "listingStatus": "normally_listed",
+      "mutualMarketFlag": false
+    },
+    {
+      "name": "信宇人",
+      "exchange": "sh",
+      "market": "a",
+      "areaCode": "cn",
+      "stockCode": "688573",
+      "fsTableType": "non_financial",
+      "ipoDate": "2023-08-17T00:00:00+08:00",
+      "listingStatus": "normally_listed",
+      "mutualMarketFlag": false
+    },
+    {
+      "name": "博迅生物",
+      "market": "a",
+      "exchange": "bj",
+      "areaCode": "cn",
+      "stockCode": "920504",
+      "fsTableType": "non_financial",
+      "ipoDate": "2023-08-17T00:00:00+08:00",
+      "listingStatus": "normally_listed",
+      "mutualMarketFlag": false
+    },
+    {
+      "name": "德福科技",
+      "exchange": "sz",
+      "market": "a",
+      "areaCode": "cn",
+      "stockCode": "301511",
+      "fsTableType": "non_financial",
+      "ipoDate": "2023-08-17T00:00:00+08:00",
+      "listingStatus": "normally_listed",
+      "mutualMarkets": [
+        "ha"
+      ],
+      "mutualMarketFlag": true
+    },
+    {
+      "name": "路桥信息",
+      "market": "a",
+      "exchange": "bj",
+      "areaCode": "cn",
+      "stockCode": "920748",
+      "fsTableType": "non_financial",
+      "ipoDate": "2023-08-16T00:00:00+08:00",
+      "listingStatus": "normally_listed",
+      "mutualMarketFlag": false
+    },
+    {
+      "name": "司南导航",
+      "exchange": "sh",
+      "market": "a",
+      "areaCode": "cn",
+      "stockCode": "688592",
+      "fsTableType": "non_financial",
+      "ipoDate": "2023-08-16T00:00:00+08:00",
+      "listingStatus": "normally_listed",
+      "mutualMarketFlag": false
+    },
+    {
+      "name": "乖宝宠物",
+      "exchange": "sz",
+      "market": "a",
+      "areaCode": "cn",
+      "stockCode": "301498",
+      "fsTableType": "non_financial",
+      "ipoDate": "2023-08-16T00:00:00+08:00",
+      "listingStatus": "normally_listed",
+      "mutualMarkets": [
+        "ha"
+      ],
+      "mutualMarketFlag": true
+    },
+    {
+      "name": "广钢气体",
+      "exchange": "sh",
+      "market": "a",
+      "areaCode": "cn",
+      "stockCode": "688548",
+      "fsTableType": "non_financial",
+      "ipoDate": "2023-08-15T00:00:00+08:00",
+      "listingStatus": "normally_listed",
+      "mutualMarkets": [
+        "ha"
+      ],
+      "mutualMarketFlag": true
+    },
+    {
+      "name": "固高科技",
+      "exchange": "sz",
+      "market": "a",
+      "areaCode": "cn",
+      "stockCode": "301510",
+      "fsTableType": "non_financial",
+      "ipoDate": "2023-08-15T00:00:00+08:00",
+      "listingStatus": "normally_listed",
+      "mutualMarkets": [
+        "ha"
+      ],
+      "mutualMarketFlag": true
+    },
+    {
+      "name": "科净源",
+      "exchange": "sz",
+      "market": "a",
+      "areaCode": "cn",
+      "stockCode": "301372",
+      "fsTableType": "non_financial",
+      "ipoDate": "2023-08-11T00:00:00+08:00",
+      "listingStatus": "normally_listed",
+      "mutualMarketFlag": false
+    },
+    {
+      "name": "蓝箭电子",
+      "exchange": "sz",
+      "market": "a",
+      "areaCode": "cn",
+      "stockCode": "301348",
+      "fsTableType": "non_financial",
+      "ipoDate": "2023-08-10T00:00:00+08:00",
+      "listingStatus": "normally_listed",
+      "mutualMarkets": [
+        "ha"
+      ],
+      "mutualMarketFlag": true
+    },
+    {
+      "name": "华洋赛车",
+      "market": "a",
+      "exchange": "bj",
+      "areaCode": "cn",
+      "stockCode": "920058",
+      "fsTableType": "non_financial",
+      "ipoDate": "2023-08-10T00:00:00+08:00",
+      "listingStatus": "normally_listed",
+      "mutualMarketFlag": false
+    },
+    {
+      "name": "碧兴物联",
+      "exchange": "sh",
+      "market": "a",
+      "areaCode": "cn",
+      "stockCode": "688671",
+      "fsTableType": "non_financial",
+      "ipoDate": "2023-08-09T00:00:00+08:00",
+      "listingStatus": "normally_listed",
+      "mutualMarketFlag": false
+    },
+    {
+      "name": "威力传动",
+      "exchange": "sz",
+      "market": "a",
+      "areaCode": "cn",
+      "stockCode": "300904",
+      "fsTableType": "non_financial",
+      "ipoDate": "2023-08-09T00:00:00+08:00",
+      "listingStatus": "normally_listed",
+      "mutualMarketFlag": false
+    },
+    {
+      "name": "盟固利",
+      "exchange": "sz",
+      "market": "a",
+      "areaCode": "cn",
+      "stockCode": "301487",
+      "fsTableType": "non_financial",
+      "ipoDate": "2023-08-09T00:00:00+08:00",
+      "listingStatus": "normally_listed",
+      "mutualMarkets": [
+        "ha"
+      ],
+      "mutualMarketFlag": true
+    },
+    {
+      "name": "华勤技术",
+      "exchange": "sh",
+      "market": "a",
+      "areaCode": "cn",
+      "stockCode": "603296",
+      "fsTableType": "non_financial",
+      "ipoDate": "2023-08-08T00:00:00+08:00",
+      "listingStatus": "normally_listed",
+      "mutualMarkets": [
+        "ha"
+      ],
+      "mutualMarketFlag": true
+    },
+    {
+      "name": "鸿智科技",
+      "market": "a",
+      "exchange": "bj",
+      "areaCode": "cn",
+      "stockCode": "920926",
+      "fsTableType": "non_financial",
+      "ipoDate": "2023-08-08T00:00:00+08:00",
+      "listingStatus": "normally_listed",
+      "mutualMarketFlag": false
+    },
+    {
+      "name": "华虹公司",
+      "exchange": "sh",
+      "market": "a",
+      "areaCode": "cn",
+      "stockCode": "688347",
+      "fsTableType": "non_financial",
+      "ipoDate": "2023-08-07T00:00:00+08:00",
+      "listingStatus": "normally_listed",
+      "mutualMarkets": [
+        "ha"
+      ],
+      "mutualMarketFlag": true
+    },
+    {
+      "name": "民爆光电",
+      "exchange": "sz",
+      "market": "a",
+      "areaCode": "cn",
+      "stockCode": "301362",
+      "fsTableType": "non_financial",
+      "ipoDate": "2023-08-04T00:00:00+08:00",
+      "listingStatus": "normally_listed",
+      "mutualMarketFlag": false
+    },
+    {
+      "name": "长华化学",
+      "exchange": "sz",
+      "market": "a",
+      "areaCode": "cn",
+      "stockCode": "301518",
+      "fsTableType": "non_financial",
+      "ipoDate": "2023-08-03T00:00:00+08:00",
+      "listingStatus": "normally_listed",
+      "mutualMarketFlag": false
+    },
+    {
+      "name": "金凯生科",
+      "exchange": "sz",
+      "market": "a",
+      "areaCode": "cn",
+      "stockCode": "301509",
+      "fsTableType": "non_financial",
+      "ipoDate": "2023-08-03T00:00:00+08:00",
+      "listingStatus": "normally_listed",
+      "mutualMarketFlag": false
+    },
+    {
+      "name": "浙江荣泰",
+      "exchange": "sh",
+      "market": "a",
+      "areaCode": "cn",
+      "stockCode": "603119",
+      "fsTableType": "non_financial",
+      "ipoDate": "2023-08-01T00:00:00+08:00",
+      "listingStatus": "normally_listed",
+      "mutualMarkets": [
+        "ha"
+      ],
+      "mutualMarketFlag": true
+    },
+    {
+      "name": "敷尔佳",
+      "exchange": "sz",
+      "market": "a",
+      "areaCode": "cn",
+      "stockCode": "301371",
+      "fsTableType": "non_financial",
+      "ipoDate": "2023-08-01T00:00:00+08:00",
+      "listingStatus": "normally_listed",
+      "mutualMarkets": [
+        "ha"
+      ],
+      "mutualMarketFlag": true
+    },
+    {
+      "name": "ST逸飞",
+      "exchange": "sh",
+      "market": "a",
+      "areaCode": "cn",
+      "stockCode": "688646",
+      "fsTableType": "non_financial",
+      "ipoDate": "2023-07-28T00:00:00+08:00",
+      "listingStatus": "special_treatment",
+      "mutualMarketFlag": false
+    },
+    {
+      "name": "舜禹股份",
+      "exchange": "sz",
+      "market": "a",
+      "areaCode": "cn",
+      "stockCode": "301519",
+      "fsTableType": "non_financial",
+      "ipoDate": "2023-07-27T00:00:00+08:00",
+      "listingStatus": "normally_listed",
+      "mutualMarketFlag": false
+    },
+    {
+      "name": "威迈斯",
+      "exchange": "sh",
+      "market": "a",
+      "areaCode": "cn",
+      "stockCode": "688612",
+      "fsTableType": "non_financial",
+      "ipoDate": "2023-07-26T00:00:00+08:00",
+      "listingStatus": "normally_listed",
+      "mutualMarkets": [
+        "ha"
+      ],
+      "mutualMarketFlag": true
+    },
+    {
+      "name": "盛邦安全",
+      "exchange": "sh",
+      "market": "a",
+      "areaCode": "cn",
+      "stockCode": "688651",
+      "fsTableType": "non_financial",
+      "ipoDate": "2023-07-26T00:00:00+08:00",
+      "listingStatus": "normally_listed",
+      "mutualMarketFlag": false
+    },
+    {
+      "name": "君逸数码",
+      "exchange": "sz",
+      "market": "a",
+      "areaCode": "cn",
+      "stockCode": "301172",
+      "fsTableType": "non_financial",
+      "ipoDate": "2023-07-26T00:00:00+08:00",
+      "listingStatus": "normally_listed",
+      "mutualMarketFlag": false
+    },
+    {
+      "name": "港通医疗",
+      "exchange": "sz",
+      "market": "a",
+      "areaCode": "cn",
+      "stockCode": "301515",
+      "fsTableType": "non_financial",
+      "ipoDate": "2023-07-25T00:00:00+08:00",
+      "listingStatus": "normally_listed",
+      "mutualMarketFlag": false
+    },
+    {
+      "name": "福事特",
+      "exchange": "sz",
+      "market": "a",
+      "areaCode": "cn",
+      "stockCode": "301446",
+      "fsTableType": "non_financial",
+      "ipoDate": "2023-07-25T00:00:00+08:00",
+      "listingStatus": "normally_listed",
+      "mutualMarketFlag": false
+    },
+    {
+      "name": "光格科技",
+      "exchange": "sh",
+      "market": "a",
+      "areaCode": "cn",
+      "stockCode": "688450",
+      "fsTableType": "non_financial",
+      "ipoDate": "2023-07-24T00:00:00+08:00",
+      "listingStatus": "normally_listed",
+      "mutualMarketFlag": false
+    },
+    {
+      "name": "博盈特焊",
+      "exchange": "sz",
+      "market": "a",
+      "areaCode": "cn",
+      "stockCode": "301468",
+      "fsTableType": "non_financial",
+      "ipoDate": "2023-07-24T00:00:00+08:00",
+      "listingStatus": "normally_listed",
+      "mutualMarketFlag": false
+    },
+    {
+      "name": "维科精密",
+      "exchange": "sz",
+      "market": "a",
+      "areaCode": "cn",
+      "stockCode": "301499",
+      "fsTableType": "non_financial",
+      "ipoDate": "2023-07-21T00:00:00+08:00",
+      "listingStatus": "normally_listed",
+      "mutualMarketFlag": false
+    },
+    {
+      "name": "康鹏科技",
+      "exchange": "sh",
+      "market": "a",
+      "areaCode": "cn",
+      "stockCode": "688602",
+      "fsTableType": "non_financial",
+      "ipoDate": "2023-07-20T00:00:00+08:00",
+      "listingStatus": "normally_listed",
+      "mutualMarketFlag": false
+    },
+    {
+      "name": "智信精密",
+      "exchange": "sz",
+      "market": "a",
+      "areaCode": "cn",
+      "stockCode": "301512",
+      "fsTableType": "non_financial",
+      "ipoDate": "2023-07-20T00:00:00+08:00",
+      "listingStatus": "normally_listed",
+      "mutualMarketFlag": false
+    },
+    {
+      "name": "锦波生物",
+      "market": "a",
+      "exchange": "bj",
+      "areaCode": "cn",
+      "stockCode": "920982",
+      "fsTableType": "non_financial",
+      "ipoDate": "2023-07-20T00:00:00+08:00",
+      "listingStatus": "normally_listed",
+      "mutualMarketFlag": false
+    },
+    {
+      "name": "航材股份",
+      "exchange": "sh",
+      "market": "a",
+      "areaCode": "cn",
+      "stockCode": "688563",
+      "fsTableType": "non_financial",
+      "ipoDate": "2023-07-19T00:00:00+08:00",
+      "listingStatus": "normally_listed",
+      "mutualMarkets": [
+        "ha"
+      ],
+      "mutualMarketFlag": true
+    },
+    {
+      "name": "豪声电子",
+      "market": "a",
+      "exchange": "bj",
+      "areaCode": "cn",
+      "stockCode": "920701",
+      "fsTableType": "non_financial",
+      "ipoDate": "2023-07-19T00:00:00+08:00",
+      "listingStatus": "normally_listed",
+      "mutualMarketFlag": false
+    },
+    {
+      "name": "埃科光电",
+      "exchange": "sh",
+      "market": "a",
+      "areaCode": "cn",
+      "stockCode": "688610",
+      "fsTableType": "non_financial",
+      "ipoDate": "2023-07-19T00:00:00+08:00",
+      "listingStatus": "normally_listed",
+      "mutualMarketFlag": false
+    },
+    {
+      "name": "苏州规划",
+      "exchange": "sz",
+      "market": "a",
+      "areaCode": "cn",
+      "stockCode": "301505",
+      "fsTableType": "non_financial",
+      "ipoDate": "2023-07-19T00:00:00+08:00",
+      "listingStatus": "normally_listed",
+      "mutualMarketFlag": false
+    },
+    {
+      "name": "精智达",
+      "exchange": "sh",
+      "market": "a",
+      "areaCode": "cn",
+      "stockCode": "688627",
+      "fsTableType": "non_financial",
+      "ipoDate": "2023-07-18T00:00:00+08:00",
+      "listingStatus": "normally_listed",
+      "mutualMarkets": [
+        "ha"
+      ],
+      "mutualMarketFlag": true
+    },
+    {
+      "name": "惠同新材",
+      "market": "a",
+      "exchange": "bj",
+      "areaCode": "cn",
+      "stockCode": "920751",
+      "fsTableType": "non_financial",
+      "ipoDate": "2023-07-17T00:00:00+08:00",
+      "listingStatus": "normally_listed",
+      "mutualMarketFlag": false
+    },
+    {
+      "name": "信音电子",
+      "exchange": "sz",
+      "market": "a",
+      "areaCode": "cn",
+      "stockCode": "301329",
+      "fsTableType": "non_financial",
+      "ipoDate": "2023-07-17T00:00:00+08:00",
+      "listingStatus": "normally_listed",
+      "mutualMarketFlag": false
+    },
+    {
+      "name": "智迪科技",
+      "exchange": "sz",
+      "market": "a",
+      "areaCode": "cn",
+      "stockCode": "301503",
+      "fsTableType": "non_financial",
+      "ipoDate": "2023-07-17T00:00:00+08:00",
+      "listingStatus": "normally_listed",
+      "mutualMarketFlag": false
+    },
+    {
+      "name": "盘古智能",
+      "exchange": "sz",
+      "market": "a",
+      "areaCode": "cn",
+      "stockCode": "301456",
+      "fsTableType": "non_financial",
+      "ipoDate": "2023-07-14T00:00:00+08:00",
+      "listingStatus": "normally_listed",
+      "mutualMarketFlag": false
+    },
+    {
+      "name": "英华特",
+      "exchange": "sz",
+      "market": "a",
+      "areaCode": "cn",
+      "stockCode": "301272",
+      "fsTableType": "non_financial",
+      "ipoDate": "2023-07-13T00:00:00+08:00",
+      "listingStatus": "normally_listed",
+      "mutualMarketFlag": false
+    },
+    {
+      "name": "国科恒泰",
+      "exchange": "sz",
+      "market": "a",
+      "areaCode": "cn",
+      "stockCode": "301370",
+      "fsTableType": "non_financial",
+      "ipoDate": "2023-07-12T00:00:00+08:00",
+      "listingStatus": "normally_listed",
+      "mutualMarkets": [
+        "ha"
+      ],
+      "mutualMarketFlag": true
+    },
+    {
+      "name": "赛维时代",
+      "exchange": "sz",
+      "market": "a",
+      "areaCode": "cn",
+      "stockCode": "301381",
+      "fsTableType": "non_financial",
+      "ipoDate": "2023-07-12T00:00:00+08:00",
+      "listingStatus": "normally_listed",
+      "mutualMarkets": [
+        "ha"
+      ],
+      "mutualMarketFlag": true
+    },
+    {
+      "name": "天力复合",
+      "market": "a",
+      "exchange": "bj",
+      "areaCode": "cn",
+      "stockCode": "920576",
+      "fsTableType": "non_financial",
+      "ipoDate": "2023-07-12T00:00:00+08:00",
+      "listingStatus": "normally_listed",
+      "mutualMarketFlag": false
+    },
+    {
+      "name": "誉辰智能",
+      "exchange": "sh",
+      "market": "a",
+      "areaCode": "cn",
+      "stockCode": "688638",
+      "fsTableType": "non_financial",
+      "ipoDate": "2023-07-12T00:00:00+08:00",
+      "listingStatus": "normally_listed",
+      "mutualMarketFlag": false
+    },
+    {
+      "name": "昊帆生物",
+      "exchange": "sz",
+      "market": "a",
+      "areaCode": "cn",
+      "stockCode": "301393",
+      "fsTableType": "non_financial",
+      "ipoDate": "2023-07-12T00:00:00+08:00",
+      "listingStatus": "normally_listed",
+      "mutualMarkets": [
+        "ha"
+      ],
+      "mutualMarketFlag": true
+    },
+    {
+      "name": "天承科技",
+      "exchange": "sh",
+      "market": "a",
+      "areaCode": "cn",
+      "stockCode": "688603",
+      "fsTableType": "non_financial",
+      "ipoDate": "2023-07-10T00:00:00+08:00",
+      "listingStatus": "normally_listed",
+      "mutualMarkets": [
+        "ha"
+      ],
+      "mutualMarketFlag": true
+    },
+    {
+      "name": "华信永道",
+      "market": "a",
+      "exchange": "bj",
+      "areaCode": "cn",
+      "stockCode": "920592",
+      "fsTableType": "non_financial",
+      "ipoDate": "2023-07-10T00:00:00+08:00",
+      "listingStatus": "normally_listed",
+      "mutualMarketFlag": false
+    },
+    {
+      "name": "恒工精密",
+      "exchange": "sz",
+      "market": "a",
+      "areaCode": "cn",
+      "stockCode": "301261",
+      "fsTableType": "non_financial",
+      "ipoDate": "2023-07-10T00:00:00+08:00",
+      "listingStatus": "normally_listed",
+      "mutualMarkets": [
+        "ha"
+      ],
+      "mutualMarketFlag": true
+    },
+    {
+      "name": "海科新源",
+      "exchange": "sz",
+      "market": "a",
+      "areaCode": "cn",
+      "stockCode": "301292",
+      "fsTableType": "non_financial",
+      "ipoDate": "2023-07-07T00:00:00+08:00",
+      "listingStatus": "normally_listed",
+      "mutualMarkets": [
+        "ha"
+      ],
+      "mutualMarketFlag": true
+    },
+    {
+      "name": "致尚科技",
+      "exchange": "sz",
+      "market": "a",
+      "areaCode": "cn",
+      "stockCode": "301486",
+      "fsTableType": "non_financial",
+      "ipoDate": "2023-07-07T00:00:00+08:00",
+      "listingStatus": "normally_listed",
+      "mutualMarkets": [
+        "ha"
+      ],
+      "mutualMarketFlag": true
+    },
+    {
+      "name": "朗威股份",
+      "exchange": "sz",
+      "market": "a",
+      "areaCode": "cn",
+      "stockCode": "301202",
+      "fsTableType": "non_financial",
+      "ipoDate": "2023-07-05T00:00:00+08:00",
+      "listingStatus": "normally_listed",
+      "mutualMarkets": [
+        "ha"
+      ],
+      "mutualMarketFlag": true
+    },
+    {
+      "name": "豪恩汽电",
+      "exchange": "sz",
+      "market": "a",
+      "areaCode": "cn",
+      "stockCode": "301488",
+      "fsTableType": "non_financial",
+      "ipoDate": "2023-07-04T00:00:00+08:00",
+      "listingStatus": "normally_listed",
+      "mutualMarkets": [
+        "ha"
+      ],
+      "mutualMarketFlag": true
+    },
+    {
+      "name": "仁信新材",
+      "exchange": "sz",
+      "market": "a",
+      "areaCode": "cn",
+      "stockCode": "301395",
+      "fsTableType": "non_financial",
+      "ipoDate": "2023-07-03T00:00:00+08:00",
+      "listingStatus": "normally_listed",
+      "mutualMarketFlag": false
+    },
+    {
+      "name": "瑞星股份",
+      "market": "a",
+      "exchange": "bj",
+      "areaCode": "cn",
+      "stockCode": "920717",
+      "fsTableType": "non_financial",
+      "ipoDate": "2023-07-03T00:00:00+08:00",
+      "listingStatus": "normally_listed",
+      "mutualMarketFlag": false
+    },
+    {
+      "name": "明阳电气",
+      "exchange": "sz",
+      "market": "a",
+      "areaCode": "cn",
+      "stockCode": "301291",
+      "fsTableType": "non_financial",
+      "ipoDate": "2023-06-30T00:00:00+08:00",
+      "listingStatus": "normally_listed",
+      "mutualMarkets": [
+        "ha"
+      ],
+      "mutualMarketFlag": true
+    },
+    {
+      "name": "东方碳素",
+      "market": "a",
+      "exchange": "bj",
+      "areaCode": "cn",
+      "stockCode": "920175",
+      "fsTableType": "non_financial",
+      "ipoDate": "2023-06-30T00:00:00+08:00",
+      "listingStatus": "normally_listed",
+      "mutualMarketFlag": false
+    },
+    {
+      "name": "金杨精密",
+      "exchange": "sz",
+      "market": "a",
+      "areaCode": "cn",
+      "stockCode": "301210",
+      "fsTableType": "non_financial",
+      "ipoDate": "2023-06-30T00:00:00+08:00",
+      "listingStatus": "normally_listed",
+      "mutualMarkets": [
+        "ha"
+      ],
+      "mutualMarketFlag": true
+    },
+    {
+      "name": "芯动联科",
+      "exchange": "sh",
+      "market": "a",
+      "areaCode": "cn",
+      "stockCode": "688582",
+      "fsTableType": "non_financial",
+      "ipoDate": "2023-06-30T00:00:00+08:00",
+      "listingStatus": "normally_listed",
+      "mutualMarkets": [
+        "ha"
+      ],
+      "mutualMarketFlag": true
+    },
+    {
+      "name": "时创能源",
+      "exchange": "sh",
+      "market": "a",
+      "areaCode": "cn",
+      "stockCode": "688429",
+      "fsTableType": "non_financial",
+      "ipoDate": "2023-06-29T00:00:00+08:00",
+      "listingStatus": "normally_listed",
+      "mutualMarkets": [
+        "ha"
+      ],
+      "mutualMarketFlag": true
+    },
+    {
+      "name": "青矩技术",
+      "market": "a",
+      "exchange": "bj",
+      "areaCode": "cn",
+      "stockCode": "920208",
+      "fsTableType": "non_financial",
+      "ipoDate": "2023-06-29T00:00:00+08:00",
+      "listingStatus": "normally_listed",
+      "mutualMarketFlag": false
+    },
+    {
+      "name": "美硕科技",
+      "exchange": "sz",
+      "market": "a",
+      "areaCode": "cn",
+      "stockCode": "301295",
+      "fsTableType": "non_financial",
+      "ipoDate": "2023-06-28T00:00:00+08:00",
+      "listingStatus": "normally_listed",
+      "mutualMarketFlag": false
+    },
+    {
+      "name": "莱斯信息",
+      "exchange": "sh",
+      "market": "a",
+      "areaCode": "cn",
+      "stockCode": "688631",
+      "fsTableType": "non_financial",
+      "ipoDate": "2023-06-28T00:00:00+08:00",
+      "listingStatus": "normally_listed",
+      "mutualMarkets": [
+        "ha"
+      ],
+      "mutualMarketFlag": true
+    },
+    {
+      "name": "溯联股份",
+      "exchange": "sz",
+      "market": "a",
+      "areaCode": "cn",
+      "stockCode": "301397",
+      "fsTableType": "non_financial",
+      "ipoDate": "2023-06-28T00:00:00+08:00",
+      "listingStatus": "normally_listed",
+      "mutualMarkets": [
+        "ha"
+      ],
+      "mutualMarketFlag": true
+    },
+    {
+      "name": "广康生化",
+      "exchange": "sz",
+      "market": "a",
+      "areaCode": "cn",
+      "stockCode": "300804",
+      "fsTableType": "non_financial",
+      "ipoDate": "2023-06-27T00:00:00+08:00",
+      "listingStatus": "normally_listed",
+      "mutualMarketFlag": false
+    },
+    {
+      "name": "锡南科技",
+      "exchange": "sz",
+      "market": "a",
+      "areaCode": "cn",
+      "stockCode": "301170",
+      "fsTableType": "non_financial",
+      "ipoDate": "2023-06-27T00:00:00+08:00",
+      "listingStatus": "normally_listed",
+      "mutualMarketFlag": false
+    },
+    {
+      "name": "安凯微",
+      "exchange": "sh",
+      "market": "a",
+      "areaCode": "cn",
+      "stockCode": "688620",
+      "fsTableType": "non_financial",
+      "ipoDate": "2023-06-27T00:00:00+08:00",
+      "listingStatus": "normally_listed",
+      "mutualMarketFlag": false
+    },
+    {
+      "name": "天罡股份",
+      "market": "a",
+      "exchange": "bj",
+      "areaCode": "cn",
+      "stockCode": "920651",
+      "fsTableType": "non_financial",
+      "ipoDate": "2023-06-27T00:00:00+08:00",
+      "listingStatus": "normally_listed",
+      "mutualMarketFlag": false
+    },
+    {
+      "name": "华丰科技",
+      "exchange": "sh",
+      "market": "a",
+      "areaCode": "cn",
+      "stockCode": "688629",
+      "fsTableType": "non_financial",
+      "ipoDate": "2023-06-27T00:00:00+08:00",
+      "listingStatus": "normally_listed",
+      "mutualMarkets": [
+        "ha"
+      ],
+      "mutualMarketFlag": true
+    },
+    {
+      "name": "威士顿",
+      "exchange": "sz",
+      "market": "a",
+      "areaCode": "cn",
+      "stockCode": "301315",
+      "fsTableType": "non_financial",
+      "ipoDate": "2023-06-21T00:00:00+08:00",
+      "listingStatus": "normally_listed",
+      "mutualMarketFlag": false
+    },
+    {
+      "name": "汇隆活塞",
+      "market": "a",
+      "exchange": "bj",
+      "areaCode": "cn",
+      "stockCode": "920455",
+      "fsTableType": "non_financial",
+      "ipoDate": "2023-06-21T00:00:00+08:00",
+      "listingStatus": "normally_listed",
+      "mutualMarketFlag": false
+    },
+    {
+      "name": "国科军工",
+      "exchange": "sh",
+      "market": "a",
+      "areaCode": "cn",
+      "stockCode": "688543",
+      "fsTableType": "non_financial",
+      "ipoDate": "2023-06-21T00:00:00+08:00",
+      "listingStatus": "normally_listed",
+      "mutualMarkets": [
+        "ha"
+      ],
+      "mutualMarketFlag": true
+    },
+    {
+      "name": "致欧科技",
+      "exchange": "sz",
+      "market": "a",
+      "areaCode": "cn",
+      "stockCode": "301376",
+      "fsTableType": "non_financial",
+      "ipoDate": "2023-06-21T00:00:00+08:00",
+      "listingStatus": "normally_listed",
+      "mutualMarkets": [
+        "ha"
+      ],
+      "mutualMarketFlag": true
+    },
+    {
+      "name": "海看股份",
+      "exchange": "sz",
+      "market": "a",
+      "areaCode": "cn",
+      "stockCode": "301262",
+      "fsTableType": "non_financial",
+      "ipoDate": "2023-06-20T00:00:00+08:00",
+      "listingStatus": "normally_listed",
+      "mutualMarkets": [
+        "ha"
+      ],
+      "mutualMarketFlag": true
+    },
+    {
+      "name": "智翔金泰",
+      "exchange": "sh",
+      "market": "a",
+      "areaCode": "cn",
+      "stockCode": "688443",
+      "fsTableType": "non_financial",
+      "ipoDate": "2023-06-20T00:00:00+08:00",
+      "listingStatus": "normally_listed",
+      "mutualMarkets": [
+        "ha"
+      ],
+      "mutualMarketFlag": true
+    },
+    {
+      "name": "开创电气",
+      "exchange": "sz",
+      "market": "a",
+      "areaCode": "cn",
+      "stockCode": "301448",
+      "fsTableType": "non_financial",
+      "ipoDate": "2023-06-19T00:00:00+08:00",
+      "listingStatus": "normally_listed",
+      "mutualMarketFlag": false
+    },
+    {
+      "name": "西高院",
+      "exchange": "sh",
+      "market": "a",
+      "areaCode": "cn",
+      "stockCode": "688334",
+      "fsTableType": "non_financial",
+      "ipoDate": "2023-06-19T00:00:00+08:00",
+      "listingStatus": "normally_listed",
+      "mutualMarkets": [
+        "ha"
+      ],
+      "mutualMarketFlag": true
+    },
+    {
+      "name": "恒勃股份",
+      "exchange": "sz",
+      "market": "a",
+      "areaCode": "cn",
+      "stockCode": "301225",
+      "fsTableType": "non_financial",
+      "ipoDate": "2023-06-16T00:00:00+08:00",
+      "listingStatus": "normally_listed",
+      "mutualMarkets": [
+        "ha"
+      ],
+      "mutualMarketFlag": true
+    },
+    {
+      "name": "飞沃科技",
+      "exchange": "sz",
+      "market": "a",
+      "areaCode": "cn",
+      "stockCode": "301232",
+      "fsTableType": "non_financial",
+      "ipoDate": "2023-06-15T00:00:00+08:00",
+      "listingStatus": "normally_listed",
+      "mutualMarketFlag": false
+    },
+    {
+      "name": "康力源",
+      "exchange": "sz",
+      "market": "a",
+      "areaCode": "cn",
+      "stockCode": "301287",
+      "fsTableType": "non_financial",
+      "ipoDate": "2023-06-14T00:00:00+08:00",
+      "listingStatus": "normally_listed",
+      "mutualMarketFlag": false
+    },
+    {
+      "name": "南王科技",
+      "exchange": "sz",
+      "market": "a",
+      "areaCode": "cn",
+      "stockCode": "301355",
+      "fsTableType": "non_financial",
+      "ipoDate": "2023-06-12T00:00:00+08:00",
+      "listingStatus": "normally_listed",
+      "mutualMarketFlag": false
+    },
+    {
+      "name": "天键股份",
+      "exchange": "sz",
+      "market": "a",
+      "areaCode": "cn",
+      "stockCode": "301383",
+      "fsTableType": "non_financial",
+      "ipoDate": "2023-06-09T00:00:00+08:00",
+      "listingStatus": "normally_listed",
+      "mutualMarkets": [
+        "ha"
+      ],
+      "mutualMarketFlag": true
+    },
+    {
+      "name": "豪江智能",
+      "exchange": "sz",
+      "market": "a",
+      "areaCode": "cn",
+      "stockCode": "301320",
+      "fsTableType": "non_financial",
+      "ipoDate": "2023-06-09T00:00:00+08:00",
+      "listingStatus": "normally_listed",
+      "mutualMarketFlag": false
+    },
+    {
+      "name": "阿特斯",
+      "exchange": "sh",
+      "market": "a",
+      "areaCode": "cn",
+      "stockCode": "688472",
+      "fsTableType": "non_financial",
+      "ipoDate": "2023-06-09T00:00:00+08:00",
+      "listingStatus": "normally_listed",
+      "mutualMarkets": [
+        "ha"
+      ],
+      "mutualMarketFlag": true
+    },
+    {
+      "name": "双元科技",
+      "exchange": "sh",
+      "market": "a",
+      "areaCode": "cn",
+      "stockCode": "688623",
+      "fsTableType": "non_financial",
+      "ipoDate": "2023-06-08T00:00:00+08:00",
+      "listingStatus": "normally_listed",
+      "mutualMarketFlag": false
+    },
+    {
+      "name": "易实精密",
+      "market": "a",
+      "exchange": "bj",
+      "areaCode": "cn",
+      "stockCode": "920221",
+      "fsTableType": "non_financial",
+      "ipoDate": "2023-06-08T00:00:00+08:00",
+      "listingStatus": "normally_listed",
+      "mutualMarketFlag": false
+    },
+    {
+      "name": "新莱福",
+      "exchange": "sz",
+      "market": "a",
+      "areaCode": "cn",
+      "stockCode": "301323",
+      "fsTableType": "non_financial",
+      "ipoDate": "2023-06-06T00:00:00+08:00",
+      "listingStatus": "normally_listed",
+      "mutualMarkets": [
+        "ha"
+      ],
+      "mutualMarketFlag": true
+    },
+    {
+      "name": "西山科技",
+      "exchange": "sh",
+      "market": "a",
+      "areaCode": "cn",
+      "stockCode": "688576",
+      "fsTableType": "non_financial",
+      "ipoDate": "2023-06-06T00:00:00+08:00",
+      "listingStatus": "normally_listed",
+      "mutualMarketFlag": false
+    },
+    {
+      "name": "天玛智控",
+      "exchange": "sh",
+      "market": "a",
+      "areaCode": "cn",
+      "stockCode": "688570",
+      "fsTableType": "non_financial",
+      "ipoDate": "2023-06-05T00:00:00+08:00",
+      "listingStatus": "normally_listed",
+      "mutualMarkets": [
+        "ha"
+      ],
+      "mutualMarketFlag": true
+    },
+    {
+      "name": "鑫宏业",
+      "exchange": "sz",
+      "market": "a",
+      "areaCode": "cn",
+      "stockCode": "301310",
+      "fsTableType": "non_financial",
+      "ipoDate": "2023-06-02T00:00:00+08:00",
+      "listingStatus": "normally_listed",
+      "mutualMarkets": [
+        "ha"
+      ],
+      "mutualMarketFlag": true
+    },
+    {
+      "name": "航天环宇",
+      "exchange": "sh",
+      "market": "a",
+      "areaCode": "cn",
+      "stockCode": "688523",
+      "fsTableType": "non_financial",
+      "ipoDate": "2023-06-02T00:00:00+08:00",
+      "listingStatus": "normally_listed",
+      "mutualMarkets": [
+        "ha"
+      ],
+      "mutualMarketFlag": true
+    },
+    {
+      "name": "新相微",
+      "exchange": "sh",
+      "market": "a",
+      "areaCode": "cn",
+      "stockCode": "688593",
+      "fsTableType": "non_financial",
+      "ipoDate": "2023-06-01T00:00:00+08:00",
+      "listingStatus": "normally_listed",
+      "mutualMarkets": [
+        "ha"
+      ],
+      "mutualMarketFlag": true
+    },
+    {
+      "name": "翔腾新材",
+      "exchange": "sz",
+      "market": "a",
+      "areaCode": "cn",
+      "stockCode": "001373",
+      "fsTableType": "non_financial",
+      "ipoDate": "2023-06-01T00:00:00+08:00",
+      "listingStatus": "normally_listed",
+      "mutualMarketFlag": false
+    },
+    {
+      "name": "武汉蓝电",
+      "market": "a",
+      "exchange": "bj",
+      "areaCode": "cn",
+      "stockCode": "920779",
+      "fsTableType": "non_financial",
+      "ipoDate": "2023-06-01T00:00:00+08:00",
+      "listingStatus": "normally_listed",
+      "mutualMarketFlag": false
+    },
+    {
+      "name": "星昊医药",
+      "market": "a",
+      "exchange": "bj",
+      "areaCode": "cn",
+      "stockCode": "920017",
+      "fsTableType": "non_financial",
+      "ipoDate": "2023-05-31T00:00:00+08:00",
+      "listingStatus": "normally_listed",
+      "mutualMarketFlag": false
+    },
+    {
+      "name": "普莱得",
+      "exchange": "sz",
+      "market": "a",
+      "areaCode": "cn",
+      "stockCode": "301353",
+      "fsTableType": "non_financial",
+      "ipoDate": "2023-05-30T00:00:00+08:00",
+      "listingStatus": "normally_listed",
+      "mutualMarketFlag": false
+    },
+    {
+      "name": "亚华电子",
+      "exchange": "sz",
+      "market": "a",
+      "areaCode": "cn",
+      "stockCode": "301337",
+      "fsTableType": "non_financial",
+      "ipoDate": "2023-05-26T00:00:00+08:00",
+      "listingStatus": "normally_listed",
+      "mutualMarketFlag": false
+    },
+    {
+      "name": "宁新新材",
+      "market": "a",
+      "exchange": "bj",
+      "areaCode": "cn",
+      "stockCode": "920719",
+      "fsTableType": "non_financial",
+      "ipoDate": "2023-05-26T00:00:00+08:00",
+      "listingStatus": "normally_listed",
+      "mutualMarketFlag": false
+    },
+    {
+      "name": "同星科技",
+      "exchange": "sz",
+      "market": "a",
+      "areaCode": "cn",
+      "stockCode": "301252",
+      "fsTableType": "non_financial",
+      "ipoDate": "2023-05-25T00:00:00+08:00",
+      "listingStatus": "normally_listed",
+      "mutualMarketFlag": false
+    },
+    {
+      "name": "美邦科技",
+      "market": "a",
+      "exchange": "bj",
+      "areaCode": "cn",
+      "stockCode": "920471",
+      "fsTableType": "non_financial",
+      "ipoDate": "2023-05-25T00:00:00+08:00",
+      "listingStatus": "normally_listed",
+      "mutualMarketFlag": false
+    },
+    {
+      "name": "航天软件",
+      "exchange": "sh",
+      "market": "a",
+      "areaCode": "cn",
+      "stockCode": "688562",
+      "fsTableType": "non_financial",
+      "ipoDate": "2023-05-24T00:00:00+08:00",
+      "listingStatus": "normally_listed",
+      "mutualMarkets": [
+        "ha"
+      ],
+      "mutualMarketFlag": true
+    },
+    {
+      "name": "三联锻造",
+      "exchange": "sz",
+      "market": "a",
+      "areaCode": "cn",
+      "stockCode": "001282",
+      "fsTableType": "non_financial",
+      "ipoDate": "2023-05-24T00:00:00+08:00",
+      "listingStatus": "normally_listed",
+      "mutualMarketFlag": false
+    },
+    {
+      "name": "英特科技",
+      "exchange": "sz",
+      "market": "a",
+      "areaCode": "cn",
+      "stockCode": "301399",
+      "fsTableType": "non_financial",
+      "ipoDate": "2023-05-23T00:00:00+08:00",
+      "listingStatus": "normally_listed",
+      "mutualMarketFlag": false
+    },
+    {
+      "name": "朗坤科技",
+      "exchange": "sz",
+      "market": "a",
+      "areaCode": "cn",
+      "stockCode": "301305",
+      "fsTableType": "non_financial",
+      "ipoDate": "2023-05-23T00:00:00+08:00",
+      "listingStatus": "normally_listed",
+      "mutualMarkets": [
+        "ha"
+      ],
+      "mutualMarketFlag": true
+    },
+    {
+      "name": "美芯晟",
+      "exchange": "sh",
+      "market": "a",
+      "areaCode": "cn",
+      "stockCode": "688458",
+      "fsTableType": "non_financial",
+      "ipoDate": "2023-05-22T00:00:00+08:00",
+      "listingStatus": "normally_listed",
+      "mutualMarketFlag": false
+    },
+    {
+      "name": "长青科技",
+      "exchange": "sz",
+      "market": "a",
+      "areaCode": "cn",
+      "stockCode": "001324",
+      "fsTableType": "non_financial",
+      "ipoDate": "2023-05-22T00:00:00+08:00",
+      "listingStatus": "normally_listed",
+      "mutualMarketFlag": false
+    },
+    {
+      "name": "世纪恒通",
+      "exchange": "sz",
+      "market": "a",
+      "areaCode": "cn",
+      "stockCode": "301428",
+      "fsTableType": "non_financial",
+      "ipoDate": "2023-05-19T00:00:00+08:00",
+      "listingStatus": "normally_listed",
+      "mutualMarketFlag": false
+    },
+    {
+      "name": "中科飞测",
+      "exchange": "sh",
+      "market": "a",
+      "areaCode": "cn",
+      "stockCode": "688361",
+      "fsTableType": "non_financial",
+      "ipoDate": "2023-05-19T00:00:00+08:00",
+      "listingStatus": "normally_listed",
+      "mutualMarkets": [
+        "ha"
+      ],
+      "mutualMarketFlag": true
+    },
+    {
+      "name": "安杰思",
+      "exchange": "sh",
+      "market": "a",
+      "areaCode": "cn",
+      "stockCode": "688581",
+      "fsTableType": "non_financial",
+      "ipoDate": "2023-05-19T00:00:00+08:00",
+      "listingStatus": "normally_listed",
+      "mutualMarkets": [
+        "ha"
+      ],
+      "mutualMarketFlag": true
+    },
+    {
+      "name": "德尔玛",
+      "exchange": "sz",
+      "market": "a",
+      "areaCode": "cn",
+      "stockCode": "301332",
+      "fsTableType": "non_financial",
+      "ipoDate": "2023-05-18T00:00:00+08:00",
+      "listingStatus": "normally_listed",
+      "mutualMarkets": [
+        "ha"
+      ],
+      "mutualMarketFlag": true
+    },
+    {
+      "name": "晟楠科技",
+      "market": "a",
+      "exchange": "bj",
+      "areaCode": "cn",
+      "stockCode": "920006",
+      "fsTableType": "non_financial",
+      "ipoDate": "2023-05-18T00:00:00+08:00",
+      "listingStatus": "normally_listed",
+      "mutualMarketFlag": false
+    },
+    {
+      "name": "航天南湖",
+      "exchange": "sh",
+      "market": "a",
+      "areaCode": "cn",
+      "stockCode": "688552",
+      "fsTableType": "non_financial",
+      "ipoDate": "2023-05-18T00:00:00+08:00",
+      "listingStatus": "normally_listed",
+      "mutualMarkets": [
+        "ha"
+      ],
+      "mutualMarketFlag": true
+    },
+    {
+      "name": "蜂助手",
+      "exchange": "sz",
+      "market": "a",
+      "areaCode": "cn",
+      "stockCode": "301382",
+      "fsTableType": "non_financial",
+      "ipoDate": "2023-05-17T00:00:00+08:00",
+      "listingStatus": "normally_listed",
+      "mutualMarkets": [
+        "ha"
+      ],
+      "mutualMarketFlag": true
+    },
+    {
+      "name": "华纬科技",
+      "exchange": "sz",
+      "market": "a",
+      "areaCode": "cn",
+      "stockCode": "001380",
+      "fsTableType": "non_financial",
+      "ipoDate": "2023-05-16T00:00:00+08:00",
+      "listingStatus": "normally_listed",
+      "mutualMarkets": [
+        "ha"
+      ],
+      "mutualMarketFlag": true
+    },
+    {
+      "name": "慧智微",
+      "exchange": "sh",
+      "market": "a",
+      "areaCode": "cn",
+      "stockCode": "688512",
+      "fsTableType": "non_financial",
+      "ipoDate": "2023-05-16T00:00:00+08:00",
+      "listingStatus": "normally_listed",
+      "mutualMarkets": [
+        "ha"
+      ],
+      "mutualMarketFlag": true
+    },
+    {
+      "name": "华原股份",
+      "market": "a",
+      "exchange": "bj",
+      "areaCode": "cn",
+      "stockCode": "920837",
+      "fsTableType": "non_financial",
+      "ipoDate": "2023-05-15T00:00:00+08:00",
+      "listingStatus": "normally_listed",
+      "mutualMarketFlag": false
+    },
+    {
+      "name": "曼恩斯特",
+      "exchange": "sz",
+      "market": "a",
+      "areaCode": "cn",
+      "stockCode": "301325",
+      "fsTableType": "non_financial",
+      "ipoDate": "2023-05-12T00:00:00+08:00",
+      "listingStatus": "normally_listed",
+      "mutualMarkets": [
+        "ha"
+      ],
+      "mutualMarketFlag": true
+    },
+    {
+      "name": "巨能股份",
+      "market": "a",
+      "exchange": "bj",
+      "areaCode": "cn",
+      "stockCode": "920578",
+      "fsTableType": "non_financial",
+      "ipoDate": "2023-05-12T00:00:00+08:00",
+      "listingStatus": "normally_listed",
+      "mutualMarketFlag": false
+    },
+    {
+      "name": "友车科技",
+      "exchange": "sh",
+      "market": "a",
+      "areaCode": "cn",
+      "stockCode": "688479",
+      "fsTableType": "non_financial",
+      "ipoDate": "2023-05-11T00:00:00+08:00",
+      "listingStatus": "normally_listed",
+      "mutualMarketFlag": false
+    },
+    {
+      "name": "芯联集成",
+      "exchange": "sh",
+      "market": "a",
+      "areaCode": "cn",
+      "stockCode": "688469",
+      "fsTableType": "non_financial",
+      "ipoDate": "2023-05-10T00:00:00+08:00",
+      "listingStatus": "normally_listed",
+      "mutualMarkets": [
+        "ha"
+      ],
+      "mutualMarketFlag": true
+    },
+    {
+      "name": "万丰股份",
+      "exchange": "sh",
+      "market": "a",
+      "areaCode": "cn",
+      "stockCode": "603172",
+      "fsTableType": "non_financial",
+      "ipoDate": "2023-05-10T00:00:00+08:00",
+      "listingStatus": "normally_listed",
+      "mutualMarketFlag": false
+    },
+    {
+      "name": "海达尔",
+      "market": "a",
+      "exchange": "bj",
+      "areaCode": "cn",
+      "stockCode": "920699",
+      "fsTableType": "non_financial",
+      "ipoDate": "2023-05-09T00:00:00+08:00",
+      "listingStatus": "normally_listed",
+      "mutualMarketFlag": false
+    },
+    {
+      "name": "经纬股份",
+      "exchange": "sz",
+      "market": "a",
+      "areaCode": "cn",
+      "stockCode": "301390",
+      "fsTableType": "non_financial",
+      "ipoDate": "2023-05-08T00:00:00+08:00",
+      "listingStatus": "normally_listed",
+      "mutualMarketFlag": false
+    },
+    {
+      "name": "三博脑科",
+      "exchange": "sz",
+      "market": "a",
+      "areaCode": "cn",
+      "stockCode": "301293",
+      "fsTableType": "non_financial",
+      "ipoDate": "2023-05-05T00:00:00+08:00",
+      "listingStatus": "normally_listed",
+      "mutualMarkets": [
+        "ha"
+      ],
+      "mutualMarketFlag": true
+    },
+    {
+      "name": "晶合集成",
+      "exchange": "sh",
+      "market": "a",
+      "areaCode": "cn",
+      "stockCode": "688249",
+      "fsTableType": "non_financial",
+      "ipoDate": "2023-05-05T00:00:00+08:00",
+      "listingStatus": "normally_listed",
+      "mutualMarkets": [
+        "ha"
+      ],
+      "mutualMarketFlag": true
+    },
+    {
+      "name": "荣旗科技",
+      "exchange": "sz",
+      "market": "a",
+      "areaCode": "cn",
+      "stockCode": "301360",
+      "fsTableType": "non_financial",
+      "ipoDate": "2023-04-25T00:00:00+08:00",
+      "listingStatus": "normally_listed",
+      "mutualMarketFlag": false
+    },
+    {
+      "name": "民士达",
+      "market": "a",
+      "exchange": "bj",
+      "areaCode": "cn",
+      "stockCode": "920394",
+      "fsTableType": "non_financial",
+      "ipoDate": "2023-04-25T00:00:00+08:00",
+      "listingStatus": "normally_listed",
+      "mutualMarketFlag": false
+    },
+    {
+      "name": "晶升股份",
+      "exchange": "sh",
+      "market": "a",
+      "areaCode": "cn",
+      "stockCode": "688478",
+      "fsTableType": "non_financial",
+      "ipoDate": "2023-04-24T00:00:00+08:00",
+      "listingStatus": "normally_listed",
+      "mutualMarketFlag": false
+    },
+    {
+      "name": "美利信",
+      "exchange": "sz",
+      "market": "a",
+      "areaCode": "cn",
+      "stockCode": "301307",
+      "fsTableType": "non_financial",
+      "ipoDate": "2023-04-24T00:00:00+08:00",
+      "listingStatus": "normally_listed",
+      "mutualMarkets": [
+        "ha"
+      ],
+      "mutualMarketFlag": true
+    },
+    {
+      "name": "中裕科技",
+      "market": "a",
+      "exchange": "bj",
+      "areaCode": "cn",
+      "stockCode": "920694",
+      "fsTableType": "non_financial",
+      "ipoDate": "2023-04-24T00:00:00+08:00",
+      "listingStatus": "normally_listed",
+      "mutualMarketFlag": false
+    },
+    {
+      "name": "中船特气",
+      "exchange": "sh",
+      "market": "a",
+      "areaCode": "cn",
+      "stockCode": "688146",
+      "fsTableType": "non_financial",
+      "ipoDate": "2023-04-21T00:00:00+08:00",
+      "listingStatus": "normally_listed",
+      "mutualMarkets": [
+        "ha"
+      ],
+      "mutualMarketFlag": true
+    },
+    {
+      "name": "颀中科技",
+      "exchange": "sh",
+      "market": "a",
+      "areaCode": "cn",
+      "stockCode": "688352",
+      "fsTableType": "non_financial",
+      "ipoDate": "2023-04-20T00:00:00+08:00",
+      "listingStatus": "normally_listed",
+      "mutualMarkets": [
+        "ha"
+      ],
+      "mutualMarketFlag": true
+    },
+    {
+      "name": "旺成科技",
+      "market": "a",
+      "exchange": "bj",
+      "areaCode": "cn",
+      "stockCode": "920896",
+      "fsTableType": "non_financial",
+      "ipoDate": "2023-04-19T00:00:00+08:00",
+      "listingStatus": "normally_listed",
+      "mutualMarketFlag": false
+    },
+    {
+      "name": "恒尚节能",
+      "exchange": "sh",
+      "market": "a",
+      "areaCode": "cn",
+      "stockCode": "603137",
+      "fsTableType": "non_financial",
+      "ipoDate": "2023-04-19T00:00:00+08:00",
+      "listingStatus": "normally_listed",
+      "mutualMarketFlag": false
+    },
+    {
+      "name": "光大同创",
+      "exchange": "sz",
+      "market": "a",
+      "areaCode": "cn",
+      "stockCode": "301387",
+      "fsTableType": "non_financial",
+      "ipoDate": "2023-04-18T00:00:00+08:00",
+      "listingStatus": "normally_listed",
+      "mutualMarketFlag": false
+    },
+    {
+      "name": "北方长龙",
+      "exchange": "sz",
+      "market": "a",
+      "areaCode": "cn",
+      "stockCode": "301357",
+      "fsTableType": "non_financial",
+      "ipoDate": "2023-04-18T00:00:00+08:00",
+      "listingStatus": "normally_listed",
+      "mutualMarkets": [
+        "ha"
+      ],
+      "mutualMarketFlag": true
+    },
+    {
+      "name": "索辰科技",
+      "exchange": "sh",
+      "market": "a",
+      "areaCode": "cn",
+      "stockCode": "688507",
+      "fsTableType": "non_financial",
+      "ipoDate": "2023-04-18T00:00:00+08:00",
+      "listingStatus": "normally_listed",
+      "mutualMarkets": [
+        "ha"
+      ],
+      "mutualMarketFlag": true
+    },
+    {
+      "name": "高华科技",
+      "exchange": "sh",
+      "market": "a",
+      "areaCode": "cn",
+      "stockCode": "688539",
+      "fsTableType": "non_financial",
+      "ipoDate": "2023-04-18T00:00:00+08:00",
+      "listingStatus": "normally_listed",
+      "mutualMarkets": [
+        "ha"
+      ],
+      "mutualMarketFlag": true
+    },
+    {
+      "name": "迪尔化工",
+      "market": "a",
+      "exchange": "bj",
+      "areaCode": "cn",
+      "stockCode": "920304",
+      "fsTableType": "non_financial",
+      "ipoDate": "2023-04-18T00:00:00+08:00",
+      "listingStatus": "normally_listed",
+      "mutualMarketFlag": false
+    },
+    {
+      "name": "华曙高科",
+      "exchange": "sh",
+      "market": "a",
+      "areaCode": "cn",
+      "stockCode": "688433",
+      "fsTableType": "non_financial",
+      "ipoDate": "2023-04-17T00:00:00+08:00",
+      "listingStatus": "normally_listed",
+      "mutualMarkets": [
+        "ha"
+      ],
+      "mutualMarketFlag": true
+    },
+    {
+      "name": "森泰股份",
+      "exchange": "sz",
+      "market": "a",
+      "areaCode": "cn",
+      "stockCode": "301429",
+      "fsTableType": "non_financial",
+      "ipoDate": "2023-04-17T00:00:00+08:00",
+      "listingStatus": "normally_listed",
+      "mutualMarketFlag": false
+    },
+    {
+      "name": "鼎智科技",
+      "market": "a",
+      "exchange": "bj",
+      "areaCode": "cn",
+      "stockCode": "920593",
+      "fsTableType": "non_financial",
+      "ipoDate": "2023-04-13T00:00:00+08:00",
+      "listingStatus": "normally_listed",
+      "mutualMarketFlag": false
+    },
+    {
+      "name": "南矿集团",
+      "exchange": "sz",
+      "market": "a",
+      "areaCode": "cn",
+      "stockCode": "001360",
+      "fsTableType": "non_financial",
+      "ipoDate": "2023-04-10T00:00:00+08:00",
+      "listingStatus": "normally_listed",
+      "mutualMarketFlag": false
+    },
+    {
+      "name": "中信金属",
+      "exchange": "sh",
+      "market": "a",
+      "areaCode": "cn",
+      "stockCode": "601061",
+      "fsTableType": "non_financial",
+      "ipoDate": "2023-04-10T00:00:00+08:00",
+      "listingStatus": "normally_listed",
+      "mutualMarkets": [
+        "ha"
+      ],
+      "mutualMarketFlag": true
+    },
+    {
+      "name": "江盐集团",
+      "exchange": "sh",
+      "market": "a",
+      "areaCode": "cn",
+      "stockCode": "601065",
+      "fsTableType": "non_financial",
+      "ipoDate": "2023-04-10T00:00:00+08:00",
+      "listingStatus": "normally_listed",
+      "mutualMarkets": [
+        "ha"
+      ],
+      "mutualMarketFlag": true
+    },
+    {
+      "name": "柏诚股份",
+      "exchange": "sh",
+      "market": "a",
+      "areaCode": "cn",
+      "stockCode": "601133",
+      "fsTableType": "non_financial",
+      "ipoDate": "2023-04-10T00:00:00+08:00",
+      "listingStatus": "normally_listed",
+      "mutualMarkets": [
+        "ha"
+      ],
+      "mutualMarketFlag": true
+    },
+    {
+      "name": "登康口腔",
+      "exchange": "sz",
+      "market": "a",
+      "areaCode": "cn",
+      "stockCode": "001328",
+      "fsTableType": "non_financial",
+      "ipoDate": "2023-04-10T00:00:00+08:00",
+      "listingStatus": "normally_listed",
+      "mutualMarkets": [
+        "ha"
+      ],
+      "mutualMarketFlag": true
+    },
+    {
+      "name": "海森药业",
+      "exchange": "sz",
+      "market": "a",
+      "areaCode": "cn",
+      "stockCode": "001367",
+      "fsTableType": "non_financial",
+      "ipoDate": "2023-04-10T00:00:00+08:00",
+      "listingStatus": "normally_listed",
+      "mutualMarketFlag": false
+    },
+    {
+      "name": "中电港",
+      "exchange": "sz",
+      "market": "a",
+      "areaCode": "cn",
+      "stockCode": "001287",
+      "fsTableType": "non_financial",
+      "ipoDate": "2023-04-10T00:00:00+08:00",
+      "listingStatus": "normally_listed",
+      "mutualMarkets": [
+        "ha"
+      ],
+      "mutualMarketFlag": true
+    },
+    {
+      "name": "陕西能源",
+      "exchange": "sz",
+      "market": "a",
+      "areaCode": "cn",
+      "stockCode": "001286",
+      "fsTableType": "non_financial",
+      "ipoDate": "2023-04-10T00:00:00+08:00",
+      "listingStatus": "normally_listed",
+      "mutualMarkets": [
+        "ha"
+      ],
+      "mutualMarketFlag": true
+    },
+    {
+      "name": "中重科技",
+      "exchange": "sh",
+      "market": "a",
+      "areaCode": "cn",
+      "stockCode": "603135",
+      "fsTableType": "non_financial",
+      "ipoDate": "2023-04-10T00:00:00+08:00",
+      "listingStatus": "normally_listed",
+      "mutualMarkets": [
+        "ha"
+      ],
+      "mutualMarketFlag": true
+    },
+    {
+      "name": "常青科技",
+      "exchange": "sh",
+      "market": "a",
+      "areaCode": "cn",
+      "stockCode": "603125",
+      "fsTableType": "non_financial",
+      "ipoDate": "2023-04-10T00:00:00+08:00",
+      "listingStatus": "normally_listed",
+      "mutualMarkets": [
+        "ha"
+      ],
+      "mutualMarketFlag": true
+    },
+    {
+      "name": "南芯科技",
+      "exchange": "sh",
+      "market": "a",
+      "areaCode": "cn",
+      "stockCode": "688484",
+      "fsTableType": "non_financial",
+      "ipoDate": "2023-04-07T00:00:00+08:00",
+      "listingStatus": "normally_listed",
+      "mutualMarkets": [
+        "ha"
+      ],
+      "mutualMarketFlag": true
+    },
+    {
+      "name": "花溪科技",
+      "market": "a",
+      "exchange": "bj",
+      "areaCode": "cn",
+      "stockCode": "920895",
+      "fsTableType": "non_financial",
+      "ipoDate": "2023-04-06T00:00:00+08:00",
+      "listingStatus": "normally_listed",
+      "mutualMarketFlag": false
+    },
+    {
+      "name": "华海诚科",
+      "exchange": "sh",
+      "market": "a",
+      "areaCode": "cn",
+      "stockCode": "688535",
+      "fsTableType": "non_financial",
+      "ipoDate": "2023-04-04T00:00:00+08:00",
+      "listingStatus": "normally_listed",
+      "mutualMarkets": [
+        "ha"
+      ],
+      "mutualMarketFlag": true
+    },
+    {
+      "name": "科源制药",
+      "exchange": "sz",
+      "market": "a",
+      "areaCode": "cn",
+      "stockCode": "301281",
+      "fsTableType": "non_financial",
+      "ipoDate": "2023-04-04T00:00:00+08:00",
+      "listingStatus": "normally_listed",
+      "mutualMarketFlag": false
+    },
+    {
+      "name": "云天励飞",
+      "exchange": "sh",
+      "market": "a",
+      "areaCode": "cn",
+      "stockCode": "688343",
+      "fsTableType": "non_financial",
+      "ipoDate": "2023-04-04T00:00:00+08:00",
+      "listingStatus": "normally_listed",
+      "mutualMarkets": [
+        "ha"
+      ],
+      "mutualMarketFlag": true
+    },
+    {
+      "name": "国泰环保",
+      "exchange": "sz",
+      "market": "a",
+      "areaCode": "cn",
+      "stockCode": "301203",
+      "fsTableType": "non_financial",
+      "ipoDate": "2023-04-04T00:00:00+08:00",
+      "listingStatus": "normally_listed",
+      "mutualMarketFlag": false
+    },
+    {
+      "name": "一诺威",
+      "market": "a",
+      "exchange": "bj",
+      "areaCode": "cn",
+      "stockCode": "920261",
+      "fsTableType": "non_financial",
+      "ipoDate": "2023-04-03T00:00:00+08:00",
+      "listingStatus": "normally_listed",
+      "mutualMarketFlag": false
+    },
+    {
+      "name": "中科磁业",
+      "exchange": "sz",
+      "market": "a",
+      "areaCode": "cn",
+      "stockCode": "301141",
+      "fsTableType": "non_financial",
+      "ipoDate": "2023-04-03T00:00:00+08:00",
+      "listingStatus": "normally_listed",
+      "mutualMarkets": [
+        "ha"
+      ],
+      "mutualMarketFlag": true
+    },
+    {
+      "name": "日联科技",
+      "exchange": "sh",
+      "market": "a",
+      "areaCode": "cn",
+      "stockCode": "688531",
+      "fsTableType": "non_financial",
+      "ipoDate": "2023-03-31T00:00:00+08:00",
+      "listingStatus": "normally_listed",
+      "mutualMarkets": [
+        "ha"
+      ],
+      "mutualMarketFlag": true
+    },
+    {
+      "name": "东和新材",
+      "market": "a",
+      "exchange": "bj",
+      "areaCode": "cn",
+      "stockCode": "920792",
+      "fsTableType": "non_financial",
+      "ipoDate": "2023-03-30T00:00:00+08:00",
+      "listingStatus": "normally_listed",
+      "mutualMarketFlag": false
+    },
+    {
+      "name": "未来电器",
+      "exchange": "sz",
+      "market": "a",
+      "areaCode": "cn",
+      "stockCode": "301386",
+      "fsTableType": "non_financial",
+      "ipoDate": "2023-03-29T00:00:00+08:00",
+      "listingStatus": "normally_listed",
+      "mutualMarketFlag": false
+    },
+    {
+      "name": "苏能股份",
+      "exchange": "sh",
+      "market": "a",
+      "areaCode": "cn",
+      "stockCode": "600925",
+      "fsTableType": "non_financial",
+      "ipoDate": "2023-03-29T00:00:00+08:00",
+      "listingStatus": "normally_listed",
+      "mutualMarkets": [
+        "ha"
+      ],
+      "mutualMarketFlag": true
+    },
+    {
+      "name": "海通发展",
+      "exchange": "sh",
+      "market": "a",
+      "areaCode": "cn",
+      "stockCode": "603162",
+      "fsTableType": "non_financial",
+      "ipoDate": "2023-03-29T00:00:00+08:00",
+      "listingStatus": "normally_listed",
+      "mutualMarkets": [
+        "ha"
+      ],
+      "mutualMarketFlag": true
+    },
+    {
+      "name": "科瑞思",
+      "exchange": "sz",
+      "market": "a",
+      "areaCode": "cn",
+      "stockCode": "301314",
+      "fsTableType": "non_financial",
+      "ipoDate": "2023-03-28T00:00:00+08:00",
+      "listingStatus": "normally_listed",
+      "mutualMarketFlag": false
+    },
+    {
+      "name": "联合水务",
+      "exchange": "sh",
+      "market": "a",
+      "areaCode": "cn",
+      "stockCode": "603291",
+      "fsTableType": "non_financial",
+      "ipoDate": "2023-03-27T00:00:00+08:00",
+      "listingStatus": "normally_listed",
+      "mutualMarkets": [
+        "ha"
+      ],
+      "mutualMarketFlag": true
+    },
+    {
+      "name": "安达科技",
+      "market": "a",
+      "exchange": "bj",
+      "areaCode": "cn",
+      "stockCode": "920809",
+      "fsTableType": "non_financial",
+      "ipoDate": "2023-03-23T00:00:00+08:00",
+      "listingStatus": "normally_listed",
+      "mutualMarketFlag": false
+    },
+    {
+      "name": "宿迁联盛",
+      "exchange": "sh",
+      "market": "a",
+      "areaCode": "cn",
+      "stockCode": "603065",
+      "fsTableType": "non_financial",
+      "ipoDate": "2023-03-21T00:00:00+08:00",
+      "listingStatus": "normally_listed",
+      "mutualMarketFlag": false
+    },
+    {
+      "name": "涛涛车业",
+      "exchange": "sz",
+      "market": "a",
+      "areaCode": "cn",
+      "stockCode": "301345",
+      "fsTableType": "non_financial",
+      "ipoDate": "2023-03-21T00:00:00+08:00",
+      "listingStatus": "normally_listed",
+      "mutualMarkets": [
+        "ha"
+      ],
+      "mutualMarketFlag": true
+    },
+    {
+      "name": "宏源药业",
+      "exchange": "sz",
+      "market": "a",
+      "areaCode": "cn",
+      "stockCode": "301246",
+      "fsTableType": "non_financial",
+      "ipoDate": "2023-03-20T00:00:00+08:00",
+      "listingStatus": "normally_listed",
+      "mutualMarkets": [
+        "ha"
+      ],
+      "mutualMarketFlag": true
+    },
+    {
+      "name": "通达海",
+      "exchange": "sz",
+      "market": "a",
+      "areaCode": "cn",
+      "stockCode": "301378",
+      "fsTableType": "non_financial",
+      "ipoDate": "2023-03-20T00:00:00+08:00",
+      "listingStatus": "normally_listed",
+      "mutualMarketFlag": false
+    },
+    {
+      "name": "雅达股份",
+      "market": "a",
+      "exchange": "bj",
+      "areaCode": "cn",
+      "stockCode": "920556",
+      "fsTableType": "non_financial",
+      "ipoDate": "2023-03-17T00:00:00+08:00",
+      "listingStatus": "normally_listed",
+      "mutualMarketFlag": false
+    },
+    {
+      "name": "泓淋电力",
+      "exchange": "sz",
+      "market": "a",
+      "areaCode": "cn",
+      "stockCode": "301439",
+      "fsTableType": "non_financial",
+      "ipoDate": "2023-03-17T00:00:00+08:00",
+      "listingStatus": "normally_listed",
+      "mutualMarkets": [
+        "ha"
+      ],
+      "mutualMarketFlag": true
+    },
+    {
+      "name": "彩蝶实业",
+      "exchange": "sh",
+      "market": "a",
+      "areaCode": "cn",
+      "stockCode": "603073",
+      "fsTableType": "non_financial",
+      "ipoDate": "2023-03-16T00:00:00+08:00",
+      "listingStatus": "normally_listed",
+      "mutualMarketFlag": false
+    },
+    {
+      "name": "亚光股份",
+      "exchange": "sh",
+      "market": "a",
+      "areaCode": "cn",
+      "stockCode": "603282",
+      "fsTableType": "non_financial",
+      "ipoDate": "2023-03-15T00:00:00+08:00",
+      "listingStatus": "normally_listed",
+      "mutualMarketFlag": false
+    }
+  ]
+}
