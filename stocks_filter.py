@@ -198,7 +198,7 @@ def get_market_cap_batch(stocks_batch: List[Dict[str, Any]], token: str) -> Dict
 
     return market_caps
 
-def filter_stocks_by_market_cap(stocks: List[Dict[str, Any]], token: str, min_market_cap: float = 30.0) -> List[Dict[str, Any]]:
+def filter_stocks_by_market_cap(stocks: List[Dict[str, Any]], token: str, min_market_cap: float = 50.0) -> List[Dict[str, Any]]:
     """筛选市值大于指定值的股票（单位：亿元）"""
     filtered_stocks = []
 
@@ -275,9 +275,21 @@ def main():
         print("❌ 未能获取到主板股票数据，程序终止")
         return
 
-    # 步骤2: 筛选市值大于30亿的股票
-    print(f"\n💰 步骤2: 筛选市值 ≥ 30 亿元的股票...")
-    filtered_stocks = filter_stocks_by_market_cap(all_stocks, token, min_market_cap=30.0)
+    # 步骤2: 筛选市值大于指定值的股票
+    print(f"\n💰 步骤2: 筛选市值")
+    # 获取用户输入的最小市值（单位：亿元）
+    while True:
+        try:
+            min_market_cap_input = input("请输入最小市值（单位：亿元，例如：30）: ")
+            min_market_cap = float(min_market_cap_input)
+            if min_market_cap <= 0:
+                print("❌ 最小市值必须大于0，请重新输入")
+                continue
+            break
+        except ValueError:
+            print("❌ 输入无效，请输入数字（例如：30、50、100）")
+
+    filtered_stocks = filter_stocks_by_market_cap(all_stocks, token, min_market_cap=min_market_cap)
 
     # 步骤3: 保存结果
     print(f"\n💾 步骤3: 保存筛选结果...")
@@ -288,15 +300,9 @@ def main():
     print("📊 统计信息")
     print("=" * 50)
     print(f"总主板股票数: {len(all_stocks)}")
-    print(f"市值 ≥ 30 亿元的股票数: {len(filtered_stocks)}")
+    print(f"市值 ≥ {min_market_cap} 亿元的股票数: {len(filtered_stocks)}")
     print(f"占比: {len(filtered_stocks)/len(all_stocks)*100:.1f}%")
 
-    # 按市值排序显示前10名
-    if filtered_stocks:
-        sorted_stocks = sorted(filtered_stocks, key=lambda x: x["marketCap"], reverse=True)
-        print(f"\n🏆 市值前10名:")
-        for i, stock in enumerate(sorted_stocks[:10], 1):
-            print(f"{i:2d}. {stock['stockCode']} {stock['name']}: {stock['marketCap']:.2f} 亿元")
-
+   
 if __name__ == "__main__":
     main()
