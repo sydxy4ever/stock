@@ -2,123 +2,167 @@ import pandas as pd
 import requests
 import time
 import os
+from bisect import bisect_left
 
-# --- 核心配置 ---
-TOKEN = os.getenv("LIXINGER_TOKEN") 
-TR_API_URL = "https://open.lixinger.com/api/cn/company/hot/tr"
-CANDLE_API_URL = "https://open.lixinger.com/api/cn/company/candlestick"
+# --- 基础配置 ---
+TOKEN = os.getenv("LIXINGER_TOKEN")
 INPUT_FILE = "china_main_board_market_cap_filtered.csv"
-OUTPUT_FILE = "900_groups_full_samples.csv"
+CALENDAR_FILE = "trade_calendar.csv"
+CANDLE_API_URL = "https://open.lixinger.com/api/cn/company/candlestick"
+OUTPUT_DIR = "output"
 
-def rate_limit(interval=0.2):
-    time.sleep(interval)
+# 确保输出目录存在
+if not os.path.exists(OUTPUT_DIR):
+    os.makedirs(OUTPUT_DIR)
 
-def fetch_market_liquidity(stock_codes):
-    amounts = {}
-    print(f"正在获取 {len(stock_codes)} 只股票的实时成交额数据...")
-    for i in range(0, len(stock_codes), 100):
-        batch = stock_codes[i:i+100]
-        try:
-            rate_limit(0.3)
-            resp = requests.post(TR_API_URL, json={"token": TOKEN, "stockCodes": batch}).json()
-            if resp.get("code") == 1:
-                for item in resp['data']:
-                    amounts[item['stockCode']] = item.get('ta', 0)
-        except Exception: pass
-    return amounts
+def load_calendar():
+    """加载已抓取的 2020 至今交易日历"""
+    if not os.path.exists(CALENDAR_FILE):
+        raise FileNotFoundError(f"请先确保 {CALENDAR_FILE} 存在")
+    df = pd.read_csv(CALENDAR_FILE)
+    return sorted(pd.to_datetime(df['date']).tolist())
 
-def run_900_groups_backtest():
-    if not os.path.exists(INPUT_FILE): return
+def run_backtest_by_index(start_idx, trade_days, stock_list):
+    """
+    核心回测逻辑：
+    P1(30天基准) -> P2(5天观察) -> P3(10天结果)
+    """
+    # 确定三段绝对日期
+    p1_start = trade_days[start_idx]
+    p1_end   = trade_days[start_idx + 29]
+    p2_start = trade_days[start_idx + 30]
+    p2_end   = trade_days[start_idx + 34]
+    p3_start = trade_days[start_idx + 35]
+    p3_end   = trade_days[start_idx + 44]
     
-    raw_df = pd.read_csv(INPUT_FILE)
-    raw_df['stockCodeStr'] = raw_df['stockCode'].apply(lambda x: str(x).zfill(6))
-    all_codes = raw_df['stockCodeStr'].tolist()
-    
-    # 1. 预处理：成交额五分位
-    amount_dict = fetch_market_liquidity(all_codes)
-    raw_df['current_ta'] = raw_df['stockCodeStr'].map(amount_dict)
-    valid_ta = raw_df[raw_df['current_ta'] > 0].copy()
-    raw_df.loc[valid_ta.index, 'amount_group'] = pd.qcut(valid_ta['current_ta'], 5, 
-                                                       labels=['TA_Q1极低', 'TA_Q2偏低', 'TA_Q3中等', 'TA_Q4活跃', 'TA_Q5极高'])
+    date_str = p1_start.strftime('%Y%m%d')
+    report_path = os.path.join(OUTPUT_DIR, f"{date_str}_report.csv")
+    detail_path = os.path.join(OUTPUT_DIR, f"{date_str}_details.csv")
 
-    # 2. 预处理：市值五分位 (新增修改点)
-    raw_df['cap_group'] = pd.qcut(raw_df['marketCap'], 5, 
-                                  labels=['MC_Q1极小', 'MC_Q2偏小', 'MC_Q3中等', 'MC_Q4偏大', 'MC_Q5极大'])
+    # 自动续传检查
+    if os.path.exists(report_path):
+        return
 
-    fetch_start = "2024-01-01" 
-    p1_s, p1_e = pd.Timestamp("2025-09-01"), pd.Timestamp("2025-10-10")
-    p2_s, p2_e = pd.Timestamp("2025-10-13"), pd.Timestamp("2025-10-17")
-    p3_s, p3_e = pd.Timestamp("2025-10-20"), pd.Timestamp("2025-10-31")
+    print(f"\n" + "="*70)
+    print(f"🔎 正在回测基准起点: {p1_start.date()} (索引: {start_idx})")
+    print(f"📅 窗口: P1[{p1_start.date()}~{p1_end.date()}] P2[{p2_start.date()}~{p2_end.date()}] P3[{p3_start.date()}~{p3_end.date()}]")
 
     results = []
-    print(f"\n🚀 开始 900 组超细分回测 (市值5组 + 成交额5组)...")
-
-    for i, (_, row) in enumerate(raw_df.iterrows()):
+    
+    for i, (_, row) in enumerate(stock_list.iterrows()):
         code = row['stockCodeStr']
-        if pd.isna(row['amount_group']): continue
-        
-        print(f"进度: [{i+1}/{len(raw_df)}] 分析中: {code}", end="\r")
+        print(f"   进度: [{i+1}/{len(stock_list)}] 处理中: {code}", end="\r")
         
         try:
-            rate_limit(0.15)
-            payload = {"token": TOKEN, "stockCode": code, "startDate": fetch_start, "endDate": "2025-10-31", "type": "fc_rights"}
-            resp = requests.post(CANDLE_API_URL, json=payload, timeout=15).json()
-            if resp.get("code") != 1 or not resp.get("data"): continue
+            # 频率控制（根据 Token 级别调整，0.1s 是安全值）
+            time.sleep(0.1)
+            
+            payload = {
+                "token": TOKEN, 
+                "stockCode": code, 
+                "startDate": p1_start.strftime('%Y-%m-%d'), 
+                "endDate": p3_end.strftime('%Y-%m-%d'), 
+                "type": "fc_rights"
+            }
+            resp = requests.post(CANDLE_API_URL, json=payload, timeout=10).json()
+            if resp.get("code") != 1 or not resp.get("data"):
+                continue
             
             df = pd.DataFrame(resp["data"])
             df['date'] = pd.to_datetime(df['date']).map(lambda x: x.replace(tzinfo=None))
             df = df.sort_values('date').reset_index(drop=True)
 
-            df['ma20'] = df['close'].rolling(window=20).mean()
-            df['ma250'] = df['close'].rolling(window=250).mean()
+            # 切片
+            d1 = df[(df['date'] >= p1_start) & (df['date'] <= p1_end)]
+            d2 = df[(df['date'] >= p2_start) & (df['date'] <= p2_end)]
+            d3 = df[(df['date'] >= p3_start) & (df['date'] <= p3_end)]
             
-            d1, d2, d3 = df[(df['date']>=p1_s)&(df['date']<=p1_e)], df[(df['date']>=p2_s)&(df['date']<=p2_e)], df[(df['date']>=p3_s)&(df['date']<=p3_e)]
-            if d1.empty or d2.empty or d3.empty: continue
+            # 过滤停牌过多的样本
+            if len(d1) < 24 or len(d2) < 4 or len(d3) < 8:
+                continue
 
-            ratio = d2['to_r'].mean() / d1['to_r'].mean() if d1['to_r'].mean() > 0 else 0
-            start_info = d3.iloc[0]
-            price_base = start_info['close']
+            # --- 计算因子 ---
+            # 1. 换手比
+            avg_to_p1 = d1['to_r'].mean()
+            ratio = d2['to_r'].mean() / avg_to_p1 if avg_to_p1 > 0 else 0
             
-            bias_val = ((price_base - start_info['ma20']) / start_info['ma20'] * 100) if start_info['ma20'] else 0
-            trend_tag = '年线上' if (start_info['ma250'] and price_base > start_info['ma250']) else '年线下'
+            # 2. 观察期成交额
+            avg_ta_p2 = d2['amount'].mean()
+            
+            # 3. 进场点(P3第一天)状态
+            entry_row = d3.iloc[0]
+            price_entry = entry_row['close']
+            
+            # 4. 技术指标 (以P2结束点为锚点)
+            hist_df = df[df['date'] <= p2_end]
+            ma20 = hist_df.tail(20)['close'].mean()
+            ma250 = hist_df.tail(250)['close'].mean() if len(hist_df) >= 250 else None
+            
+            bias = ((price_entry - ma20) / ma20 * 100) if ma20 else 0
+            trend = '年线上' if (ma250 and price_entry > ma250) else '年线下'
 
             results.append({
-                "code": code, "name": row['name'], "mktCap": row['marketCap'],
-                "amount_group": row['amount_group'], "cap_group": row['cap_group'], "trend": trend_tag,
-                "ratio": round(ratio, 4), "bias": round(bias_val, 2),
-                "max_gain%": round((d3['high'].max() / price_base) * 100, 2),
-                "max_loss%": round((d3['low'].min() / price_base) * 100, 2)
+                "code": code,
+                "name": row['name'],
+                "mktCap": row['marketCap'],
+                "avg_ta": avg_ta_p2,
+                "trend": trend,
+                "ratio": round(ratio, 4),
+                "bias": round(bias, 2),
+                "max_gain%": round((d3['high'].max() / price_entry) * 100, 2),
+                "max_loss%": round((d3['low'].min() / price_entry) * 100, 2)
             })
-        except: continue
+        except Exception:
+            continue
 
+    if not results:
+        return
+
+    # --- 900组细分统计 ---
     res_df = pd.DataFrame(results)
-    if res_df.empty: return
-
-    # 3. 细化 Ratio 和 Bias 分组
-    res_df['ratio_group'] = pd.cut(res_df['ratio'], 
-                                   bins=[0, 1.3, 1.6, 1.9, 2.2, 2.5, 999], 
-                                   labels=['1.0-1.3', '1.3-1.6', '1.6-1.9', '1.9-2.2', '2.2-2.5', '>2.5'])
+    
+    # 动态分位分组
+    res_df['cap_group'] = pd.qcut(res_df['mktCap'], 5, labels=['MC_Q1极小', 'MC_Q2偏小', 'MC_Q3中等', 'MC_Q4偏大', 'MC_Q5极大'], duplicates='drop')
+    res_df['amount_group'] = pd.qcut(res_df['avg_ta'], 5, labels=['TA_Q1极低', 'TA_Q2偏低', 'TA_Q3中等', 'TA_Q4活跃', 'TA_Q5极高'], duplicates='drop')
+    res_df['ratio_group'] = pd.cut(res_df['ratio'], bins=[0, 1.3, 1.6, 1.9, 2.2, 2.5, 999], labels=['1.0-1.3', '1.3-1.6', '1.6-1.9', '1.9-2.2', '2.2-2.5', '>2.5'])
     res_df['bias_group'] = pd.cut(res_df['bias'], bins=[-999, 0, 10, 999], labels=['下方', '贴线', '远离'])
 
-    # 4. 统计聚合
-    def agg_report(g):
-        total = len(g)
-        safe_rate = (g['max_loss%'] > 97).sum() / total * 100
-        worst = g.loc[g['max_loss%'].idxmin()]
-        return pd.Series({
-            '样本数': total,
-            '保本率': f"{safe_rate:.2f}%",
-            '平均回撤': f"{(100 - g['max_loss%'].mean()):.2f}%",
-            '最惨个股': f"{worst['name']}({100 - worst['max_loss%']:.1f}%)",
-            '平均涨幅': f"{(g['max_gain%'].mean() - 100):.2f}%"
+    # 生成日报
+    report = res_df.groupby(['trend', 'cap_group', 'amount_group', 'ratio_group', 'bias_group'], observed=True).apply(
+        lambda g: pd.Series({
+            '样本数': len(g),
+            '保本率': (g['max_loss%'] > 97).sum() / len(g),
+            '平均最大涨幅': g['max_gain%'].mean() - 100
         })
+    )
 
-    group_keys = ['trend', 'cap_group', 'amount_group', 'ratio_group', 'bias_group']
-    report = res_df.groupby(group_keys, observed=True).apply(agg_report)
+    # 保存文件
+    report.to_csv(report_path, encoding="utf-8-sig")
+    res_df.to_csv(detail_path, index=False, encoding="utf-8-sig")
+    print(f"\n✅ 已保存报告至: {report_path}")
 
-    report.to_csv("900_groups_final_report.csv", encoding="utf-8-sig")
-    res_df.to_csv(OUTPUT_FILE, index=False, encoding="utf-8-sig")
-    print(f"\n✨ 900组细分回测完成！")
-
+# --- 执行区 ---
 if __name__ == "__main__":
-    run_900_groups_backtest()
+    calendar = load_calendar()
+    stocks = pd.read_csv(INPUT_FILE)
+    stocks['stockCodeStr'] = stocks['stockCode'].apply(lambda x: str(x).zfill(6))
+
+    # 定义全量回测的时间范围
+    # 注意：确保 calendar 中有足够的前置和后置日期
+    global_start_date = pd.Timestamp("2023-01-01")
+    global_end_date = pd.Timestamp("2025-01-01")
+
+    # 找到起点和终点的索引
+    start_idx_limit = bisect_left(calendar, global_start_date)
+    end_idx_limit = bisect_left(calendar, global_end_date)
+
+    print(f"🚀 启动全量回测流...")
+    print(f"📅 总计天数: {end_idx_limit - start_idx_limit} 交易日")
+
+    # 逐日滑动窗口循环
+    for current_idx in range(start_idx_limit, end_idx_limit):
+        run_backtest_by_index(current_idx, calendar, stocks)
+
+    print("\n" + "★"*40)
+    print("所有日期窗口已处理完毕，请检查 /output 目录。")
+    print("★"*40)
