@@ -4,15 +4,13 @@ import os
 
 # --- 配置 ---
 DETAILS_DIR = "daily_details"
-SW_FILE = "sw2021.xlsx - Sheet1.csv"
-OUTPUT_FILE = "sw3_safety_matrix_v2.csv"
+SW_FILE = "./tools/sw2021.csv"
+OUTPUT_FILE = "./output/matrix.csv"
 
 def generate_matrix():
     # 1. 加载行业字典 (为了在聚合时反向查询代码)
-    try:
-        sw_df = pd.read_csv(SW_FILE, encoding='gbk')
-    except UnicodeDecodeError:
-        sw_df = pd.read_csv(SW_FILE, encoding='gb18030')
+    sw_df = pd.read_csv(SW_FILE, encoding='utf-8')
+
         
     # 建立 名称 -> 代码 的映射
     name_to_code = dict(zip(sw_df['名称.2'], sw_df['三级代码'].astype(str)))
