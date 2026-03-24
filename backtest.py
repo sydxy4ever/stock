@@ -149,8 +149,8 @@ if __name__ == "__main__":
 
     # 定义全量回测的时间范围
     # 注意：确保 calendar 中有足够的前置和后置日期
-    global_start_date = pd.Timestamp("2023-01-01")
-    global_end_date = pd.Timestamp("2025-01-01")
+    global_start_date = pd.Timestamp("2020-01-01")
+    global_end_date = pd.Timestamp("2026-01-01")
 
     # 找到起点和终点的索引
     start_idx_limit = bisect_left(calendar, global_start_date)
