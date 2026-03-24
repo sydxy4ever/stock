@@ -4,15 +4,25 @@ import os
 
 # --- 配置 ---
 DETAILS_DIR = "daily_details"
-OUTPUT_FILE = "sw3_safety_matrix.csv"
+SW_FILE = "sw2021.xlsx - Sheet1.csv"
+OUTPUT_FILE = "sw3_safety_matrix_v2.csv"
 
 def generate_matrix():
-    # 1. 获取所有明细文件并排序
+    # 1. 加载行业字典 (为了在聚合时反向查询代码)
+    try:
+        sw_df = pd.read_csv(SW_FILE, encoding='gbk')
+    except UnicodeDecodeError:
+        sw_df = pd.read_csv(SW_FILE, encoding='gb18030')
+        
+    # 建立 名称 -> 代码 的映射
+    name_to_code = dict(zip(sw_df['名称.2'], sw_df['三级代码'].astype(str)))
+    
+    # 2. 获取并排序明细文件
     all_files = glob.glob(os.path.join(DETAILS_DIR, "*.csv"))
     all_files.sort()
     
     if not all_files:
-        print("❌ 未在 daily_details 文件夹中发现明细文件，请先运行生成脚本。")
+        print("❌ 未发现明细文件，请检查 daily_details 文件夹。")
         return
 
     matrix_data = []
@@ -20,58 +30,62 @@ def generate_matrix():
     print(f"📂 正在从 {len(all_files)} 个明细文件中聚合数据...")
 
     for f in all_files:
-        # 从文件名提取日期 (例如 20220104_detail.csv -> 2022-01-04)
-        filename = os.path.basename(f)
-        date_raw = filename.split('_')[0]
+        date_raw = os.path.basename(f).split('_')[0]
         date_label = f"{date_raw[:4]}-{date_raw[4:6]}-{date_raw[6:8]}"
         
-        # 读取当天的个股明细
         df = pd.read_csv(f)
         
-        # 2. 换手比区间划分 (按照你的要求: 1-1.5, 1.5-2, >2)
-        # bins 定义为 [1.0, 1.5, 2.0, 无穷大]
+        # 换手比区间划分
         df['ratio_grp'] = pd.cut(
             df['ratio'], 
             bins=[1.0, 1.5, 2.0, 999.0], 
             labels=['1.0-1.5', '1.5-2.0', '>2.0']
         )
-        
-        # 剔除不在区间内的数据（例如 ratio < 1 的）
         df = df.dropna(subset=['ratio_grp'])
         
         if df.empty:
             continue
 
-        # 3. 按 [三级行业] 和 [换手区间] 分组计算保本率 (is_safe 的均值)
-        # observed=True 确保只显示存在的分类组合
+        # 按 [行业名称] 和 [换手区间] 分组计算保本率均值
         daily_stats = df.groupby(['sw3_name', 'ratio_grp'], observed=True)['is_safe'].mean()
         
-        for (sw3, rg), safety_rate in daily_stats.items():
-            # 4. 二值化：胜率 > 80% 标为 1
+        for (sw3_name, rg), safety_rate in daily_stats.items():
+            # 获取对应的行业代码
+            sw3_code = name_to_code.get(sw3_name, "Unknown")
             is_active = 1 if safety_rate >= 0.8 else 0
             
             matrix_data.append({
                 'date': date_label,
-                'label': f"{sw3}_{rg}",
+                '行业名称': sw3_name,
+                '行业代码': sw3_code,
+                '换手区间': rg,
                 'status': is_active
             })
             
         print(f"📊 已处理日期: {date_label}", end='\r')
 
-    # 5. 构建透视表：纵轴为 label (行业_区间)，横轴为 date
-    print("\n\n✨ 正在进行矩阵透视变换...")
-    final_df = pd.DataFrame(matrix_data)
+    # 3. 构建长表并透视
+    print("\n\n✨ 正在构建多列索引矩阵...")
+    full_df = pd.DataFrame(matrix_data)
     
-    # pivot 参数：index 为行，columns 为列，values 为填充内容
-    matrix = final_df.pivot(index='label', columns='date', values='status')
+    # 使用 pivot_table，将 行业名称、行业代码、换手区间 作为行索引 (index)
+    # 将日期作为列 (columns)
+    matrix = full_df.pivot_table(
+        index=['行业名称', '行业代码', '换手区间'], 
+        columns='date', 
+        values='status',
+        aggfunc='first' # status 已经是唯一的
+    )
     
-    # 填充缺失值为 0 (某些行业在某些天可能没有样本)
+    # 填充缺失值为 0
     matrix = matrix.fillna(0).astype(int)
     
-    # 6. 保存结果
-    matrix.to_csv(OUTPUT_FILE, encoding="utf-8-sig")
-    print(f"🏁 任务完成！胜率矩阵已保存至: {OUTPUT_FILE}")
-    print(f"📈 矩阵规模: {matrix.shape[0]} 行 (行业组合) x {matrix.shape[1]} 列 (交易日)")
+    # 4. 保存结果
+    # reset_index() 将多级索引重新变为普通的列，方便在 Excel 中筛选
+    matrix.reset_index().to_csv(OUTPUT_FILE, index=False, encoding="utf-8-sig")
+    
+    print(f"🏁 任务完成！矩阵已保存至: {OUTPUT_FILE}")
+    print(f"📈 最终规格: {matrix.shape[0]} 行 x {matrix.shape[1]} 列 (日期)")
 
 if __name__ == "__main__":
     generate_matrix()
