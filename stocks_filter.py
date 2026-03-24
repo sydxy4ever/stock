@@ -46,7 +46,7 @@ def get_previous_trading_day(base_date: Optional[datetime.date] = None) -> datet
 
     previous_day = base_date - datetime.timedelta(days=days_back)
 
-    print(f"📅 当前日期: {base_date}, 上一个交易日: {previous_day}")
+    print(f"[CALENDAR] 当前日期: {base_date}, 上一个交易日: {previous_day}")
     return previous_day
 
 def get_main_board_stocks() -> List[Dict[str, Any]]:
@@ -59,7 +59,7 @@ def get_main_board_stocks() -> List[Dict[str, Any]]:
     url = "https://open.lixinger.com/api/cn/company"
     results = []
 
-    print("🚀 开始获取第 0-11 页的『正常上市』主板股票...")
+    print("[START] 开始获取第 0-11 页的『正常上市』主板股票...")
 
     for i in range(12):
         payload = {
@@ -105,7 +105,7 @@ def get_main_board_stocks() -> List[Dict[str, Any]]:
 
     # 去重
     unique_results = list({s['stockCode']: s for s in results}.values())
-    print(f"✅ 获取完成！总计找到正常上市主板股票: {len(unique_results)} 只")
+    print(f"[OK] 获取完成！总计找到正常上市主板股票: {len(unique_results)} 只")
     return unique_results
 
 def get_market_cap_batch(stocks_batch: List[Dict[str, Any]], token: str) -> Dict[str, float]:
@@ -142,7 +142,7 @@ def get_market_cap_batch(stocks_batch: List[Dict[str, Any]], token: str) -> Dict
         elif fs_type == "other_financial":
             url = "https://open.lixinger.com/api/cn/company/fundamental/other_financial"
         else:
-            print(f"⚠️ 未知的行业类型: {fs_type}，使用默认的非金融接口")
+            print(f"[WARN] 未知的行业类型: {fs_type}，使用默认的非金融接口")
             url = "https://open.lixinger.com/api/cn/company/fundamental/non_financial"
 
         stock_codes = [s["stockCode"] for s in type_stocks]
@@ -206,7 +206,7 @@ def filter_stocks_by_market_cap(stocks: List[Dict[str, Any]], token: str, min_ma
     batch_size = 100
     total_batches = (len(stocks) + batch_size - 1) // batch_size
 
-    print(f"📊 开始获取 {len(stocks)} 只股票的市值数据，分 {total_batches} 批处理...")
+    print(f"[STATS] 开始获取 {len(stocks)} 只股票的市值数据，分 {total_batches} 批处理...")
 
     for i in range(0, len(stocks), batch_size):
         batch = stocks[i:i+batch_size]
@@ -233,13 +233,13 @@ def filter_stocks_by_market_cap(stocks: List[Dict[str, Any]], token: str, min_ma
 
         # API频率控制由 rate_limit() 函数统一管理
 
-    print(f"✅ 市值筛选完成！符合条件（市值 ≥ {min_market_cap} 亿元）的股票: {len(filtered_stocks)} 只")
+    print(f"[OK] 市值筛选完成！符合条件（市值 ≥ {min_market_cap} 亿元）的股票: {len(filtered_stocks)} 只")
     return filtered_stocks
 
 def save_to_csv(stocks: List[Dict[str, Any]], filename: str):
     """保存股票数据到CSV文件"""
     if not stocks:
-        print("❌ 没有数据可保存")
+        print("[ERROR] 没有数据可保存")
         return
 
     current_dir = os.path.dirname(os.path.abspath(__file__))
@@ -252,8 +252,8 @@ def save_to_csv(stocks: List[Dict[str, Any]], filename: str):
         writer.writeheader()
         writer.writerows(stocks)
 
-    print(f"💾 数据已保存到: {file_path}")
-    print(f"📁 文件包含 {len(stocks)} 行记录")
+    print(f"[SAVE] 数据已保存到: {file_path}")
+    print(f"[FOLDER] 文件包含 {len(stocks)} 行记录")
 
 def main():
     # 检查环境变量
@@ -264,40 +264,40 @@ def main():
         return
 
     print("=" * 50)
-    print("🏢 A股主板股票市值筛选器")
+    print("[BUILDING] A股主板股票市值筛选器")
     print("=" * 50)
 
     # 步骤1: 获取所有主板股票
-    print("\n📈 步骤1: 获取所有正常上市主板股票...")
+    print("\n[CHART] 步骤1: 获取所有正常上市主板股票...")
     all_stocks = get_main_board_stocks()
 
     if not all_stocks:
-        print("❌ 未能获取到主板股票数据，程序终止")
+        print("[ERROR] 未能获取到主板股票数据，程序终止")
         return
 
     # 步骤2: 筛选市值大于指定值的股票
-    print(f"\n💰 步骤2: 筛选市值")
+    print(f"\n[MONEY] 步骤2: 筛选市值")
     # 获取用户输入的最小市值（单位：亿元）
     while True:
         try:
             min_market_cap_input = input("请输入最小市值（单位：亿元，例如：30）: ")
             min_market_cap = float(min_market_cap_input)
             if min_market_cap <= 0:
-                print("❌ 最小市值必须大于0，请重新输入")
+                print("[ERROR] 最小市值必须大于0，请重新输入")
                 continue
             break
         except ValueError:
-            print("❌ 输入无效，请输入数字（例如：30、50、100）")
+            print("[ERROR] 输入无效，请输入数字（例如：30、50、100）")
 
     filtered_stocks = filter_stocks_by_market_cap(all_stocks, token, min_market_cap=min_market_cap)
 
     # 步骤3: 保存结果
-    print(f"\n💾 步骤3: 保存筛选结果...")
+    print(f"\n[SAVE] 步骤3: 保存筛选结果...")
     save_to_csv(filtered_stocks, "china_main_board_market_cap_filtered.csv")
 
     # 统计信息
     print("\n" + "=" * 50)
-    print("📊 统计信息")
+    print("[STATS] 统计信息")
     print("=" * 50)
     print(f"总主板股票数: {len(all_stocks)}")
     print(f"市值 ≥ {min_market_cap} 亿元的股票数: {len(filtered_stocks)}")

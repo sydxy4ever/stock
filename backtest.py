@@ -44,8 +44,8 @@ def run_backtest_by_index(start_idx, trade_days, stock_list):
         return
 
     print(f"\n" + "="*70)
-    print(f"🔎 正在回测基准起点: {p1_start.date()} (索引: {start_idx})")
-    print(f"📅 窗口: P1[{p1_start.date()}~{p1_end.date()}] P2[{p2_start.date()}~{p2_end.date()}] P3[{p3_start.date()}~{p3_end.date()}]")
+    print(f"[SEARCH] 正在回测基准起点: {p1_start.date()} (索引: {start_idx})")
+    print(f"[CALENDAR] 窗口: P1[{p1_start.date()}~{p1_end.date()}] P2[{p2_start.date()}~{p2_end.date()}] P3[{p3_start.date()}~{p3_end.date()}]")
 
     results = []
     
@@ -139,7 +139,7 @@ def run_backtest_by_index(start_idx, trade_days, stock_list):
     # 保存文件
     report.to_csv(report_path, encoding="utf-8-sig")
     res_df.to_csv(detail_path, index=False, encoding="utf-8-sig")
-    print(f"\n✅ 已保存报告至: {report_path}")
+    print(f"\n[OK] 已保存报告至: {report_path}")
 
 # --- 执行区 ---
 if __name__ == "__main__":
@@ -156,13 +156,13 @@ if __name__ == "__main__":
     start_idx_limit = bisect_left(calendar, global_start_date)
     end_idx_limit = bisect_left(calendar, global_end_date)
 
-    print(f"🚀 启动全量回测流...")
-    print(f"📅 总计天数: {end_idx_limit - start_idx_limit} 交易日")
+    print(f"[START] 启动全量回测流...")
+    print(f"[CALENDAR] 总计天数: {end_idx_limit - start_idx_limit} 交易日")
 
     # 逐日滑动窗口循环
     for current_idx in range(start_idx_limit, end_idx_limit):
         run_backtest_by_index(current_idx, calendar, stocks)
 
-    print("\n" + "★"*40)
+    print("\n" + "*"*40)
     print("所有日期窗口已处理完毕，请检查 /output 目录。")
-    print("★"*40)
+    print("*"*40)

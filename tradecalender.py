@@ -12,7 +12,7 @@ def generate_trade_calendar():
         print("错误: 请先设置环境变量 LIXINGER_TOKEN")
         return
 
-    print("📅 正在同步交易日历 (基准: 600519)...")
+    print("[CALENDAR] 正在同步交易日历 (基准: 600519)...")
     
     # 改用个股 K 线接口，稳定性最高
     url = "https://open.lixinger.com/api/cn/company/candlestick"
@@ -52,7 +52,7 @@ def generate_trade_calendar():
             calendar = df[['date']].drop_duplicates()
             calendar.to_csv(CALENDAR_FILE, index=False)
             
-            print(f"✅ 日历已生成！文件: {CALENDAR_FILE}")
+            print(f"[OK] 日历已生成！文件: {CALENDAR_FILE}")
             print(f"总计交易日: {len(calendar)} 天")
             print(f"范围: {calendar['date'].iloc[0]} 至 {calendar['date'].iloc[-1]}")
             return calendar['date'].tolist()
