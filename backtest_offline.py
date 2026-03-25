@@ -118,8 +118,8 @@ def main():
     conn.close()
 
     # 确定回测任务列表
-    start_dt = pd.Timestamp("2022-01-01") # 建议从21年开始，因为20年没年线
-    end_dt   = pd.Timestamp("2026-01-29") 
+    start_dt = pd.Timestamp("2023-01-01") # 建议从21年开始，因为20年没年线
+    end_dt   = pd.Timestamp("2026-01-01") 
     
     task_indices = [i for i, d in enumerate(trade_days) if start_dt <= d <= end_dt]
     
