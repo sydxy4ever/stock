@@ -51,20 +51,52 @@ ENDPOINTS = {
 }
 
 # 要抓取的季度财报指标（格式: granularity.table.field.calcType）
-# 使用季度(q) + 当期累积值(t)，适用于所有5类公司
-METRICS_LIST = [
-    "q.ps.toi.t",       # 营业总收入（季累积）
-    "q.ps.oi.t",        # 营业收入（季累积）
-    "q.ps.op.t",        # 营业利润（季累积）
-    "q.ps.np.t",        # 净利润（季累积）
-    "q.ps.npatoshopc.t",# 归母净利润（季累积）
-    "q.ps.gp_m.t",      # 毛利率
-    "q.ps.np_s_r.t",    # 净利润率
-    "q.ps.wroe.t",      # 加权ROE
-    "q.ps.beps.t",      # 基本每股收益
-    "q.ps.ebit.t",      # EBIT（息税前利润）
-    "q.ps.ebitda.t",    # EBITDA
+# 所有公司类型均使用 q.ps.* 利润表前缀；
+# 金融类公司（银行/证券/保险等）不支持 gp_m/ebit/ebitda，
+# 其余通用指标两类公司均适用。
+
+# 金融类公司指标（bank / security / insurance / other_financial）
+_FINANCIAL_METRICS = [
+    "q.ps.toi.t",           # 营业总收入
+    "q.ps.oi.t",            # 营业收入
+    "q.ps.op.t",            # 营业利润
+    "q.ps.np.t",            # 净利润
+    "q.ps.npatoshopc.t",    # 归母净利润
+    "q.ps.np_s_r.t",        # 净利润率
+    "q.ps.wroe.t",          # 加权ROE
+    "q.ps.beps.t",          # 基本每股收益
 ]
+
+METRICS_BY_TYPE: dict[str, list[str]] = {
+    "non_financial": [
+        "q.ps.toi.t",           # 营业总收入
+        "q.ps.oi.t",            # 营业收入
+        "q.ps.op.t",            # 营业利润
+        "q.ps.np.t",            # 净利润
+        "q.ps.npatoshopc.t",    # 归母净利润
+        "q.ps.gp_m.t",          # 毛利率（金融类不适用）
+        "q.ps.np_s_r.t",        # 净利润率
+        "q.ps.wroe.t",          # 加权ROE
+        "q.ps.beps.t",          # 基本每股收益
+        "q.ps.ebit.t",          # EBIT（金融类不适用）
+        "q.ps.ebitda.t",        # EBITDA（金融类不适用）
+    ],
+    "bank":            _FINANCIAL_METRICS,
+    "security":        _FINANCIAL_METRICS,
+    "insurance":       _FINANCIAL_METRICS,
+    "other_financial": _FINANCIAL_METRICS,
+}
+
+# 所有指标的并集（用于建表），去重保序
+_seen: set[str] = set()
+ALL_METRICS: list[str] = []
+for _ml in METRICS_BY_TYPE.values():
+    for _m in _ml:
+        if _m not in _seen:
+            _seen.add(_m)
+            ALL_METRICS.append(_m)
+
+METRICS_LIST = ALL_METRICS
 
 # ─── 数据库 ──────────────────────────────────────────────────────────────────────
 
@@ -76,7 +108,7 @@ METRIC_COLS = [metric_to_col(m) for m in METRICS_LIST]
 
 
 def init_table(conn: sqlite3.Connection):
-    """建立 financial_statements 表"""
+    """建立 financial_statements 表，并自动补全缺少的列（向前兼容）"""
     col_defs = "\n".join(f"            {col}  REAL," for col in METRIC_COLS)
     conn.execute(f"""
         CREATE TABLE IF NOT EXISTS financial_statements (
@@ -91,6 +123,11 @@ def init_table(conn: sqlite3.Connection):
             PRIMARY KEY (stock_code, date, report_type)
         )
     """)
+    # 兼容旧表：若缺少列则自动 ALTER TABLE ADD COLUMN
+    existing = {row[1] for row in conn.execute("PRAGMA table_info(financial_statements)")}
+    for col in METRIC_COLS:
+        if col not in existing:
+            conn.execute(f"ALTER TABLE financial_statements ADD COLUMN {col} REAL")
     conn.execute("CREATE INDEX IF NOT EXISTS idx_fs_date ON financial_statements (date)")
     conn.execute("CREATE INDEX IF NOT EXISTS idx_fs_code ON financial_statements (stock_code)")
     conn.commit()
@@ -141,6 +178,7 @@ def extract_metric(raw: dict, metric: str):
 def fetch_batch(
     url: str,
     codes: list[str],
+    metrics: list[str],
     start_date: str | None = None,
     end_date: str | None = None,
     single_date: str | None = None,
@@ -149,7 +187,7 @@ def fetch_batch(
     payload: dict = {
         "token":       TOKEN,
         "stockCodes":  codes,
-        "metricsList": METRICS_LIST,
+        "metricsList": metrics,
     }
     if single_date:
         payload["date"] = single_date
@@ -250,7 +288,7 @@ def run_snapshot_mode(conn: sqlite3.Connection, groups: dict[str, list[str]]) ->
             print(f"    批次 {bi+1}/{n_batches} ({batch[0]}~{batch[-1]})", end=" ... ")
             time.sleep(API_INTERVAL)
 
-            raw_data = fetch_batch(url, batch, single_date="latest")
+            raw_data = fetch_batch(url, batch, METRICS_BY_TYPE[fs_type], single_date="latest")
             if not raw_data:
                 print("无数据")
                 continue
@@ -289,7 +327,8 @@ def run_history_mode(conn: sqlite3.Connection, groups: dict[str, list[str]]) -> 
         url = ENDPOINTS.get(fs_type, ENDPOINTS["non_financial"])
 
         time.sleep(API_INTERVAL)
-        raw_data = fetch_batch(url, [code], start_date=fetch_start, end_date=today)
+        metrics = METRICS_BY_TYPE.get(fs_type, METRICS_BY_TYPE["non_financial"])
+        raw_data = fetch_batch(url, [code], metrics, start_date=fetch_start, end_date=today)
 
         if not raw_data:
             print("无数据")
