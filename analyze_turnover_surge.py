@@ -67,8 +67,25 @@ def is_level3(industry_code: str) -> bool:
 
 # ─── 交易日历 ────────────────────────────────────────────────────────────────────
 def load_trade_calendar(conn: sqlite3.Connection) -> pd.Series:
-    """加载交易日历，返回有序 Series（index=0,1,2...，value=日期字符串）"""
+    """
+    加载交易日历，返回有序 Series（index=0,1,2...，value=日期字符串）。
+    若 trade_calendar 表为空，自动从 daily_kline 提取贵州茅台(600519)的交易日作为备选。
+    """
     cal = pd.read_sql("SELECT date FROM trade_calendar ORDER BY date", conn)["date"]
+    if cal.empty:
+        print("  ⚠ trade_calendar 表为空，从 daily_kline(600519) 自动提取交易日历...")
+        cal = pd.read_sql(
+            "SELECT DISTINCT date FROM daily_kline "
+            "WHERE stock_code='600519' ORDER BY date",
+            conn
+        )["date"]
+    if cal.empty:
+        # 600519 也没有，退而求其次用全市场 distinct date（慢但兜底）
+        print("  ⚠ 未找到 600519 数据，改用全市场 distinct date（较慢）...")
+        cal = pd.read_sql(
+            "SELECT DISTINCT date FROM daily_kline ORDER BY date",
+            conn
+        )["date"]
     return cal.reset_index(drop=True)
 
 
@@ -450,6 +467,10 @@ def main():
 
     # 加载交易日历
     calendar = load_trade_calendar(conn)
+    if calendar.empty:
+        print("❌ 无法获取交易日历，请确保 daily_kline 表已有数据。")
+        conn.close()
+        return
     print(f"📅 交易日历：{calendar.iloc[0]} → {calendar.iloc[-1]}（{len(calendar)} 个交易日）")
     print(f"   行业来源：{INDUSTRY_SOURCE}  |  每业龙头：Top-{TOP_N}  |  触发倍数：{TRIGGER_RATIO}x\n")
 
