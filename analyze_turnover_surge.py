@@ -43,11 +43,12 @@ from datetime import date as date_type
 DB_PATH          = "stock_data.db"
 OUTPUT_DIR       = "output"
 INDUSTRY_SOURCE  = "sw_2021"    # 行业体系
-TOP_N            = 5            # 每个三级行业龙头股数量
+TOP_N            = 3            # 每个三级行业龙头股数量
 BASELINE_DAYS    = 30           # Day(-35)~Day(-6)，共30个交易日
 RECENT_DAYS      = 5            # Day(-5)~Day(-1)，共5个交易日
 FORWARD_DAYS     = 10           # Day(1)~Day(10)
-TRIGGER_RATIO    = 1.5          # 触发倍数阈值
+TRIGGER_RATIO    = 1.8          # 触发倍数阈值
+MIN_D1_CHANGE    = 0.03         # Day1 涨幅门槛（如 0.03 表示 3%）
 MIN_BASELINE_OBS = 15           # 基准期有效观测天数下限（不足则跳过）
 
 
@@ -294,10 +295,18 @@ def analyze_day(
 
     # 合并 Day1 快照到 triggered
     if not kline_d1.empty:
-        d1_close = kline_d1[["stock_code", "close"]].rename(columns={"close": "d1_close"})
-        triggered = triggered.merge(d1_close, on="stock_code", how="left")
+        # 增加精度并筛选 Day1 涨幅
+        kline_d1 = kline_d1[kline_d1["change_pct"] >= MIN_D1_CHANGE].copy()
+        if kline_d1.empty:
+            return pd.DataFrame()
+            
+        d1_data = kline_d1[["stock_code", "close", "change_pct"]].rename(columns={
+            "close": "d1_close",
+            "change_pct": "d1_change_pct"
+        })
+        triggered = triggered.merge(d1_data, on="stock_code", how="inner")
     else:
-        triggered["d1_close"] = pd.NA
+        return pd.DataFrame()
 
     if not ma_d1.empty:
         d1_ma = ma_d1[["stock_code", "ma5", "ma20", "ma60", "ma200"]].rename(columns={
@@ -379,7 +388,8 @@ def _format_result(df: pd.DataFrame, has_forward: bool) -> pd.DataFrame:
         "stock_code", "name", "mc_rank",
         "baseline_to_r", "recent_to_r", "trigger_ratio",
         # Day1 均线快照
-        "d1_close", "d1_ma5", "d1_ma20", "d1_ma60", "d1_ma200",
+        "d1_change_pct", "d1_close", 
+        "d1_ma5", "d1_ma20", "d1_ma60", "d1_ma200",
         "d1_vs_ma5", "d1_vs_ma20", "d1_vs_ma60",
         "d1_above_ma20", "d1_above_ma60",
     ]
@@ -411,7 +421,7 @@ def _format_result(df: pd.DataFrame, has_forward: bool) -> pd.DataFrame:
     # 数值精度
     round4 = [
         "baseline_to_r", "recent_to_r", "trigger_ratio",
-        "to_r_ratio", "change_pct",
+        "to_r_ratio", "change_pct", "d1_change_pct",
         "d1_close", "d1_vs_ma5", "d1_vs_ma20", "d1_vs_ma60",
         "close", "vs_ma5", "vs_ma20", "vs_ma60",
     ]
@@ -486,11 +496,25 @@ def main():
 
     print(f"待分析 Day1 数量：{len(day1_list)} 个\n")
 
-    all_results = []
     triggered_stocks = 0
     triggered_days   = 0
+    saved_files      = []
+    skipped_days     = 0
+
+    # 确定输出目录（--output 现在表示输出目录，单日分析时也可当文件路径）
+    out_dir = args.output if args.output else OUTPUT_DIR
 
     for i, day1 in enumerate(day1_list, 1):
+        # 每天独立的 CSV 路径
+        day_tag  = day1.replace("-", "")
+        day_path = os.path.join(out_dir, f"turnover_surge_{day_tag}.csv")
+
+        # 若文件已存在则跳过（支持断点续跑）
+        if os.path.exists(day_path):
+            print(f"  [{i:5d}/{len(day1_list)}] Day1={day1}  ⏩ 已存在，跳过")
+            skipped_days += 1
+            continue
+
         print(f"  [{i:5d}/{len(day1_list)}] Day1={day1}", end="  ...")
         result = analyze_day(conn, day1, calendar)
         if result.empty:
@@ -499,36 +523,23 @@ def main():
             n_stocks = result["stock_code"].nunique()
             triggered_stocks += n_stocks
             triggered_days   += 1
-            print(f"  ✓ {n_stocks} 只触发，{len(result)} 条记录")
-            all_results.append(result)
+            os.makedirs(out_dir, exist_ok=True)
+            result.to_csv(day_path, index=False, encoding="utf-8-sig")
+            saved_files.append(day_path)
+            print(f"  ✓ {n_stocks} 只触发，{len(result)} 条记录 → {day_path}")
 
     conn.close()
-
-    if not all_results:
-        print("\n⚠ 在指定日期范围内无任何触发数据。")
-        return
-
-    final_df = pd.concat(all_results, ignore_index=True)
-
-    # 确定输出路径
-    if args.output:
-        out_path = args.output
-    elif args.day1:
-        out_path = os.path.join(OUTPUT_DIR, f"turnover_surge_{args.day1.replace('-','')}.csv")
-    else:
-        s = day1_list[0].replace("-", "")
-        e = day1_list[-1].replace("-", "")
-        out_path = os.path.join(OUTPUT_DIR, f"turnover_surge_{s}_{e}.csv")
-
-    final_df.to_csv(out_path, index=False, encoding="utf-8-sig")
 
     print(f"\n{'='*58}")
     print("✅ 分析完成！")
     print(f"   分析交易日：{len(day1_list)} 个")
+    if skipped_days:
+        print(f"   跳过（已存在）：{skipped_days} 个")
     print(f"   触发交易日：{triggered_days} 个")
     print(f"   触发股票数：{triggered_stocks}")
-    print(f"   总记录数：  {len(final_df)}")
-    print(f"   输出文件：  {out_path}")
+    print(f"   保存文件数：{len(saved_files)}")
+    if saved_files:
+        print(f"   输出目录：  {out_dir}")
     print(f"{'='*58}")
 
 
