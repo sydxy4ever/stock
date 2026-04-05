@@ -41,6 +41,7 @@ from datetime import date as date_type
 
 # ─── 配置 ───────────────────────────────────────────────────────────────────────
 DB_PATH          = "stock_data.db"
+RESULT_DB_PATH   = "turnover_surge.db"   # 分析结果数据库
 OUTPUT_DIR       = "output"
 INDUSTRY_SOURCE  = "sw_2021"    # 行业体系
 TOP_N            = 3            # 每个三级行业龙头股数量
@@ -452,6 +453,86 @@ def show_industries(conn: sqlite3.Connection):
     print(f"\n三级行业数量（is_level3=True）: {df[df['is_level3']]['industry_code'].nunique()}")
 
 
+# ─── 结果数据库 ─────────────────────────────────────────────────────────────────
+_RESULT_CREATE_SQL = """
+CREATE TABLE IF NOT EXISTS turnover_surge (
+    day1            TEXT    NOT NULL,
+    industry_code   TEXT,
+    industry_name   TEXT,
+    stock_code      TEXT    NOT NULL,
+    name            TEXT,
+    mc_rank         INTEGER,
+    baseline_to_r   REAL,
+    recent_to_r     REAL,
+    trigger_ratio   REAL,
+    d1_change_pct   REAL,
+    d1_close        REAL,
+    d1_ma5          REAL,
+    d1_ma20         REAL,
+    d1_ma60         REAL,
+    d1_ma200        REAL,
+    d1_vs_ma5       REAL,
+    d1_vs_ma20      REAL,
+    d1_vs_ma60      REAL,
+    d1_above_ma20   INTEGER,
+    d1_above_ma60   INTEGER,
+    day_offset      INTEGER,
+    date            TEXT,
+    close           REAL,
+    to_r            REAL,
+    to_r_ratio      REAL,
+    change_pct      REAL,
+    ma5             REAL,
+    ma20            REAL,
+    ma60            REAL,
+    ma200           REAL,
+    vs_ma5          REAL,
+    vs_ma20         REAL,
+    vs_ma60         REAL,
+    PRIMARY KEY (day1, stock_code, day_offset)
+);
+"""
+_RESULT_INDEXES = [
+    "CREATE INDEX IF NOT EXISTS idx_ts_day1       ON turnover_surge(day1);",
+    "CREATE INDEX IF NOT EXISTS idx_ts_stock      ON turnover_surge(stock_code);",
+    "CREATE INDEX IF NOT EXISTS idx_ts_industry   ON turnover_surge(industry_code);",
+]
+
+
+def init_result_db(rconn: sqlite3.Connection):
+    """初始化结果数据库的表结构与索引"""
+    rconn.execute(_RESULT_CREATE_SQL)
+    for idx_sql in _RESULT_INDEXES:
+        rconn.execute(idx_sql)
+    rconn.commit()
+
+
+def save_to_result_db(rconn: sqlite3.Connection, df: pd.DataFrame):
+    """将单日分析结果写入结果数据库（已存在的主键自动忽略）"""
+    cols = [
+        "day1","industry_code","industry_name","stock_code","name","mc_rank",
+        "baseline_to_r","recent_to_r","trigger_ratio",
+        "d1_change_pct","d1_close","d1_ma5","d1_ma20","d1_ma60","d1_ma200",
+        "d1_vs_ma5","d1_vs_ma20","d1_vs_ma60","d1_above_ma20","d1_above_ma60",
+        "day_offset","date","close","to_r","to_r_ratio","change_pct",
+        "ma5","ma20","ma60","ma200","vs_ma5","vs_ma20","vs_ma60",
+    ]
+    placeholders = ",".join(["?"] * len(cols))
+    col_names    = ",".join(cols)
+    for col in cols:
+        if col not in df.columns:
+            df[col] = None
+    rows = [
+        tuple(None if pd.isna(v) else v for v in row)
+        for row in df[cols].itertuples(index=False)
+    ]
+    rconn.executemany(
+        f"INSERT OR IGNORE INTO turnover_surge ({col_names}) VALUES ({placeholders})",
+        rows
+    )
+    rconn.commit()
+
+
 # ─── 主入口 ─────────────────────────────────────────────────────────────────────
 def main():
     os.makedirs(OUTPUT_DIR, exist_ok=True)
@@ -462,12 +543,23 @@ def main():
     parser.add_argument("--day1",  type=str, help="单日分析，格式 YYYY-MM-DD")
     parser.add_argument("--start", type=str, help="批量分析起始日（交易日）")
     parser.add_argument("--end",   type=str, help="批量分析结束日（默认最新交易日）")
-    parser.add_argument("--output", type=str, default=None, help="指定输出 CSV 路径")
+    parser.add_argument("--output", type=str, default=None, help="指定输出目录")
+    parser.add_argument("--result-db", type=str, default=RESULT_DB_PATH,
+                        help=f"结果 SQLite 数据库路径（默认：{RESULT_DB_PATH}）")
+    parser.add_argument("--no-db", action="store_true", help="不写入结果数据库")
+    parser.add_argument("--no-csv", action="store_true", help="不保存 CSV 文件")
     parser.add_argument("--show-industries", action="store_true",
                         help="列出 sw_2021 行业代码样本（调试用）")
     args = parser.parse_args()
 
-    conn = sqlite3.connect(DB_PATH, timeout=60)
+    conn  = sqlite3.connect(DB_PATH, timeout=60)
+
+    # 初始化结果数据库
+    rconn = None
+    if not args.no_db:
+        rconn = sqlite3.connect(args.result_db, timeout=60)
+        init_result_db(rconn)
+        print(f"💾 结果数据库：{args.result_db}")
 
     # 调试模式
     if args.show_industries:
@@ -509,9 +601,17 @@ def main():
         day_tag  = day1.replace("-", "")
         day_path = os.path.join(out_dir, f"turnover_surge_{day_tag}.csv")
 
-        # 若文件已存在则跳过（支持断点续跑）
-        if os.path.exists(day_path):
-            print(f"  [{i:5d}/{len(day1_list)}] Day1={day1}  ⏩ 已存在，跳过")
+        # 断点续跑：优先以 DB 中是否已有该日记录为准，其次检查 CSV
+        if rconn is not None:
+            already = rconn.execute(
+                "SELECT 1 FROM turnover_surge WHERE day1=? LIMIT 1", (day1,)
+            ).fetchone()
+            if already:
+                print(f"  [{i:5d}/{len(day1_list)}] Day1={day1}  ⏩ DB 已有，跳过")
+                skipped_days += 1
+                continue
+        elif not args.no_csv and os.path.exists(day_path):
+            print(f"  [{i:5d}/{len(day1_list)}] Day1={day1}  ⏩ CSV 已存在，跳过")
             skipped_days += 1
             continue
 
@@ -523,12 +623,23 @@ def main():
             n_stocks = result["stock_code"].nunique()
             triggered_stocks += n_stocks
             triggered_days   += 1
-            os.makedirs(out_dir, exist_ok=True)
-            result.to_csv(day_path, index=False, encoding="utf-8-sig")
-            saved_files.append(day_path)
-            print(f"  ✓ {n_stocks} 只触发，{len(result)} 条记录 → {day_path}")
+            parts = []
+            # 写入结果数据库
+            if rconn is not None:
+                save_to_result_db(rconn, result.copy())
+                parts.append(f"DB({args.result_db})")
+            # 保存 CSV
+            if not args.no_csv:
+                os.makedirs(out_dir, exist_ok=True)
+                result.to_csv(day_path, index=False, encoding="utf-8-sig")
+                saved_files.append(day_path)
+                parts.append(f"CSV({day_path})")
+            dest = " & ".join(parts)
+            print(f"  ✓ {n_stocks} 只触发，{len(result)} 条记录 → {dest}")
 
     conn.close()
+    if rconn is not None:
+        rconn.close()
 
     print(f"\n{'='*58}")
     print("✅ 分析完成！")
