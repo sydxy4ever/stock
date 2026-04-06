@@ -2,3 +2,5 @@
 *.json
 *.db
 venv/
+old/
+output/

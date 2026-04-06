@@ -219,14 +219,28 @@ def main():
         print(f"Processing {d}...", end="\r")
         signals = run_scanner(d)
         if signals:
-            all_found += len(signals)
-            # Insert to DB
             df_signals = pd.DataFrame(signals)
-            df_signals.to_sql("strategy_signals", rconn, if_exists="append", index=False, method="multi")
-            rconn.commit()
-            print(f"Found {len(signals)} signals on {d}: {', '.join([s['stock_name'] for s in signals])}")
+            
+            # Check for existing records to avoid IntegrityError
+            try:
+                existing = pd.read_sql(f"SELECT date, stock_code FROM strategy_signals WHERE date = ?", rconn, params=[d])
+                if not existing.empty:
+                    # Filter out already existing (date, stock_code) combinations
+                    df_signals = df_signals[~df_signals.set_index(['date', 'stock_code']).index.isin(existing.set_index(['date', 'stock_code']).index)]
+            except Exception:
+                # Table might not exist yet or other error, proceed with insert
+                pass
 
-    print(f"\nScan complete. Total signals found: {all_found}")
+            if not df_signals.empty:
+                all_found += len(df_signals)
+                df_signals.to_sql("strategy_signals", rconn, if_exists="append", index=False, method="multi")
+                rconn.commit()
+                # Print names from the newly inserted ones
+                print(f"Found {len(df_signals)} NEW signals on {d}: {', '.join(df_signals['stock_name'].tolist())}")
+            else:
+                print(f"Signals found on {d}, but all already exist in DB. Skipping.")
+
+    print(f"\nScan complete. Total NEW signals added: {all_found}")
     print(f"Results saved to {RESULT_DB}")
     rconn.close()
 
