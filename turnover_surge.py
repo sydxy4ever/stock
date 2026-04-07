@@ -526,10 +526,17 @@ def save_to_result_db(rconn: sqlite3.Connection, df: pd.DataFrame):
         tuple(None if pd.isna(v) else v for v in row)
         for row in df[cols].itertuples(index=False)
     ]
-    rconn.executemany(
-        f"INSERT OR IGNORE INTO turnover_surge ({col_names}) VALUES ({placeholders})",
-        rows
-    )
+
+    # 使用 ON CONFLICT DO UPDATE，确保重跑时能补全原先缺失的列（如 d0_above_ma20/60）
+    update_cols = [c for c in cols if c not in ["day0", "stock_code", "day_offset"]]
+    update_set  = ", ".join([f"{c}=excluded.{c}" for c in update_cols])
+    
+    sql = f"""
+        INSERT INTO turnover_surge ({col_names}) VALUES ({placeholders})
+        ON CONFLICT(day0, stock_code, day_offset) DO UPDATE SET
+        {update_set}
+    """
+    rconn.executemany(sql, rows)
     rconn.commit()
 
 
