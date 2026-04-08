@@ -12,13 +12,13 @@ def job():
     logging.info("日常抓取任务全部完成。等待下一次触发...")
 
 # 设定每天凌晨 1:00 运行
-schedule.every().day.at("01:00").do(job)
+schedule.every().day.at("23:00").do(job)
 
 if __name__ == "__main__":
     logging.info("Scheduler 已启动。配置抓取时间：每天凌晨 01:00")
     
     # 防止错过第一次启动可能需要测试的情况，这里可选： 
-    # run_all() # 如果想要容器启动时立即抓取一次，取消注释此行
+    run_all() # 如果想要容器启动时立即抓取一次，取消注释此行
     
     while True:
         schedule.run_pending()

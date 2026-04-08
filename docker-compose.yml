@@ -2,17 +2,16 @@ version: '3.8'
 
 services:
   stock-fetch-daily:
-    build: .
+    image: stock-fetch-daily:latest
     container_name: stock-fetch-daily
     environment:
-      - LIXINGER_TOKEN=your_token_here
+      - LIXINGER_TOKEN=
       - DB_PATH=/data/stock_data.db
       - TURNOVER_DB_PATH=/data/turnover_surge.db
       - TZ=Asia/Shanghai
     volumes:
       # 将当前目录下的数据文件挂载到容器中
       # 如果你希望在 Portainer 中管理，确保路径正确
-      - .:/data
+      - /data/stock:/data
     # 调度器需要常驻后台运行
-    restart: always
-
+    restart: unless-stopped

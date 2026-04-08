@@ -37,7 +37,7 @@ from datetime import date
 TOKEN        = os.getenv("LIXINGER_TOKEN")
 DB_PATH      = "stock_data.db"
 BATCH_SIZE   = 100    # 快照模式每批股票数（历史模式固定为1）
-API_INTERVAL = 0.25   # 秒
+API_INTERVAL = 0.1   # 秒，约 900 次/分钟 (保持在 1000 次安全线内)
 
 HISTORY_START = "2020-01-01"
 
@@ -196,22 +196,37 @@ def fetch_batch(
         if end_date:
             payload["endDate"] = end_date
 
-    try:
-        resp = requests.post(url, json=payload, timeout=20)
-        if resp.status_code != 200:
-            print(f"\n      ⚠ HTTP {resp.status_code}: {resp.text[:200]}")
+    max_retries = 3
+    for attempt in range(max_retries + 1):
+        try:
+            resp = requests.post(url, json=payload, timeout=20)
+            if resp.status_code == 429:
+                if attempt < max_retries:
+                    print(f"\n      ⚠ HTTP 429: 请求过快。等待 2s 后进行第 {attempt+1} 次重试...")
+                    time.sleep(2)
+                    continue
+                else:
+                    print("\n      ⚠ HTTP 429: 已达到最大重试次数，放弃本次请求。")
+                    return []
+            
+            if resp.status_code != 200:
+                print(f"\n      ⚠ HTTP {resp.status_code}: {resp.text[:200]}")
+                return []
+                
+            data_json = resp.json()
+            if data_json.get("code") == 1:
+                return data_json.get("data") or []
+            else:
+                msg = data_json.get("message", "")
+                if msg:
+                    print(f"\n      ⚠ API错误: {msg}")
+                return []
+        except Exception as e:
+            if attempt < max_retries:
+                time.sleep(1)
+                continue
+            print(f"\n      ⚠ 请求异常: {e}")
             return []
-        data_json = resp.json()
-        if data_json.get("code") == 1:
-            return data_json.get("data") or []
-        else:
-            msg = data_json.get("message", "")
-            if msg:
-                print(f"\n      ⚠ API错误: {msg}")
-            return []
-    except Exception as e:
-        print(f"\n      ⚠ 请求异常: {e}")
-        return []
 
 
 # ─── 数据解析与入库 ─────────────────────────────────────────────────────────────

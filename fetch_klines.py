@@ -28,9 +28,9 @@ from datetime import date, datetime, timedelta
 TOKEN        = os.getenv("LIXINGER_TOKEN")
 DB_PATH      = os.getenv("DB_PATH", "stock_data.db")
 API_URL      = "https://open.lixinger.com/api/cn/company/candlestick"
-START_DATE   = "2020-01-01"
+START_DATE   = "2018-01-01"
 KLINE_TYPE   = "lxr_fc_rights"  # 理杏仁前复权（免费Token推荐）
-API_INTERVAL = 0.25          # 秒，保证每秒 ≤ 4 次
+API_INTERVAL = 0.1          # 秒，每分钟约 900 次 (保持在 1000 次安全线下)
 
 # ─── 数据库 ──────────────────────────────────────────────────────────────────────
 
@@ -98,24 +98,39 @@ def fetch_kline(stock_code: str, start_date: str, end_date: str) -> list[dict]:
         "startDate": start_date,
         "endDate":   end_date,
     }
-    try:
-        resp = requests.post(API_URL, json=payload, timeout=20)
-        # 不调用 raise_for_status()，直接解析响应体
-        if resp.status_code != 200:
-            # 打印实际的错误响应体，方便调试
-            print(f"      ⚠ HTTP {resp.status_code} [{stock_code}]: {resp.text[:200]}")
+    
+    max_retries = 3
+    for attempt in range(max_retries + 1):
+        try:
+            resp = requests.post(API_URL, json=payload, timeout=20)
+            if resp.status_code == 429:
+                if attempt < max_retries:
+                    print(f"      ⚠ HTTP 429: 请求过快。等待 2s 后进行第 {attempt+1} 次重试...")
+                    time.sleep(2)
+                    continue
+                else:
+                    print(f"      ⚠ HTTP 429: [{stock_code}] 已达到最大重试次数，放弃本次请求。")
+                    return []
+            
+            if resp.status_code != 200:
+                # 打印实际的错误响应体，方便调试
+                print(f"      ⚠ HTTP {resp.status_code} [{stock_code}]: {resp.text[:200]}")
+                return []
+                
+            data_json = resp.json()
+            if data_json.get("code") == 1:
+                return data_json.get("data") or []
+            else:
+                msg = data_json.get('message', '')
+                if msg:  # 只有有错误信息才打印
+                    print(f"      ⚠ API错误 [{stock_code}]: {msg}")
+                return []
+        except Exception as e:
+            if attempt < max_retries:
+                time.sleep(1)
+                continue
+            print(f"      ⚠ 异常 [{stock_code}]: {e}")
             return []
-        data_json = resp.json()
-        if data_json.get("code") == 1:
-            return data_json.get("data") or []
-        else:
-            msg = data_json.get('message', '')
-            if msg:  # 只有有错误信息才打印
-                print(f"      ⚠ API错误 [{stock_code}]: {msg}")
-            return []
-    except Exception as e:
-        print(f"      ⚠ 异常 [{stock_code}]: {e}")
-        return []
 
 
 # ─── 数据解析与入库 ─────────────────────────────────────────────────────────────

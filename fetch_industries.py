@@ -20,7 +20,7 @@ import requests
 TOKEN        = os.getenv("LIXINGER_TOKEN")
 DB_PATH      = "stock_data.db"
 API_URL      = "https://open.lixinger.com/api/cn/company/industries"
-API_INTERVAL = 0.25
+API_INTERVAL = 0.1 # 每分钟约 900 次 (略低于限额，更稳定)
 
 # ─── 数据库 ──────────────────────────────────────────────────────────────────────
 
@@ -61,14 +61,30 @@ def get_done_codes(conn: sqlite3.Connection) -> set[str]:
 
 def fetch_industries(stock_code: str) -> list[dict]:
     payload = {"token": TOKEN, "stockCode": stock_code}
-    try:
-        resp = requests.post(API_URL, json=payload, timeout=15)
-        if resp.status_code != 200:
+    max_retries = 3
+    for attempt in range(max_retries + 1):
+        try:
+            resp = requests.post(API_URL, json=payload, timeout=15)
+            if resp.status_code == 429:
+                if attempt < max_retries:
+                    print(f"      ⚠ HTTP 429: 请求过快。等待 2s 后进行第 {attempt+1} 次重试...")
+                    time.sleep(2)
+                    continue
+                else:
+                    print("      ⚠ HTTP 429: 已达到最大重试次数，放弃本次请求。")
+                    return []
+            
+            if resp.status_code != 200:
+                print(f"      ⚠ HTTP {resp.status_code}: {resp.text[:100]}")
+                return []
+                
+            data_json = resp.json()
+            return data_json.get("data") or [] if data_json.get("code") == 1 else []
+        except Exception as e:
+            if attempt < max_retries:
+                time.sleep(1)
+                continue
             return []
-        data_json = resp.json()
-        return data_json.get("data") or [] if data_json.get("code") == 1 else []
-    except Exception:
-        return []
 
 
 # ─── 数据入库 ───────────────────────────────────────────────────────────────────
@@ -131,8 +147,8 @@ def main():
         if data:
             upsert_industries(conn, code, data)
             total_written += len(data)
-            # 每100只打印一次进度
-            if i % 100 == 0:
+            # 每20只打印一次进度
+            if i % 20 == 0:
                 elapsed = time.time() - start_time
                 eta = elapsed / i * (total - i)
                 print(f"  [{i:4d}/{total}] 已写入 {total_written} 条 | 剩余 {eta/60:.1f} 分钟")

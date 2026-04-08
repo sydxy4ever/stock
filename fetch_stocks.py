@@ -24,7 +24,7 @@ DB_PATH = "stock_data.db"
 # 每页返回约500条，理杏仁目前约有5600+只股票，12页足够
 # 但我们做自动终止：当某页 data 为空时停止
 MAX_PAGES = 20
-API_INTERVAL = 0.25  # 秒，保证每秒不超过4次（安全裕量）
+API_INTERVAL = 0.1  # 秒，每秒约14.2次，每分钟约850次（微调避开1000次限额）
 
 # ─── 数据库初始化 ───────────────────────────────────────────────────────────────
 
@@ -67,9 +67,27 @@ def fetch_page(page_index: int) -> dict:
         "token": TOKEN,
         "pageIndex": page_index,
     }
-    resp = requests.post(API_URL, json=payload, timeout=15)
-    resp.raise_for_status()
-    return resp.json()
+    
+    max_retries = 3
+    for attempt in range(max_retries + 1):
+        try:
+            resp = requests.post(API_URL, json=payload, timeout=20)
+            if resp.status_code == 429:
+                if attempt < max_retries:
+                    print(f"\n      ⚠ HTTP 429: 请求过快。等待 2s 后进行第 {attempt+1} 次重试...")
+                    time.sleep(2)
+                    continue
+                else:
+                    print("\n      ⚠ HTTP 429: 已达到最大重试次数，放弃本次请求。")
+            
+            resp.raise_for_status()
+            return resp.json()
+        except requests.exceptions.RequestException as e:
+            if attempt < max_retries:
+                # 针对非 429 的连接错误也可以尝试重试一次
+                time.sleep(1)
+                continue
+            raise e
 
 
 def fetch_all_stocks() -> list[dict]:
@@ -80,8 +98,14 @@ def fetch_all_stocks() -> list[dict]:
         print(f"  正在获取第 {page} 页...", end=" ", flush=True)
         try:
             data_json = fetch_page(page)
+        except requests.exceptions.HTTPError as e:
+            if e.response.status_code == 429:
+                print(f"\n      ⚠ HTTP 429: {e.response.text[:100]}")
+            else:
+                print(f"请求失败: {e}")
+            break
         except Exception as e:
-            print(f"请求失败: {e}")
+            print(f"请求发生异常: {e}")
             break
 
         if data_json.get("code") != 1:
