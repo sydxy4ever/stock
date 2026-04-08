@@ -62,6 +62,11 @@ D_LABELS = {
     3: "D4(涨停)",
 }
 
+# ─── 情绪过滤配置 ────────────────────────────────────────────────────────────
+SENTIMENT_THRESHOLD_LOW  = 0.15  # 排除后 15% 的交易日（市场极冷）
+SENTIMENT_THRESHOLD_HIGH = 0.15  # 排除前 15% 的交易日（市场极热）
+
+
 
 # ─── 科创/创业板判断 ─────────────────────────────────────────────────────────
 def limit_up_threshold(stock_code: str) -> float:
@@ -235,6 +240,60 @@ def assign_groups(events: pd.DataFrame) -> pd.DataFrame:
     return df
 
 
+# ─── 3.1 情绪过滤 ─────────────────────────────────────────────────────────────
+def filter_extreme_sentiment_days(events: pd.DataFrame):
+    """
+    根据每日符合条件的股票数（启动日涨幅 > 4%）排除前后 15% 的交易日。
+    """
+    if events.empty:
+        return events, {}
+
+    # 计算每日符合条件（涨幅 > 4%）的股票数
+    # 注意：events 已经是经过 compute_events 聚合后的数据，每行代表一个 (day0, stock_code)
+    daily_counts = (
+        events[events["d0_change_pct"] > 0.04]
+        .groupby("day0")["stock_code"]
+        .count()
+        .reset_index(name="count")
+    )
+    
+    if daily_counts.empty:
+        print("   ⚠ 未找到涨幅 > 4% 的股票，跳过情绪过滤。")
+        return events, {}
+
+    # 计算分位数阈值
+    low_q  = SENTIMENT_THRESHOLD_LOW
+    high_q = 1 - SENTIMENT_THRESHOLD_HIGH
+    
+    low_val  = daily_counts["count"].quantile(low_q)
+    high_val = daily_counts["count"].quantile(high_q)
+    
+    # 筛选正常的交易日
+    keep_days = daily_counts[
+        (daily_counts["count"] >= low_val) & (daily_counts["count"] <= high_val)
+    ]["day0"].unique()
+    
+    total_days = daily_counts["day0"].nunique()
+    keep_days_count = len(keep_days)
+    
+    filtered_events = events[events["day0"].isin(keep_days)].copy()
+    
+    stats = {
+        "total_days": total_days,
+        "keep_days": keep_days_count,
+        "low_threshold": low_val,
+        "high_threshold": high_val,
+        "excluded_days": total_days - keep_days_count
+    }
+    
+    print(f"   📉 情绪过滤完成：")
+    print(f"      总交易日：{total_days}，保留：{keep_days_count}，排除：{total_days - keep_days_count}")
+    print(f"      排除阈值：低分位(<= {low_val:.0f}只), 高分位(>= {high_val:.0f}只)")
+    
+    return filtered_events, stats
+
+
+
 # ─── 4. 组级统计 ─────────────────────────────────────────────────────────────
 def _cv(x: pd.Series) -> float:
     """变异系数 = std / |mean|，mean 为 0 时返回 NaN"""
@@ -273,7 +332,7 @@ def compute_group_stats(events: pd.DataFrame, group_cols: list) -> pd.DataFrame:
 
 
 # ─── 5. 输出 Markdown ────────────────────────────────────────────────────────
-def write_markdown(stats: pd.DataFrame, events: pd.DataFrame):
+def write_markdown(stats: pd.DataFrame, events: pd.DataFrame, sentiment_stats: dict = None):
     total_events  = len(events)
     nonempty      = len(stats)
     above_min     = (stats["count"] >= MIN_COUNT_SHOW).sum()
@@ -286,6 +345,29 @@ def write_markdown(stats: pd.DataFrame, events: pd.DataFrame):
         f"> 非空分组数：**{nonempty:,}** / 4,320  ",
         f"> 展示阈值：count ≥ {MIN_COUNT_SHOW}（共 {above_min:,} 组）",
         "",
+        "---",
+        "",
+        "## 情绪过滤说明 (Market Sentiment Filter)",
+        "",
+        "为了排除整体行情对个股策略的影响，本报告根据每日「符合条件股票数」剔除了极端行情：",
+        f"- **统计口径**：每日启动日涨幅 > 4% 的股票总数",
+        f"- **排除规则**：剔除该数量处于最低 {SENTIMENT_THRESHOLD_LOW*100:.0f}% 和最高 {SENTIMENT_THRESHOLD_HIGH*100:.0f}% 的交易日",
+        "",
+    ]
+    
+    if sentiment_stats:
+        lines += [
+            f"| 指标 | 数值 | 备注 |",
+            f"|------|------|------|",
+            f"| 总信号交易日 | {sentiment_stats['total_days']} | 有信号产出的天数 |",
+            f"| 保留交易日 | {sentiment_stats['keep_days']} | 处于正常情绪区间的日子 |",
+            f"| 排除交易日 | {sentiment_stats['excluded_days']} | 剔除的极端冷/热日子 |",
+            f"| 低位阈值 | <= {sentiment_stats['low_threshold']:.0f} 只 | 对应后 {SENTIMENT_THRESHOLD_LOW*100:.0f}% 分位 |",
+            f"| 高位阈值 | >= {sentiment_stats['high_threshold']:.0f} 只 | 对应前 {SENTIMENT_THRESHOLD_HIGH*100:.0f}% 分位 |",
+            "",
+        ]
+
+    lines += [
         "---",
         "",
         "## 分组维度说明",
@@ -470,6 +552,9 @@ def main():
         print("❌ 无有效信号事件。")
         return
 
+    print("\n📉 情绪过滤（排除 15% 极端交易日）...")
+    events, sentiment_stats = filter_extreme_sentiment_days(events)
+
     print("\n🏷️  分组标注...")
     events = assign_groups(events)
     print(f"   归类后事件数：{len(events):,}")
@@ -482,10 +567,11 @@ def main():
     print(f"   count ≥ {MIN_COUNT_SHOW} 的组：{above_min:,}")
 
     print("\n📝 写入 Markdown...")
-    write_markdown(stats, events)
+    write_markdown(stats, events, sentiment_stats)
 
     print("\n📊 写入 Excel...")
     write_excel(stats, events, OUTPUT_XLSX)
+
 
     print(f"\n{'='*55}")
     print("✅ 完成！")
