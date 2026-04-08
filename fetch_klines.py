@@ -26,7 +26,7 @@ from datetime import date, datetime, timedelta
 
 # ─── 配置 ───────────────────────────────────────────────────────────────────────
 TOKEN        = os.getenv("LIXINGER_TOKEN")
-DB_PATH      = "stock_data.db"
+DB_PATH      = os.getenv("DB_PATH", "stock_data.db")
 API_URL      = "https://open.lixinger.com/api/cn/company/candlestick"
 START_DATE   = "2020-01-01"
 KLINE_TYPE   = "lxr_fc_rights"  # 理杏仁前复权（免费Token推荐）
