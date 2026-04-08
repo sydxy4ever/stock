@@ -267,6 +267,7 @@ def compute_group_stats(events: pd.DataFrame, group_cols: list) -> pd.DataFrame:
         stats[col] = (stats[col] * 100).round(2)
     stats["max_gain_cv"] = stats["max_gain_cv"].round(3)
     stats["max_dd_cv"]   = stats["max_dd_cv"].round(3)
+    stats["cv_sum"]      = (stats["max_gain_cv"] + stats["max_dd_cv"]).round(3)
 
     return stats.sort_values("max_gain_avg", ascending=False).reset_index(drop=True)
 
@@ -318,8 +319,8 @@ def write_markdown(stats: pd.DataFrame, events: pd.DataFrame):
         "",
         f"## 主表（count ≥ {MIN_COUNT_SHOW}，按最大涨幅均值降序）",
         "",
-        "| Dim A | Dim B | Dim C | Dim D | N | 非下跌日% | 涨幅均% | 涨幅min% | 涨幅CV | 跌幅均% | 跌幅max% | 跌幅CV |",
-        "|-------|-------|-------|-------|--:|----------:|--------:|---------:|-------:|--------:|---------:|-------:|",
+        "| Dim A | Dim B | Dim C | Dim D | N | 非下跌日% | 涨幅均% | 涨幅min% | 涨幅CV | 跌幅均% | 跌幅max% | 跌幅CV | CV之和 |",
+        "|-------|-------|-------|-------|--:|----------:|--------:|---------:|-------:|--------:|---------:|-------:|-------:|",
     ]
 
     filtered = stats[stats["count"] >= MIN_COUNT_SHOW]
@@ -333,7 +334,8 @@ def write_markdown(stats: pd.DataFrame, events: pd.DataFrame):
             f"| {r['max_gain_cv']:.3f} "
             f"| {r['max_dd_avg']:.2f}% "
             f"| {r['max_dd_max']:.2f}% "
-            f"| {r['max_dd_cv']:.3f} |"
+            f"| {r['max_dd_cv']:.3f} "
+            f"| {r['cv_sum']:.3f} |"
         )
 
     # ── 附：各单维度汇总 ─────────────────────────────────────────────────────
@@ -345,12 +347,15 @@ def write_markdown(stats: pd.DataFrame, events: pd.DataFrame):
                 non_decline_avg= ("non_decline_rate",  "mean"),
                 max_gain_avg   = ("max_gain",          "mean"),
                 max_gain_min   = ("max_gain",          "min"),
+                max_gain_cv    = ("max_gain",          _cv),
                 max_dd_avg     = ("max_drawdown",      "mean"),
                 max_dd_max     = ("max_drawdown",      "max"),
+                max_dd_cv      = ("max_drawdown",      _cv),
             )
             .reset_index()
             .sort_values("max_gain_avg", ascending=False)
         )
+        g["cv_sum"] = (g["max_gain_cv"].fillna(0) + g["max_dd_cv"].fillna(0)).round(3)
         for col in ["non_decline_avg", "max_gain_avg", "max_gain_min", "max_dd_avg", "max_dd_max"]:
             g[col] = (g[col] * 100).round(2)
 
@@ -360,8 +365,8 @@ def write_markdown(stats: pd.DataFrame, events: pd.DataFrame):
             "",
             f"## {title}（单维度汇总）",
             "",
-            f"| {dim_col} | N | 非下跌日% | 涨幅均% | 涨幅min% | 跌幅均% | 跌幅max% |",
-            f"|-----------|--:|----------:|--------:|---------:|--------:|---------:|",
+            f"| {dim_col} | N | 非下跌日% | 涨幅均% | 涨幅min% | 涨幅CV | 跌幅均% | 跌幅max% | 跌幅CV | CV之和 |",
+            f"|-----------|--:|----------:|--------:|---------:|-------:|--------:|---------:|-------:|-------:|",
         ]
         for _, r in g.iterrows():
             rows.append(
@@ -370,8 +375,11 @@ def write_markdown(stats: pd.DataFrame, events: pd.DataFrame):
                 f"| {r['non_decline_avg']:.1f}% "
                 f"| {r['max_gain_avg']:.2f}% "
                 f"| {r['max_gain_min']:.2f}% "
+                f"| {r['max_gain_cv']:.3f} "
                 f"| {r['max_dd_avg']:.2f}% "
-                f"| {r['max_dd_max']:.2f}% |"
+                f"| {r['max_dd_max']:.2f}% "
+                f"| {r['max_dd_cv']:.3f} "
+                f"| {r['cv_sum']:.3f} |"
             )
         return rows
 
