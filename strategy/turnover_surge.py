@@ -107,7 +107,7 @@ def get_top_stocks(conn, day0_str, top_n):
     sql = """
         WITH recent_mc AS (
             SELECT f.stock_code, f.mc, ROW_NUMBER() OVER (PARTITION BY f.stock_code ORDER BY f.date DESC) AS rn
-            FROM fundamentals f WHERE f.date <= :day0 AND f.mc > 0
+            FROM fundamentals f WHERE f.mc > 0
         ),
         ind AS (SELECT si.stock_code, si.industry_code, si.name AS industry_name FROM stock_industries si WHERE si.source = :source),
         combined AS (
@@ -184,7 +184,7 @@ def analyze_day(conn, day0_str, calendar):
     kline_d0 = kline_d0[kline_d0["change_pct"] >= MIN_D0_CHANGE].copy()
     if kline_d0.empty: return pd.DataFrame(), {"date": day0_str, "total_stocks": len(codes), "surge_count": surge_count, "signal_count": 0}
     
-    triggered = triggered.merge(kline_d0[["stock_code", "close", "change_pct"]].rename(columns={"close":"d0_close", "change_pct":"d0_change_pct"}), on="stock_code")
+    triggered = triggered.merge(kline_d0[["stock_code", "close", "change_pct", "to_r"]].rename(columns={"close":"d0_close", "change_pct":"d0_change_pct", "to_r":"d0_to_r"}), on="stock_code")
     ma_d0 = get_ma_slice(conn, triggered["stock_code"].tolist(), [day0_str])
     if not ma_d0.empty:
         triggered = triggered.merge(ma_d0[["stock_code", "ma5", "ma20", "ma60", "ma200"]].rename(columns={"ma5":"d0_ma5", "ma20":"d0_ma20", "ma60":"d0_ma60", "ma200":"d0_ma200"}), on="stock_code", how="left")
@@ -199,15 +199,20 @@ def analyze_day(conn, day0_str, calendar):
     
     # Day(-1) 快照
     dm1 = win["recent2"][-1]
-    kline_dm1 = kline_hist[kline_hist["date"] == dm1][["stock_code", "close"]].rename(columns={"close": "dm1_close"})
+    kline_dm1 = kline_hist[kline_hist["date"] == dm1][["stock_code", "close", "change_pct"]].rename(columns={"close": "dm1_close", "change_pct": "dm1_change_pct"})
     ma_dm1 = get_ma_slice(conn, t_codes, [dm1])
     if not ma_dm1.empty and not kline_dm1.empty:
         dm1_snap = kline_dm1.merge(ma_dm1, on="stock_code", how="left")
-        dm1_c, dm1_m20, dm1_m60, dm1_m200 = pd.to_numeric(dm1_snap["dm1_close"]), pd.to_numeric(dm1_snap["ma20"]), pd.to_numeric(dm1_snap["ma60"]), pd.to_numeric(dm1_snap["ma200"])
+        dm1_c, dm1_pct, dm1_m20, dm1_m60, dm1_m200 = pd.to_numeric(dm1_snap["dm1_close"]), pd.to_numeric(dm1_snap["dm1_change_pct"]), pd.to_numeric(dm1_snap["ma20"]), pd.to_numeric(dm1_snap["ma60"]), pd.to_numeric(dm1_snap["ma200"])
+        
+        # 判断 Day(-1) 是否涨停: 创业/科创板 19.8%, 主板 9.8%
+        is_kc_cy = dm1_snap["stock_code"].str.startswith(("300", "688"))
+        dm1_snap["dm1_is_limit_up"] = ((is_kc_cy & (dm1_pct >= 0.198)) | (~is_kc_cy & (dm1_pct >= 0.098))).astype("Int8")
+        
         dm1_snap["dm1_above_ma20"] = ((dm1_c > dm1_m20) & dm1_m20.notna()).astype("Int8")
         dm1_snap["dm1_above_ma60"] = ((dm1_c > dm1_m60) & dm1_m60.notna()).astype("Int8")
         dm1_snap["dm1_above_ma200"] = ((dm1_c > dm1_m200) & dm1_m200.notna()).astype("Int8")
-        triggered = triggered.merge(dm1_snap[["stock_code", "dm1_close", "dm1_above_ma20", "dm1_above_ma60", "dm1_above_ma200"]], on="stock_code", how="left")
+        triggered = triggered.merge(dm1_snap[["stock_code", "dm1_close", "dm1_is_limit_up", "dm1_above_ma20", "dm1_above_ma60", "dm1_above_ma200"]], on="stock_code", how="left")
     
     # 跟踪期
     fwd_dates = win["forward"]
@@ -223,25 +228,42 @@ def analyze_day(conn, day0_str, calendar):
     kline_fwd["vs_ma20"] = (kline_fwd["close"] / kline_fwd["ma20"]).round(4)
     kline_fwd["vs_ma60"] = (kline_fwd["close"] / kline_fwd["ma60"]).round(4)
     
+    kline_fwd["total_change_pct"] = ((kline_fwd["close"] / kline_fwd["d0_close"]) - 1).round(4)
+    kline_fwd = kline_fwd.sort_values(["stock_code", "date"])
+    kline_fwd["prev_to_r"] = kline_fwd.groupby("stock_code")["to_r"].shift(1)
+    kline_fwd["prev_to_r"] = kline_fwd["prev_to_r"].fillna(kline_fwd["d0_to_r"])
+    kline_fwd["to_r_change_rate"] = ((kline_fwd["to_r"] / kline_fwd["prev_to_r"]) - 1).round(4)
+    kline_fwd = kline_fwd.drop(columns=["prev_to_r"])
+    
     return _format_result(kline_fwd, day0_str, fwd_dates), {"date": day0_str, "total_stocks": len(codes), "surge_count": surge_count, "signal_count": len(triggered)}
 
 def _format_result(df, day0_str, fwd_dates):
     df["day0"] = day0_str
-    cols = ["day0", "industry_code", "industry_name", "stock_code", "name", "mc_rank", "baseline_to_r", "recent1_to_r", "trigger_ratio_1", "recent2_to_r", "trigger_ratio_2", "bl_above_ma20", "bl_below_ma20", "bl_above_ma60", "bl_below_ma60", "bl_above_ma200", "bl_below_ma200", "dm1_close", "dm1_above_ma20", "dm1_above_ma60", "dm1_above_ma200", "d0_change_pct", "d0_close", "d0_ma5", "d0_ma20", "d0_ma60", "d0_ma200", "d0_vs_ma5", "d0_vs_ma20", "d0_vs_ma60", "d0_above_ma20", "d0_above_ma60", "day_offset", "date", "close", "to_r", "to_r_ratio", "change_pct", "ma5", "ma20", "ma60", "ma200", "vs_ma5", "vs_ma20", "vs_ma60"]
+    cols = ["day0", "industry_code", "industry_name", "stock_code", "name", "mc_rank", "baseline_to_r", "recent1_to_r", "trigger_ratio_1", "recent2_to_r", "trigger_ratio_2", "bl_above_ma20", "bl_below_ma20", "bl_above_ma60", "bl_below_ma60", "bl_above_ma200", "bl_below_ma200", "dm1_close", "dm1_is_limit_up", "dm1_above_ma20", "dm1_above_ma60", "dm1_above_ma200", "d0_change_pct", "d0_close", "d0_ma5", "d0_ma20", "d0_ma60", "d0_ma200", "d0_vs_ma5", "d0_vs_ma20", "d0_vs_ma60", "d0_above_ma20", "d0_above_ma60", "day_offset", "date", "close", "to_r", "to_r_ratio", "change_pct", "total_change_pct", "to_r_change_rate", "ma5", "ma20", "ma60", "ma200", "vs_ma5", "vs_ma20", "vs_ma60"]
     for c in cols:
         if c not in df.columns: df[c] = pd.NA
     return df[cols].copy()
 
 def init_result_db(rconn):
+    try:
+        rconn.execute("ALTER TABLE turnover_surge ADD COLUMN dm1_is_limit_up INTEGER")
+    except sqlite3.OperationalError:
+        pass
+    try:
+        rconn.execute("ALTER TABLE turnover_surge ADD COLUMN total_change_pct REAL")
+        rconn.execute("ALTER TABLE turnover_surge ADD COLUMN to_r_change_rate REAL")
+    except sqlite3.OperationalError:
+        pass
+    
     rconn.execute("""
     CREATE TABLE IF NOT EXISTS turnover_surge (
         day0 TEXT, industry_code TEXT, industry_name TEXT, stock_code TEXT, name TEXT, mc_rank INTEGER,
         baseline_to_r REAL, recent1_to_r REAL, trigger_ratio_1 REAL, recent2_to_r REAL, trigger_ratio_2 REAL,
         bl_above_ma20 INTEGER, bl_below_ma20 INTEGER, bl_above_ma60 INTEGER, bl_below_ma60 INTEGER, bl_above_ma200 INTEGER, bl_below_ma200 INTEGER,
-        dm1_close REAL, dm1_above_ma20 INTEGER, dm1_above_ma60 INTEGER, dm1_above_ma200 INTEGER,
+        dm1_close REAL, dm1_is_limit_up INTEGER, dm1_above_ma20 INTEGER, dm1_above_ma60 INTEGER, dm1_above_ma200 INTEGER,
         d0_change_pct REAL, d0_close REAL, d0_ma5 REAL, d0_ma20 REAL, d0_ma60 REAL, d0_ma200 REAL,
         d0_vs_ma5 REAL, d0_vs_ma20 REAL, d0_vs_ma60 REAL, d0_above_ma20 INTEGER, d0_above_ma60 INTEGER,
-        day_offset INTEGER, date TEXT, close REAL, to_r REAL, to_r_ratio REAL, change_pct REAL,
+        day_offset INTEGER, date TEXT, close REAL, to_r REAL, to_r_ratio REAL, change_pct REAL, total_change_pct REAL, to_r_change_rate REAL,
         ma5 REAL, ma20 REAL, ma60 REAL, ma200 REAL, vs_ma5 REAL, vs_ma20 REAL, vs_ma60 REAL,
         PRIMARY KEY (day0, stock_code, day_offset)
     )""")
@@ -249,10 +271,16 @@ def init_result_db(rconn):
     rconn.commit()
 
 def save_to_result_db(rconn, df):
-    cols = ["day0", "industry_code", "industry_name", "stock_code", "name", "mc_rank", "baseline_to_r", "recent1_to_r", "trigger_ratio_1", "recent2_to_r", "trigger_ratio_2", "bl_above_ma20", "bl_below_ma20", "bl_above_ma60", "bl_below_ma60", "bl_above_ma200", "bl_below_ma200", "dm1_close", "dm1_above_ma20", "dm1_above_ma60", "dm1_above_ma200", "d0_change_pct", "d0_close", "d0_ma5", "d0_ma20", "d0_ma60", "d0_ma200", "d0_vs_ma5", "d0_vs_ma20", "d0_vs_ma60", "d0_above_ma20", "d0_above_ma60", "day_offset", "date", "close", "to_r", "to_r_ratio", "change_pct", "ma5", "ma20", "ma60", "ma200", "vs_ma5", "vs_ma20", "vs_ma60"]
+    cols = ["day0", "industry_code", "industry_name", "stock_code", "name", "mc_rank", "baseline_to_r", "recent1_to_r", "trigger_ratio_1", "recent2_to_r", "trigger_ratio_2", "bl_above_ma20", "bl_below_ma20", "bl_above_ma60", "bl_below_ma60", "bl_above_ma200", "bl_below_ma200", "dm1_close", "dm1_is_limit_up", "dm1_above_ma20", "dm1_above_ma60", "dm1_above_ma200", "d0_change_pct", "d0_close", "d0_ma5", "d0_ma20", "d0_ma60", "d0_ma200", "d0_vs_ma5", "d0_vs_ma20", "d0_vs_ma60", "d0_above_ma20", "d0_above_ma60", "day_offset", "date", "close", "to_r", "to_r_ratio", "change_pct", "total_change_pct", "to_r_change_rate", "ma5", "ma20", "ma60", "ma200", "vs_ma5", "vs_ma20", "vs_ma60"]
     update_cols = [c for c in cols if c not in ["day0", "stock_code", "day_offset"]]
     update_set = ", ".join([f"{c}=excluded.{c}" for c in update_cols])
-    rows = [tuple(None if pd.isna(v) else v for v in row) for row in df[cols].itertuples(index=False)]
+    
+    def _cast(v):
+        if pd.isna(v): return None
+        if hasattr(v, 'item'): return v.item()
+        return v
+        
+    rows = [tuple(_cast(v) for v in row) for row in df[cols].itertuples(index=False)]
     rconn.executemany(f"INSERT INTO turnover_surge ({','.join(cols)}) VALUES ({','.join(['?']*len(cols))}) ON CONFLICT(day0, stock_code, day_offset) DO UPDATE SET {update_set}", rows)
     rconn.commit()
 

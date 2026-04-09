@@ -80,7 +80,7 @@ def run_script(script_path, title, args=None):
             st.error(f"执行发生异常: {str(e)}")
 
 # --- UI：左右分栏结构 ---
-tab1, tab2 = st.tabs(["🚀 数据抓取调度", "📊 Turnover Surge 异动策略"])
+tab1, tab2, tab3 = st.tabs(["🚀 数据抓取调度", "📊 Turnover Surge 异动策略", "📉 策略回测下载"])
 
 with tab1:
     st.markdown("### 👉 分步 / 全量数据抓取")
@@ -218,3 +218,54 @@ with tab2:
                 final_df = final_df.sort_values("_sort_val", ascending=False).drop(columns=["_sort_val"])
 
             st.dataframe(final_df, use_container_width=True, hide_index=True)
+
+with tab3:
+    st.markdown("### 📉 策略回测数据导出")
+    st.info("从数据库中提取历史区间内的策略触发记录及后续多日跟踪行情，导出为 CSV 文件供本地回测分析。")
+    
+    col_bt1, col_bt2 = st.columns(2)
+    with col_bt1:
+        bt_start = st.date_input("起始日期", value=pd.to_datetime("2019-01-01").date())
+    with col_bt2:
+        bt_end = st.date_input("结束日期", value=pd.to_datetime("2026-03-01").date())
+        
+    str_start = bt_start.strftime("%Y-%m-%d")
+    str_end = bt_end.strftime("%Y-%m-%d")
+    
+    if st.button("🔍 提取回测数据", type="primary", use_container_width=True):
+        st.session_state["bt_start"] = str_start
+        st.session_state["bt_end"] = str_end
+
+    # 通过 st.session_state 确保即便执行到 download_button 的时候，页面重载之后依然可以提供真实的数据
+    if "bt_start" in st.session_state and "bt_end" in st.session_state:
+        q_start = st.session_state["bt_start"]
+        q_end = st.session_state["bt_end"]
+        
+        if not os.path.exists(TURNOVER_DB_PATH):
+            st.error("尚未生成策略数据库。请先在【异动策略】页面执行扫描。")
+        else:
+            with st.spinner(f"正在读取 {q_start} 到 {q_end} 的数据..."):
+                with sqlite3.connect(TURNOVER_DB_PATH) as conn:
+                    query = "SELECT * FROM turnover_surge WHERE day0 >= ? AND day0 <= ? ORDER BY day0, stock_code, day_offset"
+                    try:
+                        df_bt = pd.read_sql_query(query, conn, params=(q_start, q_end))
+                    except Exception as e:
+                        df_bt = pd.DataFrame()
+                        st.error(f"提取失败: {e}")
+            
+            if df_bt.empty:
+                st.warning(f"区间 {q_start} 至 {q_end} 没有扫描记录，或数据为空。")
+            else:
+                st.success(f"✅ 查询成功！在 {q_start} 至 {q_end} 期间，包含 {len(df_bt)} 条记录详细行情数据。")
+                
+                # 防止由于中文字符串导致在 Excel 乱码，建议以 utf-8-sig 编码
+                csv_bytes = df_bt.to_csv(index=False).encode("utf-8-sig")
+                
+                st.download_button(
+                    label=f"💾 点击下载 CSV 文件 ({q_start} ~ {q_end})",
+                    data=csv_bytes,
+                    file_name=f"turnover_surge_backtest_{q_start}_to_{q_end}.csv",
+                    mime="text/csv",
+                    use_container_width=True
+                )
+
