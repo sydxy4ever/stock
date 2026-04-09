@@ -39,7 +39,7 @@ DB_PATH      = os.getenv("DB_PATH", "stock_data.db")
 BATCH_SIZE   = 100    # 快照模式每批股票数（历史模式固定为1）
 API_INTERVAL = 0.1   # 秒，约 900 次/分钟 (保持在 1000 次安全线内)
 
-HISTORY_START = "2020-01-01"
+HISTORY_START = "2018-01-01"
 
 # 5个财报接口 URL（key = fs_table_type）
 ENDPOINTS = {

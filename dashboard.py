@@ -144,7 +144,77 @@ with tab2:
         if df.empty:
             st.info(f"{str_date} 没有符合异动条件的标的，或该日数据未被扫描记录。")
         else:
-            st.success(f"📌 {str_date} 共产生 {len(df)} 条跟踪记录（包含了该日产生信号的股票以及它未来9日的走势）")
-            # 因为数据是每日拆开的 (day_offset 1~9)，我们可以透视一下更适合观看：
-            # 这里先直接展示原始宽表，让用户能直观排序和过滤
-            st.dataframe(df, use_container_width=True, hide_index=True)
+            unique_stocks_count = df["stock_code"].nunique()
+            st.success(f"📌 {str_date} 共产生 {unique_stocks_count} 只异动股票标的。")
+            
+            # --- 精简与美化数据 ---
+            # 1. 甄选我们要展示的核心基础字段
+            base_cols = [
+                "stock_code", "name", "industry_name", 
+                "baseline_to_r", "recent1_to_r", "trigger_ratio_1", "recent2_to_r", "trigger_ratio_2", 
+                "d0_close", "d0_change_pct",
+                "d0_above_ma20", "d0_above_ma60"
+            ]
+            valid_base = [c for c in base_cols if c in df.columns]
+            
+            # 每个股票只保留一行基础信息
+            base_df = df.drop_duplicates(subset=["stock_code"])[valid_base].set_index("stock_code")
+            
+            # 2. 提取并透视未来 N 日的涨跌幅
+            # 去除没有 day_offset 的脏数据
+            fwd = df.dropna(subset=["day_offset"]).copy()
+            if not fwd.empty:
+                fwd["day_offset"] = pd.to_numeric(fwd["day_offset"], errors="coerce").fillna(0).astype(int)
+                pivot_df = fwd.pivot(index="stock_code", columns="day_offset", values="change_pct")
+                # 将列名改为 D1_涨幅, D2_涨幅...
+                pivot_df.columns = [f"D{c}_涨幅%" for c in pivot_df.columns]
+                
+                # 拼合到基础表
+                final_df = base_df.join(pivot_df).reset_index()
+            else:
+                final_df = base_df.reset_index()
+            
+            # 3. 字段格式微调方便阅读
+            if "baseline_to_r" in final_df.columns:
+                final_df["baseline_to_r"] = (pd.to_numeric(final_df["baseline_to_r"], errors="coerce") * 100).round(2).astype(str) + "%"
+            if "recent1_to_r" in final_df.columns:
+                final_df["recent1_to_r"] = (pd.to_numeric(final_df["recent1_to_r"], errors="coerce") * 100).round(2).astype(str) + "%"
+            if "recent2_to_r" in final_df.columns:
+                final_df["recent2_to_r"] = (pd.to_numeric(final_df["recent2_to_r"], errors="coerce") * 100).round(2).astype(str) + "%"
+            if "trigger_ratio_1" in final_df.columns:
+                final_df["trigger_ratio_1"] = pd.to_numeric(final_df["trigger_ratio_1"], errors="coerce").round(2).astype(str) + " 倍"
+            if "trigger_ratio_2" in final_df.columns:
+                final_df["trigger_ratio_2"] = pd.to_numeric(final_df["trigger_ratio_2"], errors="coerce").round(2).astype(str) + " 倍"
+            
+            if "d0_change_pct" in final_df.columns:
+                final_df["d0_change_pct"] = (pd.to_numeric(final_df["d0_change_pct"], errors="coerce") * 100).round(2).astype(str) + "%"
+            
+            # 把前瞻涨幅也乘以 100 变成百分比形式
+            for col in final_df.columns:
+                if col.startswith("D") and "_涨幅" in col:
+                    final_df[col] = (pd.to_numeric(final_df[col], errors="coerce") * 100).round(2).astype(str) + "%"
+            
+            # 重命名表头为中文方便阅读
+            rename_dict = {
+                "stock_code": "股票代码",
+                "name": "股票名称",
+                "industry_name": "所属行业",
+                "baseline_to_r": "基准换手率",
+                "recent1_to_r": "一阶换手",
+                "trigger_ratio_1": "一阶倍数",
+                "recent2_to_r": "二阶换手",
+                "trigger_ratio_2": "二阶倍数",
+                "d0_close": "收盘价",
+                "d0_change_pct": "当日涨幅",
+                "d0_above_ma20": "站上MA20",
+                "d0_above_ma60": "站上MA60"
+            }
+            final_df = final_df.rename(columns=rename_dict)
+            
+            # 默认按二阶倍数从大到小排
+            if "二阶倍数" in final_df.columns:
+                # 排序前把 " 倍" 截掉变成 Float 进行排序
+                final_df["_sort_val"] = final_df["二阶倍数"].str.replace(" 倍", "").astype(float)
+                final_df = final_df.sort_values("_sort_val", ascending=False).drop(columns=["_sort_val"])
+
+            st.dataframe(final_df, use_container_width=True, hide_index=True)

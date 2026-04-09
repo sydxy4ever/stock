@@ -4,3 +4,4 @@
 venv/
 old/
 output/
+*.db.bak

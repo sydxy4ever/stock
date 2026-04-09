@@ -83,10 +83,12 @@ def get_day_index(calendar: pd.Series, day0_str: str) -> int | None:
 
 
 def get_date_windows(calendar: pd.Series, idx: int) -> dict[str, list[str]]:
-    baseline_start = idx - 35
-    baseline_end   = idx - 5
-    recent_start   = idx - 5
-    recent_end     = idx
+    baseline_start = idx - 40
+    baseline_end   = idx - 10
+    recent1_start  = idx - 10
+    recent1_end    = idx - 5
+    recent2_start  = idx - 5
+    recent2_end    = idx
     forward_start  = idx + 1
     forward_end    = idx + FORWARD_DAYS + 1
 
@@ -94,7 +96,8 @@ def get_date_windows(calendar: pd.Series, idx: int) -> dict[str, list[str]]:
     n_cal = len(calendar)
     return {
         "baseline": calendar.iloc[baseline_start:baseline_end].tolist(),
-        "recent":   calendar.iloc[recent_start:recent_end].tolist(),
+        "recent1":  calendar.iloc[recent1_start:recent1_end].tolist(),
+        "recent2":  calendar.iloc[recent2_start:recent2_end].tolist(),
         "forward":  calendar.iloc[forward_start:min(forward_end, n_cal)].tolist(),
     }
 
@@ -158,18 +161,21 @@ def analyze_day(conn, day0_str, calendar):
     if top_stocks.empty: return pd.DataFrame(), {"date": day0_str, "total_stocks": 0, "surge_count": 0, "signal_count": 0}
     
     codes = top_stocks["stock_code"].tolist()
-    hist_dates = win["baseline"] + win["recent"]
+    hist_dates = win["baseline"] + win["recent1"] + win["recent2"]
     kline_hist = get_kline_slice(conn, codes, hist_dates)
     if kline_hist.empty: return pd.DataFrame(), {"date": day0_str, "total_stocks": len(codes), "surge_count": 0, "signal_count": 0}
     
     bl_df = kline_hist[kline_hist["date"].isin(win["baseline"])].groupby("stock_code")["to_r"].agg(baseline_to_r="mean", baseline_obs="count").reset_index()
-    rc_df = kline_hist[kline_hist["date"].isin(win["recent"])].groupby("stock_code")["to_r"].mean().rename("recent_to_r").reset_index()
+    rc1_df = kline_hist[kline_hist["date"].isin(win["recent1"])].groupby("stock_code")["to_r"].mean().rename("recent1_to_r").reset_index()
+    rc2_df = kline_hist[kline_hist["date"].isin(win["recent2"])].groupby("stock_code")["to_r"].mean().rename("recent2_to_r").reset_index()
     bl_ma_data = get_ma_slice(conn, codes, win["baseline"])
     bl_ma_pos = compute_baseline_ma_position(kline_hist[kline_hist["date"].isin(win["baseline"])], bl_ma_data)
     
-    sig = top_stocks.merge(bl_df, on="stock_code").merge(rc_df, on="stock_code").merge(bl_ma_pos, on="stock_code")
-    sig["trigger_ratio"] = sig["recent_to_r"] / sig["baseline_to_r"]
-    triggered = sig[(sig["trigger_ratio"] >= TRIGGER_RATIO_MIN) & (sig["trigger_ratio"] <= TRIGGER_RATIO_MAX) & (sig["baseline_obs"] >= MIN_BASELINE_OBS)].copy()
+    sig = top_stocks.merge(bl_df, on="stock_code").merge(rc1_df, on="stock_code").merge(rc2_df, on="stock_code").merge(bl_ma_pos, on="stock_code")
+    sig["trigger_ratio_1"] = sig["recent1_to_r"] / sig["baseline_to_r"]
+    sig["trigger_ratio_2"] = sig["recent2_to_r"] / sig["baseline_to_r"]
+    
+    triggered = sig[(sig["trigger_ratio_1"] >= 1.2) & (sig["trigger_ratio_1"] <= 1.5) & (sig["trigger_ratio_2"] > 1.5) & (sig["baseline_obs"] >= MIN_BASELINE_OBS)].copy()
     surge_count = len(triggered)
     
     t_codes = triggered["stock_code"].tolist()
@@ -192,7 +198,7 @@ def analyze_day(conn, day0_str, calendar):
     triggered["d0_above_ma60"] = ((d0_c > m60) & m60.notna()).astype("Int8")
     
     # Day(-1) 快照
-    dm1 = win["recent"][-1]
+    dm1 = win["recent2"][-1]
     kline_dm1 = kline_hist[kline_hist["date"] == dm1][["stock_code", "close"]].rename(columns={"close": "dm1_close"})
     ma_dm1 = get_ma_slice(conn, t_codes, [dm1])
     if not ma_dm1.empty and not kline_dm1.empty:
@@ -221,7 +227,7 @@ def analyze_day(conn, day0_str, calendar):
 
 def _format_result(df, day0_str, fwd_dates):
     df["day0"] = day0_str
-    cols = ["day0", "industry_code", "industry_name", "stock_code", "name", "mc_rank", "baseline_to_r", "recent_to_r", "trigger_ratio", "bl_above_ma20", "bl_below_ma20", "bl_above_ma60", "bl_below_ma60", "bl_above_ma200", "bl_below_ma200", "dm1_close", "dm1_above_ma20", "dm1_above_ma60", "dm1_above_ma200", "d0_change_pct", "d0_close", "d0_ma5", "d0_ma20", "d0_ma60", "d0_ma200", "d0_vs_ma5", "d0_vs_ma20", "d0_vs_ma60", "d0_above_ma20", "d0_above_ma60", "day_offset", "date", "close", "to_r", "to_r_ratio", "change_pct", "ma5", "ma20", "ma60", "ma200", "vs_ma5", "vs_ma20", "vs_ma60"]
+    cols = ["day0", "industry_code", "industry_name", "stock_code", "name", "mc_rank", "baseline_to_r", "recent1_to_r", "trigger_ratio_1", "recent2_to_r", "trigger_ratio_2", "bl_above_ma20", "bl_below_ma20", "bl_above_ma60", "bl_below_ma60", "bl_above_ma200", "bl_below_ma200", "dm1_close", "dm1_above_ma20", "dm1_above_ma60", "dm1_above_ma200", "d0_change_pct", "d0_close", "d0_ma5", "d0_ma20", "d0_ma60", "d0_ma200", "d0_vs_ma5", "d0_vs_ma20", "d0_vs_ma60", "d0_above_ma20", "d0_above_ma60", "day_offset", "date", "close", "to_r", "to_r_ratio", "change_pct", "ma5", "ma20", "ma60", "ma200", "vs_ma5", "vs_ma20", "vs_ma60"]
     for c in cols:
         if c not in df.columns: df[c] = pd.NA
     return df[cols].copy()
@@ -230,7 +236,7 @@ def init_result_db(rconn):
     rconn.execute("""
     CREATE TABLE IF NOT EXISTS turnover_surge (
         day0 TEXT, industry_code TEXT, industry_name TEXT, stock_code TEXT, name TEXT, mc_rank INTEGER,
-        baseline_to_r REAL, recent_to_r REAL, trigger_ratio REAL,
+        baseline_to_r REAL, recent1_to_r REAL, trigger_ratio_1 REAL, recent2_to_r REAL, trigger_ratio_2 REAL,
         bl_above_ma20 INTEGER, bl_below_ma20 INTEGER, bl_above_ma60 INTEGER, bl_below_ma60 INTEGER, bl_above_ma200 INTEGER, bl_below_ma200 INTEGER,
         dm1_close REAL, dm1_above_ma20 INTEGER, dm1_above_ma60 INTEGER, dm1_above_ma200 INTEGER,
         d0_change_pct REAL, d0_close REAL, d0_ma5 REAL, d0_ma20 REAL, d0_ma60 REAL, d0_ma200 REAL,
@@ -243,7 +249,7 @@ def init_result_db(rconn):
     rconn.commit()
 
 def save_to_result_db(rconn, df):
-    cols = ["day0", "industry_code", "industry_name", "stock_code", "name", "mc_rank", "baseline_to_r", "recent_to_r", "trigger_ratio", "bl_above_ma20", "bl_below_ma20", "bl_above_ma60", "bl_below_ma60", "bl_above_ma200", "bl_below_ma200", "dm1_close", "dm1_above_ma20", "dm1_above_ma60", "dm1_above_ma200", "d0_change_pct", "d0_close", "d0_ma5", "d0_ma20", "d0_ma60", "d0_ma200", "d0_vs_ma5", "d0_vs_ma20", "d0_vs_ma60", "d0_above_ma20", "d0_above_ma60", "day_offset", "date", "close", "to_r", "to_r_ratio", "change_pct", "ma5", "ma20", "ma60", "ma200", "vs_ma5", "vs_ma20", "vs_ma60"]
+    cols = ["day0", "industry_code", "industry_name", "stock_code", "name", "mc_rank", "baseline_to_r", "recent1_to_r", "trigger_ratio_1", "recent2_to_r", "trigger_ratio_2", "bl_above_ma20", "bl_below_ma20", "bl_above_ma60", "bl_below_ma60", "bl_above_ma200", "bl_below_ma200", "dm1_close", "dm1_above_ma20", "dm1_above_ma60", "dm1_above_ma200", "d0_change_pct", "d0_close", "d0_ma5", "d0_ma20", "d0_ma60", "d0_ma200", "d0_vs_ma5", "d0_vs_ma20", "d0_vs_ma60", "d0_above_ma20", "d0_above_ma60", "day_offset", "date", "close", "to_r", "to_r_ratio", "change_pct", "ma5", "ma20", "ma60", "ma200", "vs_ma5", "vs_ma20", "vs_ma60"]
     update_cols = [c for c in cols if c not in ["day0", "stock_code", "day_offset"]]
     update_set = ", ".join([f"{c}=excluded.{c}" for c in update_cols])
     rows = [tuple(None if pd.isna(v) else v for v in row) for row in df[cols].itertuples(index=False)]

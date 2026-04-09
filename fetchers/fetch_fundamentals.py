@@ -36,7 +36,7 @@ BATCH_SIZE   = 100    # API 每次最多 100 只
 API_INTERVAL = 0.1   # 秒，每分钟约 900 次 (保持在 1000 次安全线下)
 
 # 历史模式起始日期
-HISTORY_START = "2020-01-01"
+HISTORY_START = "2018-01-01"
 
 # 5个接口 URL（key = fs_table_type）
 ENDPOINTS = {
