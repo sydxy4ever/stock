@@ -1,0 +1,17 @@
+# 排除不需要进入 Docker 镜像的文件
+venv/
+__pycache__/
+*.pyc
+*.pyo
+.git/
+.gitignore
+.vscode/
+
+# 本地数据库（通过 volume 挂载，不打包进镜像）
+*.db
+
+# 分析输出（同样通过 volume 共享）
+output/
+*.md
+*.xlsx
+*.csv

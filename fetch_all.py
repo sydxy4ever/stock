@@ -1,18 +1,21 @@
 import subprocess
 import sys
 import logging
+import time
 
 logging.basicConfig(level=logging.INFO, format='%(asctime)s - %(levelname)s - %(message)s')
 
 SCRIPTS = [
-    "fetch_stocks.py",
-    "fetch_industries.py",
-    "fetch_fundamentals.py",
-    "fetch_fs.py",
-    "fetch_klines.py"
+    "fetchers/fetch_stocks.py",
+    "fetchers/fetch_industries.py",
+    "fetchers/fetch_fundamentals.py",
+    "fetchers/fetch_fs.py",
+    "fetchers/fetch_klines.py",
 ]
 
 def run_all():
+    start_time = time.time()
+    
     logging.info("=========================================")
     logging.info("开始执行日常数据抓取任务...")
     logging.info("=========================================")
@@ -65,6 +68,9 @@ def run_all():
         logging.warning("建议：考虑进一步调大 API_INTERVAL 间隔或检查网络代理。")
     else:
         logging.info("✅ 统计报告：本次执行未触发任何 HTTP 429 限流错误，运行非常稳健。")
+        
+    elapsed = time.time() - start_time
+    logging.info(f"⏱️  总耗时: {elapsed/60:.2f} 分钟 ({elapsed:.1f} 秒)")
     logging.info("=========================================")
 
 if __name__ == "__main__":

@@ -17,10 +17,11 @@ import pandas as pd
 import numpy as np
 from pathlib import Path
 
-# ─── 配置 ────────────────────────────────────────────────────────────────────
-SURGE_DB      = "turnover_surge.db"
-OUTPUT_MD     = "analysis_v5_2.md"
-OUTPUT_XLSX   = "analysis_v5_2.xlsx"
+# ─── 路径配置（相对于项目根目录，与脚本位置无关）────────────────────────────
+_ROOT = Path(__file__).parent.parent
+SURGE_DB      = str(_ROOT / "turnover_surge.db")
+OUTPUT_MD     = str(_ROOT / "output" / "analysis_v5_2.md")
+OUTPUT_XLSX   = str(_ROOT / "output" / "analysis_v5_2.xlsx")
 MIN_TRACK_DAYS = 3
 MIN_COUNT_SHOW = 3     # 极端情况样本量较少，适当降低展示阈值
 

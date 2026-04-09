@@ -37,10 +37,12 @@ import argparse
 import sqlite3
 import pandas as pd
 import numpy as np
+from pathlib import Path
 
 # ─── 配置 ───────────────────────────────────────────────────────────────────────
-DB_PATH          = "stock_data.db"
-RESULT_DB_PATH   = "turnover_surge.db"   # 分析结果数据库
+_ROOT            = Path(__file__).parent.parent
+DB_PATH          = str(_ROOT / "stock_data.db")
+RESULT_DB_PATH   = str(_ROOT / "turnover_surge.db")   # 分析结果数据库
 OUTPUT_DIR       = "output"
 INDUSTRY_SOURCE  = "sw_2021"    # 行业体系
 TOP_N            = 3            # 每个三级行业龙头股数量

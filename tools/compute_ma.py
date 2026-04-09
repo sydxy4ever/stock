@@ -13,8 +13,10 @@ compute_ma.py
 import sqlite3
 import pandas as pd
 import time
+from pathlib import Path
 
-DB_PATH    = "stock_data.db"
+_ROOT      = Path(__file__).parent.parent
+DB_PATH    = str(_ROOT / "stock_data.db")
 BATCH_SIZE = 300   # 每批处理的股票数，控制内存
 
 WINDOWS = {"ma5": 5, "ma20": 20, "ma60": 60, "ma200": 200}

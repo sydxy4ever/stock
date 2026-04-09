@@ -181,6 +181,9 @@ def upsert_stocks(conn: sqlite3.Connection, stocks: list[dict]):
             updated_at         = datetime('now', 'localtime')
     """
     parsed = [parse_stock(s) for s in stocks]
+    # 从根本上过滤北交所股票（82、83、87、92 开头）
+    parsed = [p for p in parsed if not p["stock_code"].startswith(("82", "83", "87", "92"))]
+    
     conn.executemany(sql, parsed)
     conn.commit()
     print(f"[DB] 已写入/更新 {len(parsed)} 条股票记录。")

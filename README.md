@@ -1,274 +1,369 @@
-# 📈 股票换手率异动策略分析系统
+# 📈 Stock Analysis Pipeline
 
-> A-股量化选股框架，专注"黄金坑"形态挖掘：行业龙头 × 换手率异动 × 底部均线突破
+> 基于理杏仁 API 的 A 股数据采集与量化分析系统，聚焦于「换手率异动 + 均线位置」信号的多维度回测研究。
 
 ---
 
 ## 目录
 
-- [项目简介](#项目简介)
-- [核心策略逻辑](#核心策略逻辑)
-- [项目结构](#项目结构)
-- [数据库架构](#数据库架构)
+- [项目概览](#项目概览)
+- [目录结构](#目录结构)
+- [数据流](#数据流)
 - [快速开始](#快速开始)
-- [模块详解](#模块详解)
-- [分析与回测](#分析与回测)
-- [环境依赖](#环境依赖)
-- [注意事项](#注意事项)
+- [模块说明](#模块说明)
+  - [fetchers — 数据抓取](#fetchers--数据抓取)
+  - [tools — 工具脚本](#tools--工具脚本)
+  - [strategy — 信号扫描](#strategy--信号扫描)
+  - [analyze — 回测分析](#analyze--回测分析)
+- [Docker 部署](#docker-部署)
+- [数据库结构](#数据库结构)
+- [分析维度说明](#分析维度说明)
 
 ---
 
-## 项目简介
+## 项目概览
 
-本项目是一套完整的 A 股量化分析与策略回测框架，核心思路是捕捉**底部放量异动**形态——当行业龙头股在均线下方累积筹码，并伴随换手率的突然放大（1.8x–2.6x）且当日出现强势阳线突破时，识别并记录该信号，跟踪后续 10 个交易日的价格走势以评估策略效果。
+本项目完整实现了以下流程：
 
-**数据来源**：[理杏仁 API](https://www.lixinger.com/)（需申请 Token）  
-**行业分类**：申万 2021 三级行业（`sw_2021`）  
-**数据存储**：SQLite（本地无服务器依赖）
+```
+理杏仁 API → 数据入库 → 均线计算 → 信号扫描 → 多维度回测分析 → Markdown / Excel 报告
+```
+
+核心策略：在申万 2021 三级行业龙头股（市值 Top-3）中，筛选满足以下条件的「换手率异动启动日」：
+
+| 条件 | 参数 |
+|------|------|
+| 近 5 日均换手率 / 基准 30 日均换手率 | 1.5x ～ 4.0x |
+| 启动日（Day0）涨幅 | ≥ 4% |
+
+随后跟踪 Day1 ～ Day9 的价格与换手率表现，并按 4 个维度（均线位置 × 基准期强弱 × 触发倍数 × 启动涨幅）进行分组统计。
 
 ---
 
-## 核心策略逻辑
-
-策略筛选包含四个维度的联合过滤：
+## 目录结构
 
 ```
-换手率异动 (1.5x ≤ trigger_ratio ≤ 4.0x)
-    ×
-启动日强势 (Day0 涨幅 ≥ 4%)
-    ×
-底部均线确认 (收盘价 < MA20 & MA60 & MA200)
-    ×
-行业龙头地位 (sw_2021 三级行业市值 Top-3)
-```
-
-> **新增：基准期均线位置分析**  
-> 统计基准期（30个交易日）内收盘价高于/低于 MA20、MA60、MA200 的天数（`bl_above_ma20` / `bl_below_ma20` 等），用于后续区分「持续下跌」、「横盘整理」等不同趋势模式，进一步提升筛选精度。
-
-### 时间窗口定义（均为交易日）
-
-| 窗口名称 | 范围 | 长度 | 用途 |
-|----------|------|------|------|
-| 基准期 | Day(-35) ~ Day(-6) | 30 天 | 计算正常换手率基线；同时统计各均线上方/下方天数 |
-| 观察期 | Day(-5) ~ Day(-1) | 5 天 | 计算近期异动换手率 |
-| **启动日 Day0** | Day0 | 1 天 | 触发日：换手率异动倍数 1.5x~4x 且涨幅 ≥ 4% |
-| 跟踪期 | Day(1) ~ Day(9) | 9 天 | 跟踪策略触发后的表现 |
-
-触发比例 = `recent_to_r / baseline_to_r`，当前阈值区间为 **[1.5, 4.0]**（宽幅覆盖，可结合基准期均线位置进一步精细筛选）。
-
----
-
-## 项目结构
-
-```
-stock/
+/data/stock/
+├── fetchers/                   # 数据抓取模块（理杏仁 API）
+│   ├── fetch_stocks.py         # 获取 A 股股票列表
+│   ├── fetch_industries.py     # 获取申万行业归属
+│   ├── fetch_fundamentals.py   # 获取市值等基本面数据
+│   ├── fetch_fs.py             # 获取财务报表数据
+│   └── fetch_klines.py         # 获取日 K 线数据（含断点续传）
 │
-├── 📥 数据获取层
-│   ├── fetch_stocks.py          # 获取全量 A 股基础信息
-│   ├── fetch_klines.py          # 批量下载历史 K 线（支持断点续传 & 增量更新）
-│   ├── fetch_fundamentals.py    # 获取财务基本面数据（市值等）
-│   ├── fetch_fs.py              # 获取财务报表数据
-│   └── fetch_industries.py      # 获取股票行业分类（申万 2021）
+├── tools/                      # 工具脚本
+│   ├── compute_ma.py           # 计算 MA5/20/60/200，写入 moving_averages 表
+│   ├── build_calendar.py       # 构建交易日历（trade_calendar 表 + CSV）
+│   └── check_daily_sentiment.py  # 查看每日市场情绪分布（辅助分析用）
 │
-├── 🔧 数据处理层
-│   ├── build_calendar.py        # 生成 A 股交易日历（基于 600519 茅台）
-│   └── compute_ma.py            # 计算均线（MA5 / MA20 / MA60 / MA200）
+├── strategy/                   # 信号扫描策略
+│   └── turnover_surge.py       # 换手率异动信号扫描 → 写入 turnover_surge.db
 │
-├── 🔍 策略分析层
-│   ├── turnover_surge.py        # 换手率异动核心分析引擎（支持单日/批量）
-│   ├── strategy.py              # 生产级选股扫描器（每日信号落库）
-│   └── analyze_v1.py ~ v4.py   # 策略参数探索与回测分析脚本（迭代实验）
+├── analyze/                    # 回测分析报告
+│   ├── analyze_v5_1.py         # 4D 分组回测（全局，4320 种组合）
+│   ├── analyze_v5_2.py         # 极端情绪日专项分析（Top/Bottom 15%）
+│   └── analyze_v5_3.py         # 峰值/谷值到达时间分析（止盈止损辅助）
 │
-├── 💾 数据存储
-│   ├── stock_data.db            # 主数据库（K线、基本面、行业、均线）
-│   ├── turnover_surge.db        # 换手率异动分析结果库
-│   └── strategy_results.db      # 每日最终选股信号库
+├── output/                     # 分析输出（.md 报告 + .xlsx 表格）
+│   ├── analysis_v5_1.md / .xlsx
+│   ├── analysis_v5_2.md / .xlsx
+│   └── analysis_v5_3.md / .xlsx
 │
-├── 📊 分析报告
-│   ├── analysis_summary_v1.md   # 实验一结果摘要
-│   ├── analysis_summary_v2.md   # 实验二结果摘要
-│   └── analysis_summary_v3.md   # 实验三结果摘要（次日涨幅 × 基准换手率交叉分析）
-│
-├── 📁 output/                   # 每日 CSV 分析输出目录
-├── trade_calendar.csv           # 交易日历文件（build_calendar.py 生成）
-└── venv/                        # Python 虚拟环境
+├── fetch_all.py                # 批量调度入口（依次运行所有 fetcher）
+├── scheduler.py                # Docker 定时调度器（每日 01:00 触发）
+├── Dockerfile                  # 容器构建文件
+├── docker-compose.yml          # Portainer / docker compose 部署配置
+├── requirements.txt            # Python 依赖
+├── stock_data.db               # 主数据库（K线、基本面、行业等）
+└── turnover_surge.db           # 策略信号数据库
 ```
 
 ---
 
-## 数据库架构
+## 数据流
 
-### `stock_data.db`（主数据库）
-
-| 表名 | 主键 | 说明 |
-|------|------|------|
-| `stocks` | `stock_code` | A 股基础信息（名称、交易所、上市状态等） |
-| `daily_kline` | `(stock_code, date)` | 日 K 线（开高低收、成交量、换手率 `to_r`、涨跌幅） |
-| `fundamentals` | `(stock_code, date)` | 财务基本面（市值 `mc` 等） |
-| `stock_industries` | — | 股票行业归属（`sw_2021` 三级） |
-| `moving_averages` | `(stock_code, date)` | MA5 / MA20 / MA60 / MA200 |
-| `trade_calendar` | `date` | A 股交易日历 |
-
-### `turnover_surge.db`
-
-| 表名 | 主键 | 说明 |
-|------|------|------|
-| `turnover_surge` | `(day1, stock_code, day_offset)` | 每次触发信号 + 10 日跟踪期完整数据 |
-
-### `strategy_results.db`
-
-| 表名 | 主键 | 说明 |
-|------|------|------|
-| `strategy_signals` | `(date, stock_code)` | 每日生产选股输出，含均线快照 |
+```
+                    ┌─────────────────────────┐
+                    │    理杏仁 Open API        │
+                    └────────────┬────────────┘
+                                 │
+              ┌──────────────────┼──────────────────┐
+              │                  │                  │
+     fetch_stocks.py   fetch_klines.py    fetch_fundamentals.py ...
+              │                  │                  │
+              └──────────────────┴──────────────────┘
+                                 │
+                         stock_data.db
+                                 │
+              ┌──────────────────┼──────────────────┐
+              │                                     │
+     compute_ma.py                        build_calendar.py
+     (moving_averages 表)                 (trade_calendar 表)
+              │                                     │
+              └──────────────────┬──────────────────┘
+                                 │
+                      strategy/turnover_surge.py
+                                 │
+                         turnover_surge.db
+                                 │
+              ┌──────────────────┼──────────────────┐
+              │                  │                  │
+     analyze_v5_1.py   analyze_v5_2.py   analyze_v5_3.py
+              │                  │                  │
+              └──────────────────┴──────────────────┘
+                                 │
+                           output/*.md
+                           output/*.xlsx
+```
 
 ---
 
 ## 快速开始
 
-### 1. 环境准备
+### 1. 安装依赖
 
 ```bash
-python -m venv venv
-source venv/bin/activate
-pip install pandas numpy requests sqlite3
+pip install -r requirements.txt
+# 分析模块还需要：
+pip install pandas numpy openpyxl
 ```
 
 ### 2. 配置 API Token
 
 ```bash
-export LIXINGER_TOKEN="你的理杏仁API Token"
+export LIXINGER_TOKEN="你的理杏仁Token"
 ```
 
-### 3. 数据初始化（首次运行）
-
-按顺序执行以下脚本：
+### 3. 初次数据采集（全量）
 
 ```bash
-# Step 1: 获取股票列表
-python fetch_stocks.py
+# 一键运行全部抓取脚本
+python fetch_all.py
 
-# Step 2: 获取行业分类
-python fetch_industries.py
-
-# Step 3: 下载K线数据（约 5600 只股票，耗时较长）
-python fetch_klines.py
-
-# Step 4: 获取财务基本面（市值数据）
-python fetch_fundamentals.py
-
-# Step 5: 构建交易日历
-python build_calendar.py
-
-# Step 6: 计算均线（MA5/MA20/MA60/MA200）
-python compute_ma.py
+# 或分步运行
+python fetchers/fetch_stocks.py
+python fetchers/fetch_industries.py
+python fetchers/fetch_fundamentals.py
+python fetchers/fetch_fs.py
+python fetchers/fetch_klines.py
 ```
 
-### 4. 日常运行
+### 4. 构建交易日历 & 计算均线
 
 ```bash
-# 扫描今日选股信号（默认最新交易日）
-python strategy.py
-
-# 指定日期扫描
-python strategy.py --date 2026-03-28
-
-# 批量回溯扫描
-python strategy.py --start 2025-01-01 --end 2026-03-28
+python tools/build_calendar.py
+python tools/compute_ma.py
 ```
 
-### 5. 换手率异动深度分析
+### 5. 运行信号扫描
 
 ```bash
-# 分析单日触发信号并跟踪后10日
-python turnover_surge.py --day1 2026-03-28
+# 扫描全部历史日期
+python strategy/turnover_surge.py --start 2020-01-01 --end 2026-04-09
 
-# 批量分析（结果写入 turnover_surge.db）
-python turnover_surge.py --start 2025-01-01 --end 2026-03-28
+# 只扫描指定日期
+python strategy/turnover_surge.py --day0 2025-12-31
+```
 
-# 仅输出CSV，不写数据库
-python turnover_surge.py --day1 2026-03-28 --no-db
+### 6. 生成分析报告
 
-# 查看行业代码样例（调试用）
-python turnover_surge.py --show-industries
+```bash
+# 4D 分组回测（输出到 output/analysis_v5_1.md 和 .xlsx）
+python analyze/analyze_v5_1.py
+
+# 极端情绪日分析
+python analyze/analyze_v5_2.py
+
+# 峰/谷时间分析
+python analyze/analyze_v5_3.py
 ```
 
 ---
 
-## 模块详解
+## 模块说明
 
-### `fetch_klines.py` — K 线下载
+### fetchers — 数据抓取
 
-- 支持**断点续传**：已是最新的股票自动跳过
-- 支持**增量更新**：每只股票只拉取上次最新日期之后的新数据
-- 速率控制：每次 API 调用间隔 ≥ 0.25 秒（≤ 4 次/秒）
-- 复权类型：理杏仁前复权 `lxr_fc_rights`
+所有脚本支持**断点续传**和**增量更新**，可重复运行。
 
-### `compute_ma.py` — 均线计算
+| 脚本 | 写入表 | 说明 |
+|------|--------|------|
+| `fetch_stocks.py` | `stocks` | 全量股票基础信息（代码、名称、交易所、上市状态） |
+| `fetch_industries.py` | `stock_industries` | 申万 2021 三级行业归属 |
+| `fetch_fundamentals.py` | `fundamentals` | 每日市值、PE、PB 等基本面数据 |
+| `fetch_fs.py` | `financial_statements` | 季报/年报财务数据 |
+| `fetch_klines.py` | `daily_kline` | 日 K 线（开高低收 + 换手率 + 涨跌幅），前复权 |
 
-- 计算 MA5 / MA20 / MA60 / MA200
-- 按批次（300只/批）处理，控制内存占用
-- 支持断点续传，已计算的股票自动跳过
-
-### `turnover_surge.py` — 核心分析引擎
-
-输出字段包括：
-
-| 字段组 | 字段 | 说明 |
-|--------|------|------|
-| 触发信息 | `baseline_to_r`, `recent_to_r`, `trigger_ratio` | 基准/近期换手率及倍数（阈值 1.5x~4.0x）|
-| 基准期均线位置 | `bl_above_ma20/60/200`, `bl_below_ma20/60/200` | 基准期30日内收盘价高于/低于各均线的天数（新增）|
-| Day0 快照 | `d0_close`, `d0_change_pct`, `d0_ma5/20/60/200` | 启动日收盘价、涨幅（≥4%）及各均线 |
-| Day0 位置 | `d0_vs_ma20/60`, `d0_above_ma20/60` | 价格对均线比例及方向 |
-| 跟踪期 | `day_offset`, `close`, `to_r`, `to_r_ratio` | 后9日逐日价格及换手率 |
-
-### `strategy.py` — 生产选股扫描
-
-- 联合过滤：换手率异动 + 日内涨幅 + 底部均线 + 行业龙头
-- 结果去重后写入 `strategy_results.db`
-- 支持单日、批量两种扫描模式
-
-> `strategy.py` 的参数与 `turnover_surge.py` 独立，如需同步请手动更新 `TRIGGER_MIN/MAX` 和 `MIN_D1_CHANGE`。
+> **速率控制**：默认 `API_INTERVAL=0.1s`（约 900 次/分钟），触发 429 限流时自动重试 3 次。
 
 ---
 
-## 分析与回测
+### tools — 工具脚本
 
-`analyze_v1.py ~ v4.py` 是策略参数探索的迭代实验脚本，各版本分析侧重：
-
-| 版本 | 分析重点 |
-|------|----------|
-| `v1` | 基础胜率统计（信号数量、未破发率、最大涨幅） |
-| `v2` | 加入基准换手率分层，交叉分析胜率变化 |
-| `v3` | 次日涨幅 × 基准换手率二维交叉验证 |
-| `v4` | "先涨后跌" vs "先跌后涨"时序分析（最大涨幅与最大回撤的先后顺序） |
-
-分析结果摘要见：
-- [`analysis_summary_v1.md`](analysis_summary_v1.md)
-- [`analysis_summary_v2.md`](analysis_summary_v2.md)
-- [`analysis_summary_v3.md`](analysis_summary_v3.md)
+| 脚本 | 功能 |
+|------|------|
+| `compute_ma.py` | 从 `daily_kline` 计算 MA5/20/60/200，批量写入 `moving_averages` 表，支持断点续传（每批 300 只股票） |
+| `build_calendar.py` | 以贵州茅台（600519）为基准提取交易日，写入 `trade_calendar` 表并导出 `trade_calendar.csv` |
+| `check_daily_sentiment.py` | 统计每日产生换手率信号的股票数量，计算 15%/85% 情绪分位阈值，供分析脚本参考 |
 
 ---
 
-## 环境依赖
+### strategy — 信号扫描
 
-- **Python**: 3.10+（使用了 `X | Y` 类型注解语法）
-- **核心库**：
+#### `turnover_surge.py`
+
+核心策略引擎。以某交易日为 **Day0（启动日）**，在每个三级行业 Top-3 市值股票中判断：
 
 ```
-pandas >= 1.5
-numpy >= 1.23
-requests >= 2.28
-sqlite3 (内置)
+触发条件：
+  ① 近 5 日均换手率 / 基准 30 日均换手率 ∈ [1.5x, 4.0x]
+  ② Day0 涨幅 ≥ 4%
+
+跟踪窗口：Day1 ～ Day9（9个交易日）
+输出字段：基准期均线位置、Day0 快照、逐日收盘/换手/涨幅/均线
 ```
 
-- **数据 API**：[理杏仁开放平台](https://www.lixinger.com/) Token（免费版支持前复权K线）
+**用法：**
+
+```bash
+# 扫描单日
+python strategy/turnover_surge.py --day0 2025-06-01
+
+# 扫描区间
+python strategy/turnover_surge.py --start 2023-01-01 --end 2025-12-31
+
+# 不传参数则只处理最新一个交易日
+python strategy/turnover_surge.py
+```
+
+结果写入 `turnover_surge.db` 的 `turnover_surge` 表，主键 `(day0, stock_code, day_offset)`，支持幂等写入。
 
 ---
 
-## 注意事项
+### analyze — 回测分析
 
-1. **首次运行**：`fetch_klines.py` 全量下载约 5600+ 只股票，按 0.25s/请求计算，耗时约 **25-40 分钟**，请确保网络稳定。
-2. **数据库大小**：`stock_data.db` 存储全量 K 线数据，大小约 **3+ GB**，请预留充足磁盘空间。
-3. **Token 安全**：请勿将 `LIXINGER_TOKEN` 硬编码到脚本中，始终通过环境变量传入。
-4. **均线依赖**：`strategy.py` 和 `turnover_surge.py` 依赖 `moving_averages` 表，务必在运行策略前先执行 `compute_ma.py`。
-5. **行业数据**：策略使用申万 2021 (`sw_2021`) 三级行业，请确保 `fetch_industries.py` 已成功运行。
+所有分析脚本的输出统一写入 `output/` 目录。
+
+#### `analyze_v5_1.py` — 4D 分组回测
+
+按以下 4 个维度的笛卡尔积（最多 8×27×5×4 = **4,320 组**）统计跟踪期表现：
+
+| 维度 | 分组 | 逻辑 |
+|------|------|------|
+| **Dim A** — Day0 均线位置 | 8 组 | 收盘价与 MA20/60/200 各自上/下方，2³=8 |
+| **Dim B** — 基准期均线强弱 | 27 组 | 基准期 30 天低于 MA20/60/200 的比例分三级（强/震/弱），3³=27 |
+| **Dim C** — 换手率触发倍数 | 5 组 | [1.5,1.8) / [1.8,2.1) / [2.1,2.4) / [2.4,3.0) / ≥3.0 |
+| **Dim D** — Day0 收盘涨幅 | 4 组 | 4-6% / 6-8% / 8%-涨停 / 涨停 |
+
+统计指标：`max_gain`（最大涨幅）、`max_drawdown`（最大回撤）、`non_decline_rate`（非下跌日占比）及各指标的均值、极值、变异系数（CV）。
+
+> **情绪过滤**：排除每日信号数量处于最低 15% 和最高 15% 的极端交易日，聚焦正常市场环境。
+
+#### `analyze_v5_2.py` — 极端情绪专项
+
+专门分析被 v5.1 **排除**的极冷/极热交易日，对比相同分组下表现差异。
+
+#### `analyze_v5_3.py` — 峰/谷时间分析
+
+在 A0（全均线下方）+ B(L3弱/L3弱/L3弱) + D2+D3（涨幅>6%）筛选条件下，统计：
+- **peak_day**：跟踪期内达到最高收盘价的平均天数
+- **trough_day**：跟踪期内达到最低收盘价的平均天数
+
+为止盈止损策略提供时间维度参考。
+
+---
+
+## Docker 部署
+
+项目已配置 Docker，适合通过 **Portainer** 管理长期运行的定时采集任务。
+
+### 构建镜像
+
+```bash
+docker build -t stock-fetch-daily:latest .
+```
+
+### 使用 docker compose 启动
+
+```bash
+# 填写 Token 后启动
+LIXINGER_TOKEN=你的Token docker compose up -d
+```
+
+或在 `docker-compose.yml` 中直接填写 Token：
+
+```yaml
+environment:
+  - LIXINGER_TOKEN=你的Token
+```
+
+### 调度逻辑
+
+容器启动后：
+1. 立即执行一次全量/增量数据采集（`fetch_all.py`）
+2. 之后每天 **23:00（UTC）/ 次日 07:00（CST）** 自动触发
+
+> 如需调整时间，修改 `scheduler.py` 中的 `schedule.every().day.at("23:00")` 即可（时间为 UTC）。
+
+### 目录挂载
+
+容器内工作目录为 `/app`，数据库通过 volume 映射到宿主机：
+
+```yaml
+volumes:
+  - /data/stock:/data   # 数据库读写路径
+```
+
+---
+
+## 数据库结构
+
+### `stock_data.db` — 主数据库
+
+| 表名 | 主键 | 说明 |
+|------|------|------|
+| `stocks` | `stock_code` | 股票基础信息 |
+| `stock_industries` | `(stock_code, source)` | 行业归属（支持多套体系） |
+| `fundamentals` | `(stock_code, date)` | 每日基本面（市值等） |
+| `financial_statements` | `(stock_code, date, type)` | 季报/年报财务数据 |
+| `daily_kline` | `(stock_code, date)` | 日 K 线（前复权） |
+| `moving_averages` | `(stock_code, date)` | MA5/20/60/200 |
+| `trade_calendar` | `date` | 交易日历 |
+
+### `turnover_surge.db` — 信号数据库
+
+| 表名 | 主键 | 说明 |
+|------|------|------|
+| `turnover_surge` | `(day0, stock_code, day_offset)` | 信号事件及逐日跟踪数据 |
+
+---
+
+## 分析维度说明
+
+### Dim A — Day0 均线位置（8 组）
+
+| 组 | MA20 | MA60 | MA200 | 典型含义 |
+|----|:----:|:----:|:-----:|----------|
+| A0 | ↓ | ↓ | ↓ | 深底部，价格在所有均线下方 |
+| A1 | ↓ | ↓ | ↑ | 位于 MA200 上方，MA60/20 下方 |
+| A2 | ↓ | ↑ | ↓ | 位于 MA60 上方，MA200 下方（少见） |
+| A3 | ↓ | ↑ | ↑ | 穿越 MA200/60，仍在 MA20 下 |
+| A4 | ↑ | ↓ | ↓ | 位于 MA20 上方，MA60/200 下（少见） |
+| A5 | ↑ | ↓ | ↑ | 位于 MA20/200 上方，MA60 下 |
+| A6 | ↑ | ↑ | ↓ | 位于 MA20/60 上方，MA200 下 |
+| A7 | ↑ | ↑ | ↑ | 强势，价格在所有均线上方 |
+
+### Dim B — 基准期均线强弱（27 组）
+
+格式：`MA20级别 / MA60级别 / MA200级别`
+
+| 级别 | 定义 |
+|------|------|
+| **L1 强** | 基准期 30 天内，低于该均线的天数占比 < 1/3 |
+| **L2 震** | 低于均线天数占比在 1/3 ～ 2/3 之间 |
+| **L3 弱** | 低于均线天数占比 > 2/3（持续弱势） |
+
+---
+
+*数据来源：[理杏仁 Open API](https://open.lixinger.com/)*  
+*行业分类：申万 2021 三级行业*

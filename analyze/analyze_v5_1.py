@@ -26,10 +26,11 @@ import pandas as pd
 import numpy as np
 from pathlib import Path
 
-# ─── 配置 ────────────────────────────────────────────────────────────────────
-SURGE_DB      = "turnover_surge.db"
-OUTPUT_MD     = "analysis_v5_1.md"
-OUTPUT_XLSX   = "analysis_v5_1.xlsx"
+# ─── 路径配置（相对于项目根目录，与脚本位置无关）────────────────────────────
+_ROOT = Path(__file__).parent.parent
+SURGE_DB      = str(_ROOT / "turnover_surge.db")
+OUTPUT_MD     = str(_ROOT / "output" / "analysis_v5_1.md")
+OUTPUT_XLSX   = str(_ROOT / "output" / "analysis_v5_1.xlsx")
 MIN_TRACK_DAYS = 3     # 跟踪期有效天数下限（不足则跳过该事件）
 MIN_COUNT_SHOW = 5     # 主表仅展示样本量 >= 此值的组别
 

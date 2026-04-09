@@ -12,11 +12,12 @@ RUN apt-get update && apt-get install -y tzdata && rm -rf /var/lib/apt/lists/*
 COPY requirements.txt .
 RUN pip install --no-cache-dir -r requirements.txt
 
-# 将所有脚本复制到容器中
-COPY *.py .
+# 将项目文件复制到容器中（包含所有子目录：fetchers/ tools/ strategy/ analyze/）
+COPY . .
 
-# 创建一个目录用于挂载数据
-RUN mkdir -p /data
+# 创建输出目录
+RUN mkdir -p /app/output
+
 
 # 设置环境变量，DB_PATH 需指向 /data 中
 ENV DB_PATH=/data/stock_data.db
