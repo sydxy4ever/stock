@@ -53,39 +53,47 @@ def limit_up_threshold(stock_code: str) -> float:
     return 0.099
 
 def load_data() -> pd.DataFrame:
+    """从 turnover_surge.db 加载所有数据"""
+    import sqlite3
     conn = sqlite3.connect(SURGE_DB)
-    df = pd.read_sql("SELECT * FROM turnover_surge WHERE day_offset IS NOT NULL AND close IS NOT NULL", conn)
+    df = pd.read_sql("SELECT * FROM turnover_surge", conn)
     conn.close()
     return df
 
 def compute_events(df: pd.DataFrame) -> pd.DataFrame:
-    meta_cols = [
-        "day0", "stock_code", "name", "trigger_ratio",
-        "d0_change_pct", "d0_close", "d0_ma20", "d0_ma60", "d0_ma200", "dm1_close",
-        "bl_above_ma20", "bl_below_ma20", "bl_above_ma60", "bl_below_ma60", "bl_above_ma200", "bl_below_ma200",
-    ]
-    meta = df.groupby(["day0", "stock_code"])[meta_cols[2:]].first().reset_index()
-    meta["d0_change_pct"] = pd.to_numeric(meta["d0_change_pct"], errors="coerce")
-    meta["d0_close"]      = pd.to_numeric(meta["d0_close"], errors="coerce")
-    meta["dm1_close"]     = pd.to_numeric(meta["dm1_close"], errors="coerce")
+    """计算事件级统计指标。跳过有效跟踪天数 < MIN_TRACK_DAYS 或 d0_close <= 0 的事件。"""
+    meta = df.copy()
+
+    meta["d0_change_pct"] = pd.to_numeric(meta.get("d0_change_pct"), errors="coerce")
+    meta["d0_close"]      = pd.to_numeric(meta.get("d0_close"), errors="coerce")
+    meta["dm1_close"]     = pd.to_numeric(meta.get("dm1_close"), errors="coerce")
+    
     mask = meta["d0_change_pct"].isna() & meta["d0_close"].notna() & meta["dm1_close"].notna() & (meta["dm1_close"] > 0)
     meta.loc[mask, "d0_change_pct"] = meta.loc[mask, "d0_close"] / meta.loc[mask, "dm1_close"] - 1
 
-    track = df.copy()
-    track["close"] = pd.to_numeric(track["close"], errors="coerce")
-    track["change_pct"] = pd.to_numeric(track["change_pct"], errors="coerce")
-    track = track.dropna(subset=["close"])
-    track_agg = track.groupby(["day0", "stock_code"]).agg(
-        max_close = ("close", "max"), min_close = ("close", "min"),
-        track_days = ("close", "count"),
-        non_decline_days = ("change_pct", lambda x: (pd.to_numeric(x, errors="coerce") >= 0).sum()),
-    ).reset_index()
+    close_cols = [f"d{i}_close" for i in range(1, 10) if f"d{i}_close" in meta.columns]
+    pct_cols   = [f"d{i}_change_pct" for i in range(1, 10) if f"d{i}_change_pct" in meta.columns]
+    
+    closes = meta[close_cols].apply(pd.to_numeric, errors='coerce')
+    pcts   = meta[pct_cols].apply(pd.to_numeric, errors='coerce')
 
-    events = meta.merge(track_agg, on=["day0", "stock_code"], how="inner")
-    events = events[(events["track_days"] >= MIN_TRACK_DAYS) & (events["d0_close"] > 0)].copy()
-    events["max_gain"] = events["max_close"] / events["d0_close"] - 1
-    events["max_drawdown"] = 1 - events["min_close"] / events["d0_close"]
+    meta["max_close"]        = closes.max(axis=1)
+    meta["min_close"]        = closes.min(axis=1)
+    meta["track_days"]       = closes.notna().sum(axis=1)
+    meta["non_decline_days"] = (pcts >= 0).sum(axis=1)
+
+    events = meta[meta["track_days"] >= MIN_TRACK_DAYS].copy()
+    events = events[events["d0_close"] > 0].copy()
+
+    events["max_gain"]        = events["max_close"] / events["d0_close"] - 1
+    events["max_drawdown"]    = 1 - events["min_close"] / events["d0_close"]
     events["non_decline_rate"] = events["non_decline_days"] / events["track_days"]
+
+    if "trigger_ratio_2" in events.columns:
+        events["trigger_ratio"] = events["trigger_ratio_2"]
+    elif "trigger_ratio_1" in events.columns:
+        events["trigger_ratio"] = events["trigger_ratio_1"]
+        
     return events
 
 def _bl_level(above, below):

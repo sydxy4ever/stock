@@ -44,57 +44,48 @@ def limit_up_threshold(stock_code: str) -> float:
 
 def load_data() -> pd.DataFrame:
     conn = sqlite3.connect(SURGE_DB)
-    df = pd.read_sql("SELECT * FROM turnover_surge WHERE day_offset IS NOT NULL AND close IS NOT NULL", conn)
+    df = pd.read_sql("SELECT * FROM turnover_surge", conn)
     conn.close()
     return df
 
 def compute_events(df: pd.DataFrame) -> pd.DataFrame:
-    meta_cols = [
-        "day0", "stock_code", "name", "trigger_ratio",
-        "d0_change_pct", "d0_close", "d0_ma20", "d0_ma60", "d0_ma200", "dm1_close",
-        "bl_above_ma20", "bl_below_ma20", "bl_above_ma60", "bl_below_ma60", "bl_above_ma200", "bl_below_ma200",
-        "baseline_to_r",
-    ]
-    meta = df.groupby(["day0", "stock_code"])[meta_cols[2:]].first().reset_index()
-    meta["d0_change_pct"] = pd.to_numeric(meta["d0_change_pct"], errors="coerce")
-    meta["d0_close"]      = pd.to_numeric(meta["d0_close"], errors="coerce")
-    meta["dm1_close"]     = pd.to_numeric(meta["dm1_close"], errors="coerce")
+    meta = df.copy()
+
+    meta["d0_change_pct"] = pd.to_numeric(meta.get("d0_change_pct"), errors="coerce")
+    meta["d0_close"]      = pd.to_numeric(meta.get("d0_close"), errors="coerce")
+    meta["dm1_close"]     = pd.to_numeric(meta.get("dm1_close"), errors="coerce")
+    
     mask = meta["d0_change_pct"].isna() & meta["d0_close"].notna() & meta["dm1_close"].notna() & (meta["dm1_close"] > 0)
     meta.loc[mask, "d0_change_pct"] = meta.loc[mask, "d0_close"] / meta.loc[mask, "dm1_close"] - 1
 
-    track = df.copy()
-    track["close"] = pd.to_numeric(track["close"], errors="coerce")
-    track["change_pct"] = pd.to_numeric(track["change_pct"], errors="coerce")
-    track["day_offset"] = pd.to_numeric(track["day_offset"], errors="coerce")
-    track = track.dropna(subset=["close"])
+    close_cols = [f"d{i}_close" for i in range(1, 10) if f"d{i}_close" in meta.columns]
+    pct_cols   = [f"d{i}_change_pct" for i in range(1, 10) if f"d{i}_change_pct" in meta.columns]
     
-    # 找到最大/最小收盘价对应的索引
-    max_idx = track.groupby(["day0", "stock_code"])["close"].idxmax()
-    min_idx = track.groupby(["day0", "stock_code"])["close"].idxmin()
-    
-    # 基础聚合
-    track_agg = track.groupby(["day0", "stock_code"]).agg(
-        track_days = ("close", "count"),
-        non_decline_days = ("change_pct", lambda x: (pd.to_numeric(x, errors="coerce") >= 0).sum()),
-    ).reset_index()
-    
-    # 合并最大/最小价格及日期
-    max_data = track.loc[max_idx, ["day0", "stock_code", "close", "day_offset"]].rename(
-        columns={"close": "max_close", "day_offset": "max_gain_day"}
-    )
-    min_data = track.loc[min_idx, ["day0", "stock_code", "close", "day_offset"]].rename(
-        columns={"close": "min_close", "day_offset": "max_dd_day"}
-    )
-    
-    track_agg = track_agg.merge(max_data, on=["day0", "stock_code"]).merge(min_data, on=["day0", "stock_code"])
+    closes = meta[close_cols].apply(pd.to_numeric, errors='coerce')
+    pcts   = meta[pct_cols].apply(pd.to_numeric, errors='coerce')
 
-    events = meta.merge(track_agg, on=["day0", "stock_code"], how="inner")
-    events = events[(events["track_days"] >= MIN_TRACK_DAYS) & (events["d0_close"] > 0)].copy()
+    meta["max_close"]        = closes.max(axis=1)
+    meta["min_close"]        = closes.min(axis=1)
+    meta["track_days"]       = closes.notna().sum(axis=1)
+    meta["non_decline_days"] = (pcts >= 0).sum(axis=1)
     
-    events["max_gain"] = events["max_close"] / events["d0_close"] - 1
-    events["max_drawdown"] = 1 - events["min_close"] / events["d0_close"]
+    max_idx = closes.idxmax(axis=1).astype(str).str.extract(r'd(\d+)_close', expand=False)
+    min_idx = closes.idxmin(axis=1).astype(str).str.extract(r'd(\d+)_close', expand=False)
+    meta["max_gain_day"] = pd.to_numeric(max_idx, errors='coerce')
+    meta["max_dd_day"] = pd.to_numeric(min_idx, errors='coerce')
+
+    events = meta[meta["track_days"] >= MIN_TRACK_DAYS].copy()
+    events = events[events["d0_close"] > 0].copy()
+
+    events["max_gain"]        = events["max_close"] / events["d0_close"] - 1
+    events["max_drawdown"]    = 1 - events["min_close"] / events["d0_close"]
     events["non_decline_rate"] = events["non_decline_days"] / events["track_days"]
     
+    if "trigger_ratio_2" in events.columns:
+        events["trigger_ratio"] = events["trigger_ratio_2"]
+    elif "trigger_ratio_1" in events.columns:
+        events["trigger_ratio"] = events["trigger_ratio_1"]
+
     return events
 
 def _bl_level(above, below):
@@ -241,25 +232,17 @@ def main():
         # 获取相关信号的基础信息
         relevant_signals = df_extreme[["day0", "stock_code", "name", "dim_A", "dim_B", "dim_C", "dim_D", "sentiment_type", "baseline_to_r"]]
         
-        # 从原始 df 中提取 Day 1 - 9 的数据
-        # 首先合并信号信息，确保只取筛选后的股票日期对
-        details = df.merge(relevant_signals[["day0", "stock_code"]], on=["day0", "stock_code"])
-        details = details[(details["day_offset"] >= 1) & (details["day_offset"] <= 9)].copy()
+        # 合并信号信息
+        details = df.merge(relevant_signals[["day0", "stock_code", "dim_A", "dim_B", "dim_C", "dim_D", "sentiment_type", "baseline_to_r"]], on=["day0", "stock_code"])
         
-        # 转换并透视
-        details["change_pct"] = pd.to_numeric(details["change_pct"], errors="coerce") * 100
-        details["to_r"] = pd.to_numeric(details["to_r"], errors="coerce")
-        
-        # 透视涨幅和换手率
-        p_chg = details.pivot(index=["day0", "stock_code"], columns="day_offset", values="change_pct")
-        p_tor = details.pivot(index=["day0", "stock_code"], columns="day_offset", values="to_r")
-        
-        # 列名重命名
-        p_chg.columns = [f"D{int(c)}_chg%" for c in p_chg.columns]
-        p_tor.columns = [f"D{int(c)}_to" for c in p_tor.columns]
-        
-        # 合并回基础信息表
-        df_details = relevant_signals.merge(p_chg, on=["day0", "stock_code"], how="left").merge(p_tor, on=["day0", "stock_code"], how="left")
+        chg_cols = {f"d{i}_change_pct": f"D{i}_chg%" for i in range(1, 10) if f"d{i}_change_pct" in details.columns}
+        tor_cols = {f"d{i}_to_r": f"D{i}_to" for i in range(1, 10) if f"d{i}_to_r" in details.columns}
+        for k, v in chg_cols.items():
+            details[v] = pd.to_numeric(details[k], errors="coerce") * 100
+        for k, v in tor_cols.items():
+            details[v] = pd.to_numeric(details[k], errors="coerce")
+            
+        df_details = details[["day0", "stock_code", "name", "dim_A", "dim_B", "dim_C", "dim_D", "sentiment_type", "baseline_to_r"] + list(chg_cols.values()) + list(tor_cols.values())]
     else:
         df_details = pd.DataFrame()
 

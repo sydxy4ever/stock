@@ -160,17 +160,14 @@ with tab2:
             # 每个股票只保留一行基础信息
             base_df = df.drop_duplicates(subset=["stock_code"])[valid_base].set_index("stock_code")
             
-            # 2. 提取并透视未来 N 日的涨跌幅
-            # 去除没有 day_offset 的脏数据
-            fwd = df.dropna(subset=["day_offset"]).copy()
-            if not fwd.empty:
-                fwd["day_offset"] = pd.to_numeric(fwd["day_offset"], errors="coerce").fillna(0).astype(int)
-                pivot_df = fwd.pivot(index="stock_code", columns="day_offset", values="change_pct")
-                # 将列名改为 D1_涨幅, D2_涨幅...
-                pivot_df.columns = [f"D{c}_涨幅%" for c in pivot_df.columns]
-                
-                # 拼合到基础表
-                final_df = base_df.join(pivot_df).reset_index()
+            # 2. 提取未来 N 日的涨跌幅
+            import re
+            d_cols = sorted([c for c in df.columns if re.match(r'^d\d+_change_pct$', c)], key=lambda x: int(re.search(r'\d+', x).group()))
+            
+            if d_cols:
+                fwd_df = df.drop_duplicates(subset=["stock_code"]).set_index("stock_code")[d_cols]
+                fwd_df.columns = [c.replace("d", "D").replace("_change_pct", "_涨幅%") for c in fwd_df.columns]
+                final_df = base_df.join(fwd_df).reset_index()
             else:
                 final_df = base_df.reset_index()
             
@@ -246,7 +243,7 @@ with tab3:
         else:
             with st.spinner(f"正在读取 {q_start} 到 {q_end} 的数据..."):
                 with sqlite3.connect(STRATEGY_DB_PATH) as conn:
-                    query = "SELECT * FROM strategy WHERE day0 >= ? AND day0 <= ? ORDER BY day0, stock_code, day_offset"
+                    query = "SELECT * FROM strategy WHERE day0 >= ? AND day0 <= ? ORDER BY day0, stock_code"
                     try:
                         df_bt = pd.read_sql_query(query, conn, params=(q_start, q_end))
                     except Exception as e:
