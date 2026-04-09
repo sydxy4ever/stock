@@ -13,6 +13,7 @@ SCRIPTS = [
     "fetchers/fetch_klines.py",
     "tools/compute_ma.py",
     "strategy/turnover_surge.py",
+    "strategy/strategy.py",
 ]
 
 def run_all():

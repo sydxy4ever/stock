@@ -8,6 +8,7 @@ services:
       - LIXINGER_TOKEN=${LIXINGER_TOKEN}
       - DB_PATH=/data/stock_data.db
       - TURNOVER_DB_PATH=/data/turnover_surge.db
+      - STRATEGY_DB_PATH=/data/strategy.db
       - TZ=Asia/Shanghai
     volumes:
       # 将当前目录下的数据文件挂载到容器中
@@ -23,6 +24,7 @@ services:
       - LIXINGER_TOKEN=${LIXINGER_TOKEN}
       - DB_PATH=/data/stock_data.db
       - TURNOVER_DB_PATH=/data/turnover_surge.db
+      - STRATEGY_DB_PATH=/data/strategy.db
       - TZ=Asia/Shanghai
     ports:
       - "8501:8501"

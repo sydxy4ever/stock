@@ -19,7 +19,7 @@ st.title("📈 量化分析调度与策略可视化")
 # --- 数据库路径配置 ---
 _ROOT = Path(__file__).parent
 DB_PATH = os.getenv("DB_PATH", str(_ROOT / "stock_data.db"))
-TURNOVER_DB_PATH = os.getenv("TURNOVER_DB_PATH", str(_ROOT / "turnover_surge.db"))
+STRATEGY_DB_PATH = os.getenv("STRATEGY_DB_PATH", str(_ROOT / "strategy.db"))
 
 
 def get_latest_trade_date():
@@ -127,18 +127,18 @@ with tab2:
     str_date = selected_date.strftime("%Y-%m-%d")
     
     if scan_btn:
-        run_script("strategy/turnover_surge.py", f"异动扫描 ({str_date})", args=["--day0", str_date])
+        run_script("strategy/strategy.py", f"异动扫描 ({str_date})", args=["--day0", str_date])
         # 执行完毕后刷新缓存数据区
         
     st.markdown("---")
     st.markdown("### 📊 扫描结果预览")
     
     # 加载 SQLite 中的结果
-    if not os.path.exists(TURNOVER_DB_PATH):
-        st.warning(f"尚未发现策略数据库 [{TURNOVER_DB_PATH}]，请先运行策略扫描。")
+    if not os.path.exists(STRATEGY_DB_PATH):
+        st.warning(f"尚未发现策略数据库 [{STRATEGY_DB_PATH}]，请先运行策略扫描。")
     else:
-        with sqlite3.connect(TURNOVER_DB_PATH) as conn:
-            query = "SELECT * FROM turnover_surge WHERE day0 = ?"
+        with sqlite3.connect(STRATEGY_DB_PATH) as conn:
+            query = "SELECT * FROM strategy WHERE day0 = ?"
             df = pd.read_sql_query(query, conn, params=(str_date,))
         
         if df.empty:
@@ -241,12 +241,12 @@ with tab3:
         q_start = st.session_state["bt_start"]
         q_end = st.session_state["bt_end"]
         
-        if not os.path.exists(TURNOVER_DB_PATH):
+        if not os.path.exists(STRATEGY_DB_PATH):
             st.error("尚未生成策略数据库。请先在【异动策略】页面执行扫描。")
         else:
             with st.spinner(f"正在读取 {q_start} 到 {q_end} 的数据..."):
-                with sqlite3.connect(TURNOVER_DB_PATH) as conn:
-                    query = "SELECT * FROM turnover_surge WHERE day0 >= ? AND day0 <= ? ORDER BY day0, stock_code, day_offset"
+                with sqlite3.connect(STRATEGY_DB_PATH) as conn:
+                    query = "SELECT * FROM strategy WHERE day0 >= ? AND day0 <= ? ORDER BY day0, stock_code, day_offset"
                     try:
                         df_bt = pd.read_sql_query(query, conn, params=(q_start, q_end))
                     except Exception as e:
