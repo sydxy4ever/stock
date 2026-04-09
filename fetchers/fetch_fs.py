@@ -35,7 +35,7 @@ from datetime import date
 
 # ─── 配置 ───────────────────────────────────────────────────────────────────────
 TOKEN        = os.getenv("LIXINGER_TOKEN")
-DB_PATH      = "stock_data.db"
+DB_PATH      = os.getenv("DB_PATH", "stock_data.db")
 BATCH_SIZE   = 100    # 快照模式每批股票数（历史模式固定为1）
 API_INTERVAL = 0.1   # 秒，约 900 次/分钟 (保持在 1000 次安全线内)
 

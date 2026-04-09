@@ -18,7 +18,7 @@ from datetime import date
 from pathlib import Path
 
 _ROOT          = Path(__file__).parent.parent
-DB_PATH        = str(_ROOT / "stock_data.db")
+DB_PATH        = os.getenv("DB_PATH", str(_ROOT / "stock_data.db"))
 CALENDAR_CSV   = str(_ROOT / "trade_calendar.csv")
 REFERENCE_CODE = "600519"     # 贵州茅台，从不停牌，是最稳定的日历基准
 TOKEN          = os.getenv("LIXINGER_TOKEN")

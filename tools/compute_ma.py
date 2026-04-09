@@ -15,8 +15,9 @@ import pandas as pd
 import time
 from pathlib import Path
 
+import os
 _ROOT      = Path(__file__).parent.parent
-DB_PATH    = str(_ROOT / "stock_data.db")
+DB_PATH    = os.getenv("DB_PATH", str(_ROOT / "stock_data.db"))
 BATCH_SIZE = 300   # 每批处理的股票数，控制内存
 
 WINDOWS = {"ma5": 5, "ma20": 20, "ma60": 60, "ma200": 200}
@@ -119,20 +120,17 @@ def main():
         conn.close()
         return
 
-    # 断点续传：跳过已全量计算的股票（moving_averages 中有记录的）
-    done = {
-        r[0] for r in conn.execute(
-            "SELECT DISTINCT stock_code FROM moving_averages"
+    # 获取当前均线库里每只股票的最新日期，用于后续只把最新计算出的增量写库
+    max_dates = {
+        r[0]: r[1] for r in conn.execute(
+            "SELECT stock_code, MAX(date) FROM moving_averages GROUP BY stock_code"
         ).fetchall()
     }
-    remaining = [c for c in codes if c not in done]
-    skipped = len(codes) - len(remaining)
-
-    print(f"\n  K线中共 {len(codes)} 只股票")
-    if skipped:
-        print(f"  断点续传：已完成 {skipped} 只，剩余 {len(remaining)} 只")
-    else:
-        print(f"  全部重新计算")
+    
+    # 每天都必须对所有股票进行计算（因为有新的交易日数据进来）
+    remaining = codes
+    
+    print(f"\n  K线中共 {len(codes)} 只股票，准备全量读入并增量追写")
 
     total_written = 0
     start_time = time.time()
@@ -143,7 +141,19 @@ def main():
 
         df_raw    = load_close_prices(conn, batch)
         df_result = compute_ma(df_raw)
-        written   = upsert_df(conn, df_result)
+        
+        # 裁剪：针对每只股票，只把大于记录过的最大的日期截取出来，避免千万级别的重复写库
+        to_write = []
+        if not df_result.empty:
+            for code, grp in df_result.groupby("stock_code", sort=False):
+                max_d = max_dates.get(code)
+                if max_d:
+                    grp = grp[grp["date"] > max_d]
+                to_write.append(grp)
+            
+        df_final = pd.concat(to_write) if to_write else pd.DataFrame()
+        
+        written   = upsert_df(conn, df_final)
         total_written += written
 
         elapsed = time.time() - start_time

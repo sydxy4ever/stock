@@ -31,7 +31,7 @@ from datetime import date
 
 # ─── 配置 ───────────────────────────────────────────────────────────────────────
 TOKEN        = os.getenv("LIXINGER_TOKEN")
-DB_PATH      = "stock_data.db"
+DB_PATH      = os.getenv("DB_PATH", "stock_data.db")
 BATCH_SIZE   = 100    # API 每次最多 100 只
 API_INTERVAL = 0.1   # 秒，每分钟约 900 次 (保持在 1000 次安全线下)
 

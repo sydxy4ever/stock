@@ -41,8 +41,8 @@ from pathlib import Path
 
 # ─── 配置 ───────────────────────────────────────────────────────────────────────
 _ROOT            = Path(__file__).parent.parent
-DB_PATH          = str(_ROOT / "stock_data.db")
-RESULT_DB_PATH   = str(_ROOT / "turnover_surge.db")   # 分析结果数据库
+DB_PATH          = os.getenv("DB_PATH", str(_ROOT / "stock_data.db"))
+RESULT_DB_PATH   = os.getenv("TURNOVER_DB_PATH", str(_ROOT / "turnover_surge.db"))   # 分析结果数据库
 OUTPUT_DIR       = "output"
 INDUSTRY_SOURCE  = "sw_2021"    # 行业体系
 TOP_N            = 3            # 每个三级行业龙头股数量

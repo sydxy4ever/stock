@@ -19,7 +19,7 @@ import requests
 # ─── 配置 ──────────────────────────────────────────────────────────────────────
 TOKEN = os.getenv("LIXINGER_TOKEN")
 API_URL = "https://open.lixinger.com/api/cn/company"
-DB_PATH = "stock_data.db"
+DB_PATH = os.getenv("DB_PATH", "stock_data.db")
 
 # 每页返回约500条，理杏仁目前约有5600+只股票，12页足够
 # 但我们做自动终止：当某页 data 为空时停止

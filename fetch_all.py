@@ -11,6 +11,8 @@ SCRIPTS = [
     "fetchers/fetch_fundamentals.py",
     "fetchers/fetch_fs.py",
     "fetchers/fetch_klines.py",
+    "tools/compute_ma.py",
+    "strategy/turnover_surge.py",
 ]
 
 def run_all():

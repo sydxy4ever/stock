@@ -18,7 +18,7 @@ import sqlite3
 import requests
 
 TOKEN        = os.getenv("LIXINGER_TOKEN")
-DB_PATH      = "stock_data.db"
+DB_PATH      = os.getenv("DB_PATH", "stock_data.db")
 API_URL      = "https://open.lixinger.com/api/cn/company/industries"
 API_INTERVAL = 0.1 # 每分钟约 900 次 (略低于限额，更稳定)
 
