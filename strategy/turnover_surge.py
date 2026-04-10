@@ -192,22 +192,52 @@ def analyze_day(conn, day0_str, calendar):
     triggered["d0_above_ma20"] = ((d0_c > m20) & m20.notna()).astype("Int8")
     triggered["d0_above_ma60"] = ((d0_c > m60) & m60.notna()).astype("Int8")
     
-    # Day(-1) 快照
-    dm1 = win["recent2"][-1]
-    kline_dm1 = kline_hist[kline_hist["date"] == dm1][["stock_code", "close", "change_pct"]].rename(columns={"close": "dm1_close", "change_pct": "dm1_change_pct"})
-    ma_dm1 = get_ma_slice(conn, t_codes, [dm1])
-    if not ma_dm1.empty and not kline_dm1.empty:
-        dm1_snap = kline_dm1.merge(ma_dm1, on="stock_code", how="left")
-        dm1_c, dm1_pct, dm1_m20, dm1_m60, dm1_m200 = pd.to_numeric(dm1_snap["dm1_close"]), pd.to_numeric(dm1_snap["dm1_change_pct"]), pd.to_numeric(dm1_snap["ma20"]), pd.to_numeric(dm1_snap["ma60"]), pd.to_numeric(dm1_snap["ma200"])
+    # ── Day(-5) 到 Day0 快照 ──────────────────────────────────────────────
+    dm_dates = [win["recent1"][-1]] + win["recent2"] + [day0_str]  # 需多拿一天(D-6)来算穿线
+    kline_recent = get_kline_slice(conn, t_codes, dm_dates)
+    ma_recent = get_ma_slice(conn, t_codes, dm_dates)
+    
+    if not kline_recent.empty and not ma_recent.empty:
+        rm = kline_recent.merge(ma_recent, on=["stock_code", "date"], how="left")
         
-        # 判断 Day(-1) 是否涨停: 创业/科创板 19.8%, 主板 9.8%
-        is_kc_cy = dm1_snap["stock_code"].str.startswith(("300", "688"))
-        dm1_snap["dm1_is_limit_up"] = ((is_kc_cy & (dm1_pct >= 0.198)) | (~is_kc_cy & (dm1_pct >= 0.098))).astype("Int8")
+        # 涨跌幅与涨停
+        is_kc_cy = rm["stock_code"].astype(str).str.startswith(("300", "688"))
+        pct = pd.to_numeric(rm["change_pct"])
+        rm["is_limit_up"] = ((~is_kc_cy & (pct >= 0.098)) | (is_kc_cy & (pct >= 0.198))).astype(int)
         
-        dm1_snap["dm1_above_ma20"] = ((dm1_c > dm1_m20) & dm1_m20.notna()).astype("Int8")
-        dm1_snap["dm1_above_ma60"] = ((dm1_c > dm1_m60) & dm1_m60.notna()).astype("Int8")
-        dm1_snap["dm1_above_ma200"] = ((dm1_c > dm1_m200) & dm1_m200.notna()).astype("Int8")
-        triggered = triggered.merge(dm1_snap[["stock_code", "dm1_close", "dm1_is_limit_up", "dm1_above_ma20", "dm1_above_ma60", "dm1_above_ma200"]], on="stock_code", how="left")
+        # 均线上方判断
+        c = pd.to_numeric(rm["close"])
+        for ma in [20, 60, 200]:
+            m = pd.to_numeric(rm[f"ma{ma}"])
+            rm[f"above_{ma}"] = ((c > m) & m.notna()).astype(int)
+        
+        # 排序以防错位
+        rm = rm.sort_values(["stock_code", "date"])
+        
+        # 穿线判断 (当前为1，上一天为0)
+        for ma in [20, 60, 200]:
+            rm[f"prev_above_{ma}"] = rm.groupby("stock_code")[f"above_{ma}"].shift(1)
+            rm[f"pierce_{ma}"] = ((rm[f"above_{ma}"] == 1) & (rm[f"prev_above_{ma}"] == 0)).astype(int)
+            
+        # 移除作为前置引用的 D-6
+        rm = rm[rm["date"] != dm_dates[0]].copy()
+        
+        # 生成列前缀
+        d0_date = dm_dates[-1]
+        date_to_prefix = {d: f"dm{len(dm_dates)-1-i}" if d != d0_date else "d0" for i, d in enumerate(dm_dates[1:], 1)}
+        rm["prefix"] = rm["date"].map(date_to_prefix)
+        
+        # 透视宽表
+        pivot_cols = ["change_pct", "is_limit_up", "above_20", "above_60", "above_200", "pierce_20", "pierce_60", "pierce_200"]
+        pivoted = rm.pivot(index="stock_code", columns="prefix", values=pivot_cols)
+        pivoted.columns = [f"{prefix}_{stat.replace('above_', 'above_ma').replace('pierce_', 'pierce_ma')}" for stat, prefix in pivoted.columns]
+        pivoted = pivoted.reset_index()
+        
+        # 移除与前面单独计算 d0 可能会重名的列（保留透视出来的，因为它们更加一致）
+        overlap_cols = [c for c in pivoted.columns if c in triggered.columns and c != "stock_code"]
+        triggered = triggered.drop(columns=overlap_cols, errors="ignore")
+        
+        triggered = triggered.merge(pivoted, on="stock_code", how="left")
     
     # 跟踪期
     fwd_dates = win["forward"]
@@ -241,7 +271,13 @@ def analyze_day(conn, day0_str, calendar):
 def _format_result(df, day0_str):
     df["day0"] = day0_str
     
-    base_cols = ["day0", "industry_code", "industry_name", "stock_code", "name", "mc_rank", "baseline_to_r", "recent1_to_r", "trigger_ratio_1", "recent2_to_r", "trigger_ratio_2", "bl_above_ma20", "bl_below_ma20", "bl_above_ma60", "bl_below_ma60", "bl_above_ma200", "bl_below_ma200", "dm1_close", "dm1_is_limit_up", "dm1_above_ma20", "dm1_above_ma60", "dm1_above_ma200", "d0_change_pct", "d0_close", "d0_ma5", "d0_ma20", "d0_ma60", "d0_ma200", "d0_vs_ma5", "d0_vs_ma20", "d0_vs_ma60", "d0_above_ma20", "d0_above_ma60"]
+    base_cols = ["day0", "industry_code", "industry_name", "stock_code", "name", "mc_rank", "baseline_to_r", "recent1_to_r", "trigger_ratio_1", "recent2_to_r", "trigger_ratio_2", "bl_above_ma20", "bl_below_ma20", "bl_above_ma60", "bl_below_ma60", "bl_above_ma200", "bl_below_ma200", "d0_close", "d0_ma5", "d0_ma20", "d0_ma60", "d0_ma200", "d0_vs_ma5", "d0_vs_ma20", "d0_vs_ma60"]
+    
+    # 动态加上 dm5~d0 的新列
+    for offset in range(-5, 1):
+        prefix = f"dm{abs(offset)}" if offset < 0 else "d0"
+        for stat in ["change_pct", "is_limit_up", "above_ma20", "above_ma60", "above_ma200", "pierce_ma20", "pierce_ma60", "pierce_ma200"]:
+            base_cols.append(f"{prefix}_{stat}")
     
     fwd_pivot_cols = ["close", "to_r", "to_r_ratio", "change_pct", "total_change_pct", "to_r_change_rate", "ma5", "ma20", "ma60", "ma200", "vs_ma5", "vs_ma20", "vs_ma60"]
     fwd_cols = []
@@ -250,8 +286,9 @@ def _format_result(df, day0_str):
             fwd_cols.append(f"d{day}_{c}")
             
     cols = base_cols + fwd_cols
-    for c in cols:
-        if c not in df.columns: df[c] = pd.NA
+    missing_cols = [c for c in cols if c not in df.columns]
+    if missing_cols:
+        df = pd.concat([df, pd.DataFrame(pd.NA, index=df.index, columns=missing_cols)], axis=1)
     return df[cols].copy()
 
 def init_result_db(rconn):
@@ -266,10 +303,16 @@ def init_result_db(rconn):
         day0 TEXT, industry_code TEXT, industry_name TEXT, stock_code TEXT, name TEXT, mc_rank INTEGER,
         baseline_to_r REAL, recent1_to_r REAL, trigger_ratio_1 REAL, recent2_to_r REAL, trigger_ratio_2 REAL,
         bl_above_ma20 INTEGER, bl_below_ma20 INTEGER, bl_above_ma60 INTEGER, bl_below_ma60 INTEGER, bl_above_ma200 INTEGER, bl_below_ma200 INTEGER,
-        dm1_close REAL, dm1_is_limit_up INTEGER, dm1_above_ma20 INTEGER, dm1_above_ma60 INTEGER, dm1_above_ma200 INTEGER,
-        d0_change_pct REAL, d0_close REAL, d0_ma5 REAL, d0_ma20 REAL, d0_ma60 REAL, d0_ma200 REAL,
-        d0_vs_ma5 REAL, d0_vs_ma20 REAL, d0_vs_ma60 REAL, d0_above_ma20 INTEGER, d0_above_ma60 INTEGER
+        d0_close REAL, d0_ma5 REAL, d0_ma20 REAL, d0_ma60 REAL, d0_ma200 REAL,
+        d0_vs_ma5 REAL, d0_vs_ma20 REAL, d0_vs_ma60 REAL
     """
+    
+    # 动态加上 dm5~d0 的新列表达式
+    for offset in range(-5, 1):
+        prefix = f"dm{abs(offset)}" if offset < 0 else "d0"
+        for stat in ["change_pct", "is_limit_up", "above_ma20", "above_ma60", "above_ma200", "pierce_ma20", "pierce_ma60", "pierce_ma200"]:
+            dtype = "REAL" if stat == "change_pct" else "INTEGER"
+            base_cols_def += f", {prefix}_{stat} {dtype}"
     
     fwd_pivot_cols = ["close", "to_r", "to_r_ratio", "change_pct", "total_change_pct", "to_r_change_rate", "ma5", "ma20", "ma60", "ma200", "vs_ma5", "vs_ma20", "vs_ma60"]
     fwd_cols_def_list = []

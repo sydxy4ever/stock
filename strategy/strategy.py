@@ -260,8 +260,9 @@ def _format_result(df, day0_str):
             fwd_cols.append(f"d{day}_{c}")
             
     cols = base_cols + fwd_cols
-    for c in cols:
-        if c not in df.columns: df[c] = pd.NA
+    missing_cols = [c for c in cols if c not in df.columns]
+    if missing_cols:
+        df = pd.concat([df, pd.DataFrame(pd.NA, index=df.index, columns=missing_cols)], axis=1)
     return df[cols].copy()
 
 def init_result_db(rconn):

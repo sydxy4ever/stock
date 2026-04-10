@@ -20,6 +20,7 @@ st.title("📈 量化分析调度与策略可视化")
 _ROOT = Path(__file__).parent
 DB_PATH = os.getenv("DB_PATH", str(_ROOT / "stock_data.db"))
 STRATEGY_DB_PATH = os.getenv("STRATEGY_DB_PATH", str(_ROOT / "strategy.db"))
+TURNOVER_SURGE_DB_PATH = os.getenv("TURNOVER_SURGE_DB_PATH", str(_ROOT / "turnover_surge.db"))
 
 
 def get_latest_trade_date():
@@ -238,12 +239,12 @@ with tab3:
         q_start = st.session_state["bt_start"]
         q_end = st.session_state["bt_end"]
         
-        if not os.path.exists(STRATEGY_DB_PATH):
-            st.error("尚未生成策略数据库。请先在【异动策略】页面执行扫描。")
+        if not os.path.exists(TURNOVER_SURGE_DB_PATH):
+            st.error("尚未生成 turnover_surge 数据库。请先在后台运行全量回测。")
         else:
             with st.spinner(f"正在读取 {q_start} 到 {q_end} 的数据..."):
-                with sqlite3.connect(STRATEGY_DB_PATH) as conn:
-                    query = "SELECT * FROM strategy WHERE day0 >= ? AND day0 <= ? ORDER BY day0, stock_code"
+                with sqlite3.connect(TURNOVER_SURGE_DB_PATH) as conn:
+                    query = "SELECT * FROM turnover_surge WHERE day0 >= ? AND day0 <= ? ORDER BY day0, stock_code"
                     try:
                         df_bt = pd.read_sql_query(query, conn, params=(q_start, q_end))
                     except Exception as e:
